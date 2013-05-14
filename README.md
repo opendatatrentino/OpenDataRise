@@ -3,6 +3,8 @@ OpenDataRise
 
 Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRefine](https://github.com/OpenRefine/OpenRefine).
 
+
+
 **Project status**: planning
 
 **Roadmap**: see [project issues](https://github.com/DavidLeoni/OpenDataRise/issues)
@@ -13,22 +15,22 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
 
 **Platform** 
 
-* Java server
-* browser interface in JQuery UI
+* Java server with [Butterfly framework](https://code.google.com/p/simile-butterfly/)
+* Browser interface done in [JQuery UI](http://jqueryui.com/)
 
 ### Credits
 
 
 OpenDataRise adds a semantic layer upon the OpenRefine platform, so it owes a great deal of gratitude to OpenRefine authors. 
 
-OpenDataRise contributors:
+##### OpenDataRise contributors:
 
  - David Leoni - Trento RISE 
  - Alberto Zanella - Trento RISE
  - Moaz Reyad - DISI at University of Trento
  
  
-OpenRefine contributors:
+##### OpenRefine contributors:
 
 Refine was created by Metaweb Technologies, Inc. and originally written
 and conceived by David Huynh <dfhuynh@google.com>. Metaweb Technologies, Inc.
