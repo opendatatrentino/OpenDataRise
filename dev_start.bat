@@ -176,8 +176,8 @@ set OPTS=%OPTS% -Xms256M -Xmx%REFINE_MEMORY% -Drefine.memory=%REFINE_MEMORY%
 REM ADDED BY azanella on 2013/05/10
 if not "%REFINE_DATA_DIR%" == "" set OPTS=%OPTS% -Drefine.data_dir=%REFINE_DATA_DIR%
 if not "%REFINE_VERBOSITY%" == "" set OPTS=%OPTS% -Drefine.verbosity=%REFINE_VERBOSITY%
-
-
+REM added by azanella on May, 22 2013
+if "%REFINE_TEST_DIR%"=="" set REFINE_TEST_DIR=main\tests
 
 if not "%REFINE_PORT%" == "" goto gotPort
 set REFINE_PORT=3333
@@ -210,10 +210,24 @@ if ""%ACTION%"" == ""build"" goto doAnt
 if ""%ACTION%"" == ""clean"" goto doAnt
 if ""%ACTION%"" == ""distclean"" goto doAnt
 if ""%ACTION%"" == ""run"" goto doRun
+rem Added by azanella on May, 22 2013
+if ""%ACTION%"" == ""server_test"" goto doSrvTests
+if ""%ACTION%"" == ""server_tests"" goto doSrvTests
+
 
 :doRun
 set CLASSPATH="%REFINE_CLASSES_DIR%;%REFINE_LIB_DIR%\*"
 "%JAVA_HOME%\bin\java.exe" -cp %CLASSPATH% %OPTS% -Djava.library.path=%REFINE_LIB_DIR%/native/windows com.google.refine.Refine
+goto end
+
+REM Added by azanella on May 22, 2013
+:doSrvTests
+call "%ANT_HOME%\bin\ant.bat" -f build.xml build_tests
+set CLASSPATH="%REFINE_TEST_DIR%\server\classes;%REFINE_WEBAPP%/WEB-INF\classes;%REFINE_CLASSES_DIR%;%REFINE_TEST_DIR%\server\lib\*;%REFINE_LIB_DIR%\*;%REFINE_WEBAPP%\WEB-INF\lib\*"
+set TESTS=-excludegroups broken %REFINE_TEST_DIR%\server\conf\tests.xml
+set RUN_CMD="%JAVA_HOME%\bin\java.exe" -cp %CLASSPATH% %OPTS% org.testng.TestNG -d %REFINE_BUILD_DIR%\server_tests -listener org.testng.reporters.DotTestListener %TESTS%
+rem echo %RUN_CMD%
+%RUN_CMD%
 goto end
 
 :doAnt
