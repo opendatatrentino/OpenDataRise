@@ -1,4 +1,9 @@
 @echo off
+rem This is a modified copy of refine.bat file
+rem It modifies the /d behaviour: the /d now let you to specify a data dir 
+rem where refine store data
+rem the /debug option let you to set the logging level
+rem Created by azanella
 rem
 rem Configuration variables
 rem

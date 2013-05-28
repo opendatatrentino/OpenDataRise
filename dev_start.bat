@@ -1,4 +1,12 @@
 @echo off
+rem This is a modified copy of refine.bat file
+rem It modifies the /d behaviour: the /d now let you to specify a data dir 
+rem where refine store data
+rem the /debug option let you to set the logging level
+rem You have also the possibility to specify a default refineport (DEVPORT) and a default datadir (setting the DEVPATH variable).
+rem This script let you also to run server TestNG test cases: use the server_test or server_tests option.
+rem Created by azanella
+
 set DEVPORT=4444
 SET DEVPATH=%USERPROFILE%\odr-dev-workspace\
 rem ---------------
@@ -62,6 +70,8 @@ echo   run ....................... Run OpenRefine
 echo.
 echo   clean ..................... Clean compiled classes
 echo   distclean ................. Remove all generated files
+echo   server_test ..................... Run TestNG server test
+echo   server_tests ..................... Run TestNG server test
 echo.
 goto end
 
