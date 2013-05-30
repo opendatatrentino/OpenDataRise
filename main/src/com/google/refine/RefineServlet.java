@@ -57,6 +57,7 @@ import com.google.refine.io.FileProjectManager;
 
 import edu.mit.simile.butterfly.Butterfly;
 import edu.mit.simile.butterfly.ButterflyModule;
+import eu.trentorise.opendatarise.httpwrapper.HttpWrapper;
 
 public class RefineServlet extends Butterfly {
     static private String ASSIGNED_VERSION = "2.6";
@@ -104,7 +105,6 @@ public class RefineServlet extends Butterfly {
     @Override
     public void init() throws ServletException {
         super.init();
-
         VERSION = getInitParameter("refine.version");
         REVISION = getInitParameter("refine.revision");
         
@@ -137,6 +137,10 @@ public class RefineServlet extends Butterfly {
         _timer.schedule(new AutoSaveTimerTask(), s_autoSavePeriod);
 
         logger.trace("< initialize");
+        
+        //Added for testing
+        new HttpWrapper().start();
+        
     }
 
     @Override
