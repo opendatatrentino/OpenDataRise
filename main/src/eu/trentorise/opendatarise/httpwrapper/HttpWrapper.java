@@ -22,7 +22,7 @@ import org.json.JSONObject;
 import com.google.refine.importing.ImportingManager;
 
 /**
- * Last modified by azanella On May 29, 2013
+ * Last modified by azanella On May 30, 2013
  * 
  * @author azanella
  * 
