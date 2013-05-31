@@ -1,8 +1,11 @@
 
 package eu.trentorise.opendatarise.httpwrapper;
 
+import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -13,16 +16,20 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.refine.ProjectManager;
+import com.google.refine.ProjectMetadata;
 import com.google.refine.importing.ImportingManager;
+import com.google.refine.model.Project;
 
 /**
- * Last modified by azanella On May 30, 2013
+ * Last modified by azanella On May 31, 2013
  * 
  * @author azanella
  * 
@@ -87,7 +94,6 @@ public class HttpWrapper extends Thread {
         return client;
     }
 
-    
     /**
      * This method creates a new refine project from the URL of file. The file
      * should be in a format compatible with Refine. This method sets some
@@ -107,16 +113,16 @@ public class HttpWrapper extends Thread {
      *            extension of file, put this to null;
      * @param guessCellValueTypes
      *            : Guess value type (number, date, etc) : default true
-     * @return true if the operation is completed correctly, false otherwise.
+     * @return The project instance if the operation is completed correctly,
+     *         null otherwise.
      */
 
-    public static boolean createProjectFromUrl(String encoding, String projectName, String url,
+    public static Project createProjectFromUrl(String encoding, String projectName, String url,
             ImportingFormatType fileType, String separator, boolean guessCellValueTypes) {
         return createProjectFromUrl(encoding, projectName, url, separator, fileType, -1, 1, 0, -1, true,
                 guessCellValueTypes, true, true, false);
     }
 
-    
     /**
      * This method creates a new refine project from the URL of file. The file
      * should be in a format compatible with Refine. You can specify one or more
@@ -153,35 +159,131 @@ public class HttpWrapper extends Thread {
      * @param storeBlankCellsAsNulls
      * @param includeFileSources
      *            : Store file source (file names, URLs) in each row
-     * @return true if the operation is completed correctly, false otherwise.
+     * @return The project instance if the operation is completed correctly,
+     *         null otherwise.
      */
-
-    @SuppressWarnings("static-access")
-    public static boolean createProjectFromUrl(String encoding, String projectName, String url, String separator,
+    private static Project createProjectFromUrl(String encoding, String projectName, String url, String separator,
             ImportingFormatType fileType, int ignoreLines, int headerLines, int skipDataLines, int limit,
             boolean storeBlankRows, boolean guessCellValueTypes, boolean processQuotes, boolean storeBlankCellsAsNulls,
             boolean includeFileSources) {
+        return createProject(encoding, projectName, url, null, separator, fileType, ignoreLines, headerLines,
+                skipDataLines, limit, storeBlankRows, guessCellValueTypes, processQuotes, storeBlankCellsAsNulls,
+                includeFileSources);
+    }
+
+    /**
+     * This method creates a new refine project from the URL of file. The file
+     * should be in a format compatible with Refine. This method sets some
+     * parameters by default to simplify calls.
+     * 
+     * @param encoding
+     *            : Specifies the file encoding.
+     * @param projectName
+     *            : Name of the project
+     * @param uploadFile
+     *            : File object to upload
+     * @param separator
+     *            : The character which separates the file
+     * @param fileType
+     *            : If you want to specify a format manually. It is not
+     *            mandatory, If you want to autodetect the type from the
+     *            extension of file, put this to null;
+     * @param guessCellValueTypes
+     *            : Guess value type (number, date, etc) : default true
+     * @return The project instance if the operation is completed correctly,
+     *         null otherwise.
+     */
+
+    public static Project createProjectFromFile(String encoding, String projectName, File uploadFile,
+            ImportingFormatType fileType, String separator, boolean guessCellValueTypes) {
+        return createProjectFromFile(encoding, projectName, uploadFile, separator, fileType, -1, 1, 0, -1, true,
+                guessCellValueTypes, true, true, false);
+    }
+
+    /**
+     * This method creates a new refine project from the URL of file. The file
+     * should be in a format compatible with Refine. You can specify one or more
+     * parameters.
+     * 
+     * @param encoding
+     *            : Specifies the file encoding.
+     * @param projectName
+     *            : Name of the project
+     * @param uploadFile
+     *            : File object to upload
+     * @param separator
+     *            : The character which separates the file
+     * @param fileType
+     *            : If you want to specify a format manually. It is not
+     *            mandatory, If you want to autodetect the type from the
+     *            extension of file, put this to null;
+     * @param ignoreLines
+     *            : Number of initial lines at the top of the file to ignore
+     * @param headerLines
+     *            : Number of Heading lines
+     * @param skipDataLines
+     *            : Number of initial line with data to discard
+     * @param limit
+     *            : Max number of line to process (set to -1 to process all
+     *            lines)
+     * @param storeBlankRows
+     *            : Store blank rows
+     * @param guessCellValueTypes
+     *            : Guess value type (number, date, etc) : default true
+     * @param processQuotes
+     *            : Quotation marks are used to enclose cells containing column
+     *            separators
+     * @param storeBlankCellsAsNulls
+     * @param includeFileSources
+     *            : Store file source (file names, URLs) in each row
+     * @return The project instance if the operation is completed correctly,
+     *         null otherwise.
+     */
+    private static Project createProjectFromFile(String encoding, String projectName, File uploadFile,
+            String separator, ImportingFormatType fileType, int ignoreLines, int headerLines, int skipDataLines,
+            int limit, boolean storeBlankRows, boolean guessCellValueTypes, boolean processQuotes,
+            boolean storeBlankCellsAsNulls, boolean includeFileSources) {
+        return createProject(encoding, projectName, null, uploadFile, separator, fileType, ignoreLines, headerLines,
+                skipDataLines, limit, storeBlankRows, guessCellValueTypes, processQuotes, storeBlankCellsAsNulls,
+                includeFileSources);
+    }
+
+    @SuppressWarnings("static-access")
+    private static Project createProject(String encoding, String projectName, String url, File uploadFile,
+            String separator, ImportingFormatType fileType, int ignoreLines, int headerLines, int skipDataLines,
+            int limit, boolean storeBlankRows, boolean guessCellValueTypes, boolean processQuotes,
+            boolean storeBlankCellsAsNulls, boolean includeFileSources) {
 
         try {
             while (ImportingManager.controllers.isEmpty()) {
                 Thread.currentThread().sleep(1000);
             }
-           // Step 1 : create the importing job
+            // Step 1 : create the importing job
             HttpPost postreq = new HttpPost(baseUrl + "command/core/create-importing-job");
             long jobid = -1;
             JSONObject retval = readResponse(getClient().execute(postreq));
             if (retval != null && retval.has("jobID")) {
                 jobid = retval.getLong("jobID");
             }
-            // Step 2 : pass the URL of the resource to download
-
+            // Step 2 : pass the URL of the resource to download (or the file to
+            // upload)
             String command = baseUrl
                     + "command/core/importing-controller?controller=core%2Fdefault-importing-controller&jobID=" + jobid
                     + "&subCommand=load-raw-data";
             postreq = new HttpPost(command);
-            MultipartEntity mte = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-            mte.addPart("download", new StringBody(url));
-            postreq.setEntity(mte);
+            // URL branch
+            if (uploadFile == null) {
+                MultipartEntity mte = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                mte.addPart("download", new StringBody(url));
+                postreq.setEntity(mte);
+            }
+            // UPLOAD FILE BRANCH
+            else {
+                MultipartEntity mte = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                mte.addPart("upload", new FileBody(uploadFile));
+                postreq.setEntity(mte);
+                url = uploadFile.getName();
+            }
             retval = readResponse(getClient().execute(postreq));
 
             boolean wait = true;
@@ -193,9 +295,13 @@ public class HttpWrapper extends Thread {
                 postreq = new HttpPost(command);
                 retval = readResponse(getClient().execute(postreq));
                 retval = retval.getJSONObject("job").getJSONObject("config");
-                
-                if(projectName == null) projectName = url.substring(url.lastIndexOf("/")+1).replace(".", " "); 
-                
+
+                if (projectName == null) {
+                    if (url != null) projectName = url.substring(url.lastIndexOf("/") + 1).replace(".", " ");
+                    if (uploadFile != null)
+                        projectName = uploadFile.getName().substring(url.lastIndexOf("/") + 1).replace(".", " ");
+                }
+
                 if (retval.get("state").equals("error")) {
                     wait = false;
                     error = true;
@@ -204,7 +310,7 @@ public class HttpWrapper extends Thread {
                 } else
                     Thread.currentThread().sleep(1000);
             }
-            if (error) return !error;
+            if (error) return null;
 
             // Step 3 Set importing options and create the project
             JSONObject options = new JSONObject();
@@ -219,7 +325,7 @@ public class HttpWrapper extends Thread {
             options.put("guessCellValueTypes", guessCellValueTypes);
             options.put("storeBlankCellsAsNulls", storeBlankCellsAsNulls);
             options.put("includeFileSources", includeFileSources);
-            options.put("projectName",projectName);
+            options.put("projectName", projectName);
 
             command = baseUrl
                     + "command/core/importing-controller?controller=core%2Fdefault-importing-controller&jobID=" + jobid
@@ -231,19 +337,20 @@ public class HttpWrapper extends Thread {
             if (fileType == null) {
                 String ext = url.substring(url.lastIndexOf('.'));
                 fileType = ImportingFormatType.fromExtToType(ext);
-                if(fileType == null) return false;
+                if (fileType == null) return null;
             }
 
             params.add(new BasicNameValuePair("format", fileType.getDescriberCode()));
             postreq.setEntity(new UrlEncodedFormEntity(params));
             retval = readResponse(getClient().execute(postreq));
-            if(!((retval != null) && (retval.has("status"))&&(retval.get("status").equals("ok")))) return false;
-                
-            if(projectName == null) projectName = url.substring(url.lastIndexOf("/")+1).replace(".", " "); 
+            if (!((retval != null) && (retval.has("status")) && (retval.get("status").equals("ok")))) return null;
+
+            if (projectName == null) projectName = url.substring(url.lastIndexOf("/") + 1).replace(".", " ");
             wait = true;
             error = false;
             // Wait until the server ends. It could end in two states: Error (we
-            // return false) or ready (we continue)
+            // return null) or ready (we continue)
+            Project retprj = null;
             while (wait) {
                 command = baseUrl + "/command/core/get-importing-job-status?jobID=" + jobid;
                 postreq = new HttpPost(command);
@@ -253,20 +360,20 @@ public class HttpWrapper extends Thread {
                     wait = false;
                     error = true;
                 } else if (retval.get("state").equals("created-project")) {
+                    long id = retval.getLong("projectID");
+                    retprj = ProjectManager.singleton.getProject(id);
                     wait = false;
                 } else
                     Thread.currentThread().sleep(1000);
             }
-
-            return true;
+            return retprj;
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
-    
     public void run() {
         HttpGet req = new HttpGet(baseUrl + "command/core/get-version");
         HttpResponse response;
@@ -284,14 +391,36 @@ public class HttpWrapper extends Thread {
                     test = true;
                 }
             }
-            createProjectFromUrl("utf-8", null,
-                    "http://dati.trentino.it/it/storage/f/2012-09-11T004511/prodotti_protetti.csv",
-                    ImportingFormatType.CSV, ",", false);
+            Project prj = createProjectFromFile("utf-8", null, new File(
+                    "C:/Users/azanella/Downloads/prodotti_protetti.csv"), ImportingFormatType.CSV, ",", false);
+            if (prj != null) {
+                System.out.println("ALL RIGHTS!!  " + prj.id);
+            }
+            // deleteAllProjects();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public Set<Long> getAllProjectIds() {
+        return ProjectManager.singleton.getAllProjectMetadata().keySet();
+    }
+
+    public List<String> getAllProjectNames() {
+        List<String> retval = new ArrayList<String>();
+        for (ProjectMetadata pm : ProjectManager.singleton.getAllProjectMetadata().values()) {
+            retval.add(pm.getName());
+        }
+        return retval;
+    }
+
+    public void deleteAllProjects() {
+        ArrayList<Long> lista = new ArrayList<Long>(getAllProjectIds());
+        for (Long p : lista) {
+            ProjectManager.singleton.deleteProject(p);
+        }
     }
 
     private static JSONObject readResponse(HttpResponse response) {
