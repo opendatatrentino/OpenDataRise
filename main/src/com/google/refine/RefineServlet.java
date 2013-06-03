@@ -138,8 +138,8 @@ public class RefineServlet extends Butterfly {
 
         logger.trace("< initialize");
         
-        //Added for testing
-        new HttpWrapper().start();
+        //Uncomment it for wrapper testing only
+        //new HttpWrapper().start();
         
     }
 
