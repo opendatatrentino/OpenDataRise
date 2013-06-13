@@ -5,9 +5,10 @@ rem where refine store data
 rem the /debug option let you to set the logging level
 rem You have also the possibility to specify a default refineport (DEVPORT) and a default datadir (setting the DEVPATH variable).
 rem This script let you also to run server TestNG test cases: use the server_test or server_tests option.
+rem This script remove the data dir each time you start Refine and replace it with a default one (stored in \backup-data-dir
 rem Created by azanella
 
-set DEVPORT=4444
+SET DEVPORT=4444
 SET DEVPATH=%USERPROFILE%\odr-dev-workspace\
 rem ---------------
 rem
@@ -62,6 +63,9 @@ echo  "/m <memory>" max memory heap size to use
 echo      default: 1024M
 echo.
 echo  "/x" enable JMX monitoring (for jconsole and friends)
+echo.
+echo  "/keepdatadir" don't replace the data dir with the default oen contained in
+echo  \backup-data-dir
 echo.
 echo "and <action> is one of
 echo.
@@ -123,6 +127,9 @@ if ""%1"" == ""/debug"" goto arg-debug
 if ""%1"" == ""/d"" goto arg-d
 if ""%1"" == ""/v"" goto arg-v
 REM END EDIT BY azanella on 2013/05/10
+REM BEGIN EDIT BY azanella on 2013/06/13
+if ""%1"" == ""/keepdatadir"" goto arg-keep
+REM END EDIT BY azanella on 2013/06/13
 if ""%1"" == ""/m"" goto arg-m
 if ""%1"" == ""/x"" goto arg-x
 goto endArgumentParsing
@@ -159,6 +166,11 @@ REM ADDED BY azanella on 2013/05/10
 set REFINE_VERBOSITY=%2
 goto shift2loop
 
+REM ADDED BY azanella on 2013/06/13
+:arg-keep
+set ODR_KEEPDATADIR="1"
+goto shift2loop
+
 :arg-x
 set OPTS=%OPTS% -Dcom.sun.management.jmxremote
 goto shift2loop
@@ -188,6 +200,12 @@ if not "%REFINE_DATA_DIR%" == "" set OPTS=%OPTS% -Drefine.data_dir=%REFINE_DATA_
 if not "%REFINE_VERBOSITY%" == "" set OPTS=%OPTS% -Drefine.verbosity=%REFINE_VERBOSITY%
 REM added by azanella on May, 22 2013
 if "%REFINE_TEST_DIR%"=="" set REFINE_TEST_DIR=main\tests
+
+REM added by azanella on 2013/06/13
+if not "%ODR_KEEPDATADIR%" == "" goto endRemove
+rd /S /Q %REFINE_DATA_DIR%
+xcopy /E /I /Q backup-data-dir %REFINE_DATA_DIR%
+:endRemove
 
 if not "%REFINE_PORT%" == "" goto gotPort
 set REFINE_PORT=3333
