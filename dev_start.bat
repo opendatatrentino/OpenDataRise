@@ -64,7 +64,7 @@ echo      default: 1024M
 echo.
 echo  "/x" enable JMX monitoring (for jconsole and friends)
 echo.
-echo  "/keepdatadir" don't replace the data dir with the default oen contained in
+echo  "/keepdatadir" keep the existing data dir. Do not replace with
 echo  \backup-data-dir
 echo.
 echo "and <action> is one of
