@@ -358,5 +358,18 @@ public class ReconOperation extends EngineDependentOperation {
                 _project.processManager.onDoneProcess(this);
             }
         }
+
+        /**
+         * Last modified by azanella On Jun 12, 2013
+         * @author azanella Implemented to get the project name from process which
+         *         stores this information. If this information is unavailable this
+         *         method returns null.
+         * @return The project which own this project if available, null otherwise
+         */
+        @Override
+        public Project getProject() {
+            return _project;
+        }
+                
     }
 }
