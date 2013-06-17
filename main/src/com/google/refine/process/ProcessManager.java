@@ -44,8 +44,6 @@ import com.google.refine.Jsonizable;
 import com.google.refine.history.HistoryEntry;
 import com.google.refine.history.HistoryProcess;
 
-import eu.trentorise.opendatarise.process.Registry;
-
 public class ProcessManager implements Jsonizable {
     protected List<Process> _processes = new LinkedList<Process>();
     protected List<Exception> _latestExceptions = null;
@@ -78,16 +76,10 @@ public class ProcessManager implements Jsonizable {
         writer.endObject();
     }
 
-    /* Modified by azanella On Jun 14, 2013
-     * Added Registry.register(..) calls
-     */
     public HistoryEntry queueProcess(Process process) throws Exception {
         if (process.isImmediate() && _processes.size() == 0) {
             _latestExceptions = null;
-            Registry.registerProcessAsStarted(process, Registry.getTimeNow());
-            HistoryEntry retval = process.performImmediate();
-            Registry.registerProcessAsCompleted(process, Registry.getTimeNow());
-            return retval;
+            return process.performImmediate();
         } else {
             _processes.add(process);
             
@@ -95,19 +87,14 @@ public class ProcessManager implements Jsonizable {
         }
         return null;
     }
-
-    /* Modified by azanella On Jun 14, 2013
-     * Added Registry.register(..) calls
-     */
+    
     public boolean queueProcess(HistoryProcess process) throws Exception {
         if (process.isImmediate() && _processes.size() == 0) {
             _latestExceptions = null;
-            Registry.registerProcessAsStarted(process, Registry.getTimeNow());
-            boolean retval = process.performImmediate() != null;
-            Registry.registerProcessAsCompleted(process, Registry.getTimeNow());
-            return retval;
+            return process.performImmediate() != null;
         } else {
             _processes.add(process);
+            
             update();
         }
         return false;
@@ -143,23 +130,17 @@ public class ProcessManager implements Jsonizable {
         _processes.clear();
         _latestExceptions = null;
     }
-
-    /* Modified by azanella On Jun 14, 2013
-     * Added Registry.register(..) calls
-     */
+    
     protected void update() {
         while (_processes.size() > 0) {
             Process p = _processes.get(0);
             if (p.isImmediate()) {
                 _latestExceptions = null;
                 try {
-                    Registry.registerProcessAsStarted(p, Registry.getTimeNow());
                     p.performImmediate();
-                    Registry.registerProcessAsCompleted(p, Registry.getTimeNow());
                 } catch (Exception e) {
                     // TODO: Not sure what to do yet
                     e.printStackTrace();
-                    Registry.registerProcessAsCompleted(p, Registry.getTimeNow());
                 }
                 _processes.remove(0);
             } else if (p.isDone()) {
@@ -167,9 +148,7 @@ public class ProcessManager implements Jsonizable {
             } else {
                 if (!p.isRunning()) {
                     _latestExceptions = null;
-                    Registry.registerProcessAsStarted(p, Registry.getTimeNow());
                     p.startPerforming(this);
-                    Registry.registerProcessAsCompleted(p, Registry.getTimeNow());
                 }
                 break;
             }
