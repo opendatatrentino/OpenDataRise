@@ -7,13 +7,13 @@ Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
 
- * Redistributions of source code must retain the above copyright
+    * Redistributions of source code must retain the above copyright
 notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above
+    * Redistributions in binary form must reproduce the above
 copyright notice, this list of conditions and the following disclaimer
 in the documentation and/or other materials provided with the
 distribution.
- * Neither the name of Google Inc. nor the names of its
+    * Neither the name of Google Inc. nor the names of its
 contributors may be used to endorse or promote products derived from
 this software without specific prior written permission.
 
@@ -29,7 +29,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
- */
+*/
 
 package com.google.refine.process;
 
@@ -42,17 +42,16 @@ import com.google.refine.history.HistoryEntry;
 import com.google.refine.model.Project;
 
 abstract public class QuickHistoryEntryProcess extends Process {
-
     final protected Project _project;
     final protected String _briefDescription;
     protected HistoryEntry _historyEntry;
     boolean _done = false;
-
+    
     public QuickHistoryEntryProcess(Project project, String briefDescription) {
         _project = project;
         _briefDescription = briefDescription;
     }
-
+    
     @Override
     public void cancel() {
         throw new RuntimeException("Not a long-running process");
@@ -62,21 +61,20 @@ abstract public class QuickHistoryEntryProcess extends Process {
     public boolean isImmediate() {
         return true;
     }
-
+    
     @Override
     public boolean isRunning() {
         throw new RuntimeException("Not a long-running process");
     }
 
     @Override
-    public HistoryEntry performImmediate()
-            throws Exception {
+    public HistoryEntry performImmediate() throws Exception {
         if (_historyEntry == null) {
             _historyEntry = createHistoryEntry(HistoryEntry.allocateID());
         }
         _project.history.addEntry(_historyEntry);
         _done = true;
-
+        
         return _historyEntry;
     }
 
@@ -88,36 +86,20 @@ abstract public class QuickHistoryEntryProcess extends Process {
     @Override
     public void write(JSONWriter writer, Properties options)
             throws JSONException {
-
+        
         writer.object();
-        writer.key("id");
-        writer.value(hashCode());
-        writer.key("description");
-        writer.value(_historyEntry != null ? _historyEntry.description : _briefDescription);
-        writer.key("immediate");
-        writer.value(true);
-        writer.key("status");
-        writer.value(_done ? "done" : "pending");
+        writer.key("id"); writer.value(hashCode());
+        writer.key("description"); writer.value(_historyEntry != null ? _historyEntry.description : _briefDescription);
+        writer.key("immediate"); writer.value(true);
+        writer.key("status"); writer.value(_done ? "done" : "pending");
         writer.endObject();
     }
+
 
     @Override
     public boolean isDone() {
         return _done;
     }
-
-    /**
-     * Last modified by azanella On Jun 12, 2013
-     * @author azanella Implemented to get the project name from process which
-     *         stores this information. If this information is unavailable this
-     *         method returns null.
-     * @return The project which own this project if available, null otherwise
-     */
-    @Override
-    public Project getProject() {
-        return _project;
-    }
-
-    abstract protected HistoryEntry createHistoryEntry(long historyEntryID)
-            throws Exception;
+    
+    abstract protected HistoryEntry createHistoryEntry(long historyEntryID) throws Exception;
 }

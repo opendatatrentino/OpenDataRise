@@ -7,13 +7,13 @@ Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
 
- * Redistributions of source code must retain the above copyright
+    * Redistributions of source code must retain the above copyright
 notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above
+    * Redistributions in binary form must reproduce the above
 copyright notice, this list of conditions and the following disclaimer
 in the documentation and/or other materials provided with the
 distribution.
- * Neither the name of Google Inc. nor the names of its
+    * Neither the name of Google Inc. nor the names of its
 contributors may be used to endorse or promote products derived from
 this software without specific prior written permission.
 
@@ -29,43 +29,21 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
- */
+*/
 
 package com.google.refine.process;
 
 import com.google.refine.Jsonizable;
 import com.google.refine.history.HistoryEntry;
-import com.google.refine.model.Project;
 
-import eu.trentorise.opendatarise.process.AbstractOdrProcessAndImportingJob;
-
-public abstract class Process extends AbstractOdrProcessAndImportingJob implements Jsonizable {
-
-    //Added by azanella On Jun 12, 2013
-    public boolean isGeneric = false;
-    
+public abstract class Process implements Jsonizable {
     abstract public boolean isImmediate();
-
+    
     abstract public boolean isRunning();
-
     abstract public boolean isDone();
-
-    abstract public HistoryEntry performImmediate()
-            throws Exception;
-
+    
+    abstract public HistoryEntry performImmediate() throws Exception;
+    
     abstract public void startPerforming(ProcessManager manager);
-
     abstract public void cancel();
-
-    /**
-     * Last modified by azanella On Jun 12, 2013
-     * @author azanella Implemented to get the project name from process which
-     *         stores this information. If this information is unavailable this
-     *         method returns null.
-     * @return The project which own this project if available, null otherwise
-     */
-    public Project getProject() {
-        return null;
-    }
-
 }
