@@ -67,6 +67,7 @@ import com.codeberry.jdatapath.DataPath;
 import com.codeberry.jdatapath.JDataPathSystem;
 
 import com.google.util.threads.ThreadPoolExecutorAdapter;
+import org.mortbay.jetty.handler.RewriteHandler;
 
 /**
  * Main class for Refine server application.  Starts an instance of the
@@ -141,9 +142,10 @@ class RefineServer extends Server {
         
     private ThreadPoolExecutor threadPool;
     
+    
     public void init(String host, int port) throws Exception {
         logger.info("Starting Server bound to '" + host + ":" + port + "'");
-
+        
         String memory = Configurations.get("refine.memory");
         if (memory != null) {
             logger.info("refine.memory size: " + memory + " JVM Max heap: " + Runtime.getRuntime().maxMemory());
@@ -179,13 +181,24 @@ class RefineServer extends Server {
             }
         }
 
-        final String contextPath = Configurations.get("refine.context_path","/");
+        /** bah doesn't work, don'ìt know why
+        logger.info("Setting url rewriters for OpnDataRise...");
+        RewriteHandler rewrite = new RewriteHandler();
+        rewrite.setRewriteRequestURI(true);
+        rewrite.setRewritePathInfo(true);
+        rewrite.setOriginalPathAttribute("requestedPath");
+
+        rewrite.addRewriteRule("/extension/opendatarise/*","/extension/freebase/" ); //"http://www.google.com"
+
+        this.addHandler(rewrite);         
+        */
         
+        
+        final String contextPath = Configurations.get("refine.context_path","/");                       
         logger.info("Initializing context: '" + contextPath + "' from '" + webapp.getAbsolutePath() + "'");
         WebAppContext context = new WebAppContext(webapp.getAbsolutePath(), contextPath);
-        context.setMaxFormContentSize(1048576);
-
-        this.setHandler(context);
+        context.setMaxFormContentSize(1048576);      
+        this.addHandler(context);
         this.setStopAtShutdown(true);
         this.setSendServerVersion(true);
 
@@ -193,6 +206,7 @@ class RefineServer extends Server {
         if (Configurations.getBoolean("refine.autoreload",false)) {
             scanForUpdates(webapp, context);
         }
+        
         
         // start the server
         this.start();
