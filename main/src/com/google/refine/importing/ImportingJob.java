@@ -47,10 +47,8 @@ import com.google.refine.ProjectMetadata;
 import com.google.refine.model.Project;
 import com.google.refine.util.JSONUtilities;
 
-import eu.trentorise.opendatarise.process.AbstractOdrProcessAndImportingJob;
 
-
-public class ImportingJob extends AbstractOdrProcessAndImportingJob implements Jsonizable {
+public class ImportingJob implements Jsonizable {
     final public long id;
     final public File dir; // Temporary directory where the data about this job is stored
     

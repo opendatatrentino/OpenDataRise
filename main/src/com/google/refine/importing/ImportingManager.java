@@ -54,7 +54,6 @@ import org.slf4j.LoggerFactory;
 import com.google.refine.RefineServlet;
 
 import edu.mit.simile.butterfly.ButterflyModule;
-import eu.trentorise.opendatarise.process.Registry;
 
 public class ImportingManager {
     static public class Format {
@@ -187,16 +186,13 @@ public class ImportingManager {
         return importDir;
     }
     
-    /* Modified by azanella On Jun 14, 2013
-     * Added Registry.register(..) calls
-     */
     static public ImportingJob createJob() {
         long id = System.currentTimeMillis() + (long) (Math.random() * 1000000);
         File jobDir = new File(getImportDir(), Long.toString(id));
         
         ImportingJob job = new ImportingJob(id, jobDir);
-        Registry.registerImportingJobAsStarted(job, Registry.getTimeNow());
         jobs.put(id, job);
+        
         return job;
     }
     
@@ -204,14 +200,10 @@ public class ImportingManager {
         return jobs.get(id);
     }
     
-    /* Modified by azanella On Jun 14, 2013
-     * Added Registry.register(..) calls
-     */
     static public void disposeJob(long id) {
         ImportingJob job = getJob(id);
         if (job != null) {
             job.dispose();
-            Registry.registerImportingJobAsCompleted(job, Registry.getTimeNow());
             jobs.remove(id);
         }
     }
@@ -294,16 +286,12 @@ public class ImportingManager {
         }
     }
     
-    /* Modified by azanella On Jun 14, 2013
-     * Added Registry.register(..) calls
-     */
     static private void cleanUpStaleJobs() {
         long now = System.currentTimeMillis();
         for (Long id : new HashSet<Long>(jobs.keySet())) {
             ImportingJob job = jobs.get(id);
             if (job != null && !job.updating && now - job.lastTouched > s_stalePeriod) {
                 job.dispose();
-                Registry.registerImportingJobAsCompleted(job, Registry.getTimeNow());
                 jobs.remove(id);
                 
                 logger.info("Disposed " + id);
