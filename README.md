@@ -7,9 +7,9 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
 
 **Project status**: planning
 
-**Roadmap**: see [project issues](https://github.com/DavidLeoni/OpenDataRise/issues)
+**Roadmap**: see [project issues](https://github.com/opendatatrentino/OpenDataRise/issues)
 
-**Documentation**: see [the wiki](https://github.com/DavidLeoni/OpenDataRise/wiki)
+**Documentation**: see [the wiki](https://github.com/opendatatrentino/OpenDataRise/wiki)
 
 
 
