@@ -1,6 +1,11 @@
 *.DS_Store
 *.class
 .import-temp/
+
+nbproject/private/
+nbbuild/
+nbdist/
+main/IDEs/netbeans/nbproject/private/
 build/
 dist/
 server/classes/

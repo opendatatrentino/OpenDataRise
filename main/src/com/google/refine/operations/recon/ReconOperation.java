@@ -365,8 +365,7 @@ public class ReconOperation extends EngineDependentOperation {
          *         stores this information. If this information is unavailable this
          *         method returns null.
          * @return The project which own this project if available, null otherwise
-         */
-        @Override
+         */        
         public Project getProject() {
             return _project;
         }
