@@ -1,0 +1,175 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>eu.trentorise.opendatarise</groupId>
+  <artifactId>odrapp</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>OpenDataRise Application</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+   <modules>
+        <module>extensions/odrext</module>        
+   </modules>
+   
+   <build>
+    <sourceDirectory>${basedir}/main/src/</sourceDirectory>
+ <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
+    todo p3 dav review this   
+     <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
+    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+    <outputDirectory>${basedir}/target/classes</outputDirectory>
+    <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+    -->
+  
+  </build> 
+
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.4.0</version>
+      <classifier>slim</classifier>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>4.1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpmime</artifactId>
+      <version>4.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-core-asl</artifactId>
+      <version>1.9.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.4.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.metaweb</groupId>
+      <artifactId>lessen</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.odftoolkit</groupId>
+      <artifactId>odfdom-java</artifactId>
+      <version>0.8.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml-schemas</artifactId>
+      <version>3.8</version>
+    </dependency>
+    <dependency>
+      <groupId>oauth.signpost</groupId>
+      <artifactId>signpost-commonshttp4</artifactId>
+      <version>1.2.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>oauth.signpost</groupId>
+      <artifactId>signpost-core</artifactId>
+      <version>1.2.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xmlbeans</groupId>
+      <artifactId>xmlbeans</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+    
+    <dependency> 
+	<groupId>eu.trentorise.opendatarise.legacydeps</groupId>
+	<artifactId> json-20100208.jar </artifactId>
+	<version> 20100208 </version>
+	<scope>system</scope>
+	<systemPath>${basedir}/main/webapp/WEB-INF/lib/json-20100208.jar</systemPath> 
+    </dependency>
+    
+  </dependencies>
+</project>
