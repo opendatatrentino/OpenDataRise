@@ -1,0 +1,16 @@
+#*
+ * Access this page at the URL /extension/sample/
+ *#
+<html>
+  <head>
+    <title>Sample Extension</title>
+  </head>
+  <body>
+    <h1>OpenDataRise Extension</h1>
+    <br/>
+    <p> Hello! Well, for now this page is quite useless.
+    </p>
+    
+
+  </body>
+</html>
