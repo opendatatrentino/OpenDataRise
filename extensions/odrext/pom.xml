@@ -25,10 +25,12 @@
     
      <build>
     <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+    
  <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
     todo p3 dav review this   
      <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
-    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+    
     <outputDirectory>${basedir}/target/classes</outputDirectory>
     <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
     -->
@@ -43,7 +45,7 @@
         </dependency>  
         
              <dependency> 
-	<groupId>eu.trentorise.opendatarise.legacydeps</groupId>
+	<groupId>eu.trentorise.opendatarise.nonmavendeps</groupId>
 	<artifactId> json-20100208.jar </artifactId>
 	<version> 20100208 </version>
 	<scope>system</scope>
