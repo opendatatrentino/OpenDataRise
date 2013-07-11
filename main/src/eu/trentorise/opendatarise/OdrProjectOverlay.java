@@ -25,12 +25,12 @@ public class OdrProjectOverlay implements OverlayModel {
     
     
     /**
-     * Step is set to step 1: Selection
+     * 
      * 
      */
     public OdrProjectOverlay(){
-        this.createdWithOdr = true;
-        this.step = 1;        
+        this.createdWithOdr = false;
+        this.step = 2;   
         this.project = null; 
     }
     

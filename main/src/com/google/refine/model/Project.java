@@ -61,6 +61,7 @@ import com.google.refine.history.History;
 import com.google.refine.process.ProcessManager;
 import com.google.refine.util.ParsingUtilities;
 import com.google.refine.util.Pool;
+import eu.trentorise.opendatarise.ODR;
 import eu.trentorise.opendatarise.OdrProjectOverlay;
 
 
@@ -92,14 +93,19 @@ public class Project {
         return System.currentTimeMillis() + Math.round(Math.random() * 1000000000000L);
     }
 
+    @SuppressWarnings("LeakingThisInConstructor")
     public Project() {
         id = generateID();
         history = new History(this);
+        
+        ODR.initOverlay(this);                
     }
 
     protected Project(long id) {
         this.id = id;
         this.history = new History(this);
+        
+        ODR.initOverlay(this);
     }
     
     public void dispose() {
@@ -192,7 +198,7 @@ public class Project {
         long id,
         Pool pool
     ) throws Exception {
-        boolean failedLoadingOdrProject = false;
+        boolean foundOdrProject = false;
         long start = System.currentTimeMillis();
         
         /* String version = */ reader.readLine();
@@ -232,15 +238,15 @@ public class Project {
                     Class<? extends OverlayModel> klass = s_overlayModelClasses.get(modelName);
                     
                     try {
+                        if (modelName == ODR.PROJECT_OVERLAY_NAME){
+                            OdrProjectOverlay po = ((OdrProjectOverlay) project.overlayModels.get(ODR.PROJECT_OVERLAY_NAME));                            
+                        }
+                        
                         Method loadMethod = klass.getMethod("load", Project.class, JSONObject.class);                        
                         JSONObject obj = ParsingUtilities.evaluateJsonStringToObject(value);                    
-                        OverlayModel overlayModel = (OverlayModel) loadMethod.invoke(null, project, obj);                        
-                        
+                        OverlayModel overlayModel = (OverlayModel) loadMethod.invoke(null, project, obj);                                                
                         project.overlayModels.put(modelName, overlayModel);
                     } catch (Exception e) {    
-                        if (modelName == "OdrProjectOverlay"){
-                            failedLoadingOdrProject = true;
-                        }
                         logger.error("Failed to load overlay model " + modelName);
                     }
                 }
@@ -248,20 +254,7 @@ public class Project {
         }
         
         
-        
-        
-        // start odr   Odrify non-odr projects
-        if (!project.overlayModels.containsKey("OdrProjectOverlay") && !failedLoadingOdrProject){
-            Logger odrlogger = LoggerFactory.getLogger("odr");
-            odrlogger.debug("Trying to load a non-odr project, odrifying it.");
-            OdrProjectOverlay po = new OdrProjectOverlay();           
-            po.setProject(project);
-            po.setCreatedWithOdr(false);
-            po.setStep(2);
-            project.overlayModels.put("OdrProjectOverlay", po);
-        }
-        // end odr
-        
+                       
         project.columnModel.setMaxCellIndex(maxCellCount - 1);
 
         logger.info(
