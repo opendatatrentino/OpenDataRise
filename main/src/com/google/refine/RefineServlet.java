@@ -60,12 +60,12 @@ import edu.mit.simile.butterfly.ButterflyModule;
 import eu.trentorise.opendatarise.httpwrapper.HttpWrapper;
 
 public class RefineServlet extends Butterfly {
-    static private String ASSIGNED_VERSION = "2.6";
+    static private String ASSIGNED_VERSION = "0.1-SNAPSHOT";
     
     static public String VERSION = "";
     static public String REVISION = "";
     static public String FULL_VERSION = "";
-    static public String FULLNAME = "OpenRefine ";
+    static public String FULLNAME = "OpenDataRise";
 
 
     static public final String AGENT_ID = "/en/google_refine"; // TODO: Unused?  Freebase ID
@@ -116,7 +116,7 @@ public class RefineServlet extends Butterfly {
         }
         
         FULL_VERSION = VERSION + " [" + REVISION + "]";
-        FULLNAME += FULL_VERSION;
+        FULLNAME += "-" + FULL_VERSION;
 
         logger.info("Starting " + FULLNAME + "...");
         

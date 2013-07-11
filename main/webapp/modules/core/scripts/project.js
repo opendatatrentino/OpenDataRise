@@ -54,7 +54,8 @@ function resize() {
 
   var leftPanelPaddings = ui.leftPanelDiv.outerHeight(true) - ui.leftPanelDiv.height();
   ui.leftPanelDiv
-  .css("top", top + "px")
+  //.css("top", top + "px")
+  .css("top", 200 + "px") // dav let's make it fixed
   .css("left", "0px")
   .css("height", (height - leftPanelPaddings) + "px")
   .css("width", leftPanelWidth + "px");
@@ -141,10 +142,22 @@ function initializeUI(uiState) {
   if (uiState.facets) {
     Refine.update({ engineChanged: true });
   }
+  
+  // odr start
+  
+  var waitForOdr = function(){
+      if (ODR) {
+        ODR.initUI();
+      } else setTimeout(waitForOdr, 100);
+  };
+  
+  waitForOdr();
+  
+  // odr end
 }
 
 Refine.setTitle = function(status) {
-  var title = theProject.metadata.name + " - OpenRefine";
+  var title = theProject.metadata.name + " - OpenDataRise";
   if (status) {
     title = status + " - " + title;
   }
@@ -154,6 +167,7 @@ Refine.setTitle = function(status) {
 };
 
 Refine.reinitializeProjectData = function(f, fError) {
+    console.log("reinitializeProjectData");
   $.getJSON(
     "command/core/get-project-metadata?" + $.param({ project: theProject.id }), null,
     function(data) {
@@ -171,7 +185,7 @@ Refine.reinitializeProjectData = function(f, fError) {
               if (data.hasOwnProperty(n)) {
                 theProject[n] = data[n];
               }
-            }
+            }            
             f();
           },
           'json'
@@ -226,7 +240,7 @@ Refine.createUpdateFunction = function(options, onFinallyDone) {
     ui.historyPanel.update(onDone);
   });
   if (options.everythingChanged || options.modelsChanged || options.columnStatsChanged) {
-    pushFunction(Refine.reinitializeProjectData);
+    pushFunction(Refine.reinitializeProjectData);    
   }
   if (options.everythingChanged || options.modelsChanged || options.rowsChanged || options.rowMetadataChanged || options.cellsChanged || options.engineChanged) {
     pushFunction(function(onDone) {
@@ -236,6 +250,11 @@ Refine.createUpdateFunction = function(options, onFinallyDone) {
       ui.browsingEngine.update(onDone);
     });
   }
+
+  if (options.everythingChanged || options.stepChanged) {
+    pushFunction(function(onDone) {ODR.updateUI(onDone)});    
+  }
+
 
   functions.push(onFinallyDone || function() {});
 

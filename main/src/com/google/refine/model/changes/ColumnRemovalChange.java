@@ -124,7 +124,8 @@ public class ColumnRemovalChange extends ColumnChange {
             
             int cellIndex = _oldColumn.getCellIndex();
             for (CellAtRow cell : _oldCells) {
-                project.rows.get(cell.row).cells.set(cellIndex, cell.cell);
+                //project.rows.get(cell.row).cells.set(cellIndex, cell.cell);                
+                project.rows.get(cell.row).setCell(cellIndex, cell.cell);
             }
             
             project.columnModel.columnGroups.clear();

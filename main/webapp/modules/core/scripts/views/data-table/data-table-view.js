@@ -80,6 +80,7 @@ DataTableView.prototype.resize = function() {
 };
 
 DataTableView.prototype.update = function(onDone) {
+  console.log("DataTableView.update");  
   this._showRows(0, onDone);
 };
 

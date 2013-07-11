@@ -234,6 +234,7 @@ BrowsingEngine.prototype.removeFacet = function(facet) {
 };
 
 BrowsingEngine.prototype.update = function(onDone) {
+  console.log("BrowsingEngine.update")
   var self = this;
 
   this._elmts.help.hide();

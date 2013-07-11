@@ -166,7 +166,7 @@ ExporterManager.handlers.exportProject = function() {
   $(form)
   .css("display", "none")
   .attr("method", "post")
-  .attr("action", "command/core/export-project/" + name + ".openrefine.tar.gz")
+  .attr("action", "command/core/export-project/" + name + ".opendatarise.tar.gz")
   .attr("target", "refine-export");
   $('<input />')
   .attr("name", "project")

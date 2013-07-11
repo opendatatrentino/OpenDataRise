@@ -1,7 +1,7 @@
 @echo off
 rem This is a modified copy of refine.bat file
 rem It modifies the /d behaviour: the /d now let you to specify a data dir 
-rem where refine store data
+rem where refine stores data
 rem the /debug option let you to set the logging level
 rem You have also the possibility to specify a default refineport (DEVPORT) and a default datadir (setting the DEVPATH variable).
 rem This script let you also to run server TestNG test cases: use the server_test or server_tests option.
@@ -152,8 +152,9 @@ goto shift2loop
 
 REM EDIT BY azanella on 2013/05/10
 :arg-debug
+set REFINE_VERBOSITY="debug"
 set OPTS=%OPTS% -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
-goto shift2loop
+goto shift1loop
 
 REM ADDED BY azanella on 2013/05/10
 :arg-d
@@ -169,16 +170,21 @@ goto shift2loop
 REM ADDED BY azanella on 2013/06/13
 :arg-keep
 set ODR_KEEPDATADIR="1"
-goto shift2loop
+goto shift1loop
 
 :arg-x
 set OPTS=%OPTS% -Dcom.sun.management.jmxremote
-goto shift2loop
+goto shift1loop
 
 :shift2loop
 shift
 shift
 goto loop
+
+:shift1loop
+shift
+goto loop
+
 
 :endArgumentParsing
 

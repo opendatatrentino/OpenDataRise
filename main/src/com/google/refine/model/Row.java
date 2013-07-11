@@ -145,12 +145,12 @@ public class Row implements HasFields, Jsonizable {
         return value == null || (value instanceof String && ((String) value).trim().length() == 0);
     }
     
-    public void setCell(int cellIndex, Cell cell) {
+    public void setCell(int cellIndex, Cell cell) {         
         if (cellIndex < cells.size()) {
             cells.set(cellIndex, cell);
         } else {
             while (cellIndex > cells.size()) {
-                cells.add(null);
+                cells.add(null);                
             }
             cells.add(cell);
         }

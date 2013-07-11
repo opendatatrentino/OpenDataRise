@@ -34,7 +34,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 var html = "text/html";
 var encoding = "UTF-8";
 var ClientSideResourceManager = Packages.com.google.refine.ClientSideResourceManager;
-var bundle = true;
+var bundle = false; // odr dav documentation here https://github.com/OpenRefine/OpenRefine/wiki/Extension-Points#javascript-and-css
+                    // sugests to set this to false for debugging
 
 var templatedFiles = {
   // Requests with last path segments mentioned here 

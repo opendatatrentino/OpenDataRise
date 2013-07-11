@@ -14,10 +14,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+<!--
    <modules>
         <module>extensions/odrext</module>        
    </modules>
-   
+-->   
    <build>
     <sourceDirectory>${basedir}/main/src/</sourceDirectory>
  <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
@@ -31,7 +32,14 @@
   </build> 
 
   <dependencies>
+      <!--
     <dependency>
+        <groupId>eu.trentorise.opendatarise</groupId>
+        <artifactId>odrext</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </dependency>
+    -->
+   <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
       <version>1.4.0</version>
@@ -70,7 +78,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>14.0.1</version>
+      <version>13.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -90,7 +98,7 @@
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-core-asl</artifactId>
-      <version>1.9.11</version>
+      <version>1.9.12</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -164,12 +172,37 @@
     </dependency>
     
     <dependency> 
-	<groupId>eu.trentorise.opendatarise.nonmavendeps</groupId>
-	<artifactId> json-20100208.jar </artifactId>
+	<groupId>eu.trentorise.opendatadeps</groupId>
+	<artifactId> json </artifactId>
 	<version> 20100208 </version>
 	<scope>system</scope>
 	<systemPath>${basedir}/main/webapp/WEB-INF/lib/json-20100208.jar</systemPath> 
     </dependency>
+
+    <dependency> 
+        <groupId>eu.trentorise.opendatadeps</groupId>
+        <artifactId> jetty </artifactId>
+        <version> 6.1.22 </version>
+        <scope>system</scope>
+        <systemPath>${basedir}/server/lib/jetty-6.1.22.jar</systemPath> 
+    </dependency>
+
+    <dependency>
+        <groupId>eu.trentorise.opendatadeps</groupId>
+        <artifactId> jetty-util </artifactId>
+        <version> 6.1.22 </version>
+        <scope>system</scope>
+        <systemPath>${basedir}/server/lib/jetty-util-6.1.22.jar</systemPath> 
+    </dependency>    
+
+    <dependency>
+        <groupId>eu.trentorise.opendatadeps</groupId>
+        <artifactId> jetty-servlet-api </artifactId>
+        <version> 2.5 </version>
+        <scope>system</scope>
+        <systemPath>${basedir}/server/lib/servlet-api-2.5.jar</systemPath> 
+    </dependency>    
+             
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-client</artifactId>
@@ -180,5 +213,6 @@
       <artifactId>jersey-media-json-jackson</artifactId>
       <version>2.0</version>
     </dependency>
-  </dependencies>
+                                    
+  </dependencies> 
 </project>

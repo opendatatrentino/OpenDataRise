@@ -1,4 +1,16 @@
 @echo off
+echo.  
+echo.   
+echo             *****************************   OpenDataRise   *****************************
+echo.
+echo.
+echo     WARNING: This is a legacy .bat for compatibility with Refine. Please use start.bat instead
+echo.
+echo.
+echo.
+echo.
+
+
 rem
 rem Configuration variables
 rem

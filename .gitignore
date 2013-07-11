@@ -23,4 +23,6 @@ broker/core/module/MOD-INF/classes/
 broker/core/WEB-INF/lib/
 broker/core/data/
 broker/core/test-output/
-/test-output
+test-output
+extensions/odrext/target/
+target/

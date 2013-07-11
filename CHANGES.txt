@@ -1,3 +1,9 @@
+
+OpenDataRise 0.1-SNAPSHOT 
+
+todo fill it
+
+
 2.6 Release (TBD) - First release as OpenRefine - Maintenance release
 
 Features:

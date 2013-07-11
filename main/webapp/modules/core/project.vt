@@ -35,7 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8;IE=9;chrome=1;">
-    <title>OpenRefine</title>
+    <title>OpenDataRise</title>
     <script type="text/javascript">var theProject = { id : $projectID };</script>
     <script type="text/javascript" src="wirings.js"></script>
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -45,7 +45,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </head>
   <body>
     <div id="header">
-      <a id="app-home-button" href="./"><img alt="OpenRefine" src="images/logo-openrefine-30.png" width="129" height="29" /></a>
+      <a id="app-home-button" href="./"><img alt="OpenDataRise logo" src="images/odr-logo.png" width="129" height="29" /></a>
       <div id="project-title">
         <span id="project-name-button" class="app-path-section" title="Click to rename project"></span>
         <a id="project-permalink-button" href="javascript:{}" class="secondary">Permalink</a>
@@ -53,14 +53,38 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <div id="project-controls">
         <a href="./" class="button" target="_blank">Open...</a>
         <a class="button" bind="exportButton" id="export-button" href="#export"><span class="button-menu">Export</span></a>
-        <a href="http://code.google.com/p/google-refine/wiki/DocumentationForUsers" target="_blank" class="button">Help</a>
+        <a href="https://github.com/opendatatrentino/OpenDataRise/wiki/Introduction-for-users" target="_blank" class="button">Help</a>
       </div>
     </div>
     
     <div id="loading-message"><img src="images/large-spinner.gif" /> Starting up...</div>
       
     <div id="body">
-      <div bind="leftPanelDiv" id="left-panel">
+
+<!-- odr-nav begin -->
+
+        <div style="position:absolute;top: 40px; left: 0px; height: 30px; width: 300px; background-color:green;" id="odr-nav">
+                    <div style="top: 0px; left: 0px; height: 32px; width: 300px; background-color:#BBCCFF;" id="odr-nav-header"><button style="position:absolute;top: 3px; left: 0px; height: 25px;" id="odr-nav-prev-button">
+        &lt; back 
+        </button>
+
+        <div style="font-size:16px; position:absolute; top: 7px; left: 63px; height: 25px;font-weight:bold;" id="odr-step-title">
+        Loading step....
+        </div>
+
+        <button style="position:absolute;top: 3px; left: 239px; width:70px; height: 25px;" id="odr-nav-next-button">
+         NEXT &gt;
+        </button>
+
+
+                    </div>
+            <div style="position:absolute;top: 50px; left: 15px; height: 100px; width: 270px; font-size: 12px;" id="odr-nav-help-text">
+            Loading step description....
+
+        </div></div>
+<!-- odr-nav end -->
+
+      <div bind="leftPanelDiv"  id="left-panel">
         <div bind="leftPanelTabs" class="refine-tabs">
           <ul>
             <li><a href="#refine-tabs-facets">Facet / Filter</a></li>
