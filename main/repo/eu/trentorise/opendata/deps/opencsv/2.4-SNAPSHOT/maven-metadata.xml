@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>eu.trentorise.opendata.deps</groupId>
+  <artifactId>opencsv</artifactId>
+  <version>2.4-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20130711.174941</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20130711174941</lastUpdated>
+  </versioning>
+</metadata>

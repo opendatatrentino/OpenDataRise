@@ -1,4 +1,4 @@
-package eu.trentorise.opendatarise.operations;
+package eu.trentorise.opendata.opendatarise.operations;
 
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -17,9 +17,9 @@ import com.google.refine.model.Project;
 import com.google.refine.operations.OperationRegistry;
 import com.google.refine.util.ParsingUtilities;
 import com.google.refine.util.Pool;
-import eu.trentorise.opendatarise.ODR;
-import eu.trentorise.opendatarise.OdrException;
-import eu.trentorise.opendatarise.OdrProjectOverlay;
+import eu.trentorise.opendata.opendatarise.ODR;
+import eu.trentorise.opendata.opendatarise.OdrException;
+import eu.trentorise.opendata.opendatarise.OdrProjectOverlay;
 
 
 /**

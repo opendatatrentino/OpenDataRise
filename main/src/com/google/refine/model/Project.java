@@ -61,8 +61,8 @@ import com.google.refine.history.History;
 import com.google.refine.process.ProcessManager;
 import com.google.refine.util.ParsingUtilities;
 import com.google.refine.util.Pool;
-import eu.trentorise.opendatarise.ODR;
-import eu.trentorise.opendatarise.OdrProjectOverlay;
+import eu.trentorise.opendata.opendatarise.ODR;
+import eu.trentorise.opendata.opendatarise.OdrProjectOverlay;
 
 
 

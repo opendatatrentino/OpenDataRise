@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>eu.trentorise.opendatarise</groupId>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
         <artifactId>odrapp</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
 
-    <groupId>eu.trentorise.opendatarise</groupId>
+    <groupId>eu.trentorise.opendata.opendatarise</groupId>
     <artifactId>odrext</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -38,20 +38,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.trentorise.opendatarise</groupId>
+            <groupId>eu.trentorise.opendata.opendatarise</groupId>
             <artifactId>odrapp</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>  
         
         <dependency> 
-            <groupId>eu.trentorise.opendatadeps</groupId>
+            <groupId>eu.trentorise.opendata.deps</groupId>
             <artifactId> json </artifactId>
             <version> 20100208 </version>
             <scope>system</scope>
             <systemPath>${basedir}/../../main/webapp/WEB-INF/lib/json-20100208.jar</systemPath> 
         </dependency>
         <dependency> 
-            <groupId>eu.trentorise.opendatadeps</groupId>
+            <groupId>eu.trentorise.opendata.deps</groupId>
             <artifactId> jetty </artifactId>
             <version> 6.1.22 </version>
             <scope>system</scope>

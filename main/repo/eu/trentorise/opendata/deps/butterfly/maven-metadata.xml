@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>eu.trentorise.opendata.deps</groupId>
+  <artifactId>butterfly</artifactId>
+  <version>trunk</version>
+  <versioning>
+    <versions>
+      <version>trunk</version>
+    </versions>
+    <lastUpdated>20130711183846</lastUpdated>
+  </versioning>
+</metadata>

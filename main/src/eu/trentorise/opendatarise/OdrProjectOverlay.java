@@ -1,4 +1,4 @@
-package eu.trentorise.opendatarise;
+package eu.trentorise.opendata.opendatarise;
 
 import com.google.refine.model.OverlayModel; 
 import java.util.Properties;
