@@ -57,7 +57,7 @@ import com.google.refine.io.FileProjectManager;
 
 import edu.mit.simile.butterfly.Butterfly;
 import edu.mit.simile.butterfly.ButterflyModule;
-import eu.trentorise.opendatarise.httpwrapper.HttpWrapper;
+import eu.trentorise.opendata.opendatarise.httpwrapper.HttpWrapper;
 
 public class RefineServlet extends Butterfly {
     static private String ASSIGNED_VERSION = "0.1-SNAPSHOT";

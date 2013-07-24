@@ -1,5 +1,5 @@
 
-package eu.trentorise.opendatarise;
+package eu.trentorise.opendata.opendatarise;
 
 
 public class JustATest {

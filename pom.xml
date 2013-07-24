@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>eu.trentorise.opendatarise</groupId>
+  <groupId>eu.trentorise.opendata.opendatarise</groupId>
   <artifactId>odrapp</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -34,7 +34,7 @@
   <dependencies>
       <!--
     <dependency>
-        <groupId>eu.trentorise.opendatarise</groupId>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
         <artifactId>odrext</artifactId>
         <version>0.1-SNAPSHOT</version>
     </dependency>

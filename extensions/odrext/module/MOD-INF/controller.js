@@ -4,8 +4,8 @@ var html = "text/html";
 var encoding = "UTF-8";
 var ClientSideResourceManager = Packages.com.google.refine.ClientSideResourceManager;
 var davProject = Packages.com.google.refine.model.Project;
-var PO = Packages.eu.trentorise.opendatarise.OdrProjectOverlay;
-var ODR = Packages.eu.trentorise.opendatarise.ODR;
+var PO = Packages.eu.trentorise.opendata.opendatarise.OdrProjectOverlay;
+var ODR = Packages.eu.trentorise.opendata.opendatarise.ODR;
 var logger = ODR.logger;
 var OperationRegistry = Packages.com.google.refine.operations.OperationRegistry;
 var RefineServlet = Packages.com.google.refine.RefineServlet;
@@ -24,12 +24,12 @@ function init() {
     /*
     *  Operations
     */
-    OperationRegistry.registerOperation( module, "set-step", Packages.eu.trentorise.opendatarise.operations.SetStepOperation);
+    OperationRegistry.registerOperation( module, "set-step", Packages.eu.trentorise.opendata.opendatarise.operations.SetStepOperation);
 
     /*
      *  Commands
      */
-    RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendatarise.commands.SetStepCommand());
+    RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand());
 
 
 
