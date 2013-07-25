@@ -15,47 +15,56 @@
  *
  *******************************************************************************
  */
-
-/**
-* TODO Moaz
-*/
 package eu.trentorise.opendata.opendatarise.semantics.model.knowledge;
 
 import java.util.Locale;
 
 /**
-* TODO Moaz
- * 
- * 
+ * A concept is a language independent element that gives meaning
+ *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
- * @version July, 2013
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IConcept {
 
     /**
-     * TODO Moaz
+     * Gets the URI of the concept's Synset
+     *
+     * @return the Synset's URI as string
      */
     String getSynsetUri();
-    
 
     /**
-     * TODO Moaz
+     * Gets the common name for the concept in the given language
+     *
+     * @param language the natural language
+     * @return the common name for the concept in the given language
      */
     String getCommonlyReferredAs(Locale language);
 
     /**
-     * TODO Moaz
+     * Gets the summary of the concept in the given language
+     *
+     * @param language the natural language
+     * @return the summary of the concept in the given language
      */
     String getSummary(Locale language);
 
     /**
-     * TODO Moaz
+     * Gets the description on the concept in the given language
+     *
+     * @param language the natural language
+     * @return the description on the concept in the given language
      */
     String getDescription(Locale language);
 
     /**
-     * TODO Moaz
+     * Gets the Part of Speech (POS) of the concept in the given language
+     *
+     * @param language the natural language
+     * @return the Part of Speech (POS) of the concept in the given language
      */
-    String getPartOfSpeach(Locale language);
+    String getPartOfSpeech(Locale language);
 }

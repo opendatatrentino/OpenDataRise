@@ -22,9 +22,12 @@
 package eu.trentorise.opendata.opendatarise.semantics.model.knowledge;
 
 /**
+ * The Natural Language Processing Text is a data structure that hold the
+ * natural language text and its annotations while using the NLP services
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface INLPText {
-    
 }

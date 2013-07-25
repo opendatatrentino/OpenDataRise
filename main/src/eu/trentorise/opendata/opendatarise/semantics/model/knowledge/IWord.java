@@ -16,58 +16,64 @@
  *******************************************************************************
  */
 
-/*
- * TODO Moaz
- */
 package eu.trentorise.opendata.opendatarise.semantics.model.knowledge;
 
 import java.util.List;
 
 /**
- * TODO Moaz
- * 
+ * Represents a natural language word
  * 
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
  * @version July, 2013
  */
 public interface IWord {
-    
+
     /**
-     * TODO Moaz
+     * Gets the lemma of the word
+     *
+     * @return the lemma of the word
      */
     String getLemma();
 
     /**
-     * @return a list of concepts which connected with the given term
-     * @see Term
-     * @see Sense
+     * Gets the senses of the word
+     *
+     * @return a list of concepts which associated with the given word
      */
     List<IConcept> getSenses();
 
     /**
-     * @return the concept from the list of concepts which more specific for the given term
-     * @see Sense
+     * Gets the selected sense from the word's concepts
+     *
+     * @return the selected sense from the word's concepts
      */
     IConcept getSelectedSense();
 
-     /**
-     * TODO Moaz
+    /**
+     * Sets the token of the word
+     *
+     * @param token the token to be set
      */
     void setToken(String token);
 
-     /**
-     * TODO Moaz
+    /**
+     * Sets the lemma of the word
+     * @param lemma 
      */
     void setLemma(String lemma);
 
     /**
-     * TODO Moaz
-     */    
+     * Sets the list of concepts associated with this word
+     *
+     * @param senses the list of concepts associated with this word
+     */
     void setSenses(List<IConcept> senses);
 
     /**
-     * TODO Moaz
-     */      
+     * Sets the selected sense from the word's concepts
+     *
+     * @param selectedSense the selected sense from the word's concepts
+     */
     void setSelectedSense(IConcept selectedSense);
 }
