@@ -22,9 +22,24 @@
  */
 package eu.trentorise.opendata.opendatarise.semantics.services;
 
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
+import java.util.List;
+
 /**
- * Same as defined by moaz, make sure the query syntax is in the javadoc
+ * Interface for entity search services
+ *
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
+ *
+ * Todo: make sure the query syntax is in the javadoc
  */
 public interface ISearch {
-    
+
+    /**
+     * Performs a search for entities
+     *
+     * @param Query A string query to be executed
+     * @return the list of entities that match the query
+     */
+    List<IEntity> Search(String Query);
 }

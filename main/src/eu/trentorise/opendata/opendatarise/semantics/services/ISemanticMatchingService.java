@@ -27,13 +27,25 @@ import eu.trentorise.opendata.opendatarise.semantics.services.model.ICorresponde
 import java.util.List;
 
 /**
+ * A service that performs semantic matching between two schemas
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface ISemanticMatchingService {
-    
-    
+
+    /*
+     * Returns the correspondence between the source and the target contexts. 
+     * The first context is given by a root node and a list of columns. The 
+     * second context is given by the definition of an entity type
+     * 
+     * @param sourceName - The name of the root node in the source tree
+     * @param sourceNodes - Names of the source nodes under the source root node
+     * @param targetEntityType - the target entity type
+     * 
+     * @return - the correspondence
+     */
     ICorrespondence matchSchemas(String souceName, List<String> sourceColumns,
             IEntityType targetEntityType);
-    
 }

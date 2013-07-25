@@ -28,16 +28,34 @@ import eu.trentorise.opendata.opendatarise.semantics.model.entity.IMatchingSet;
 import java.util.List;
 
 /**
+ * Entity type services allow reading and modifying entity types
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IEntityTypeService {
-    
-    public List<IEntityType> getAllEntityTypes();
-    
-    public void addAttributeDefToEtype(IEntityType entityType, IAttributeDef attrDef);
-    
-    public void addMatchingSetToEtype(IEntityType entityType, IMatchingSet matchingSet);
-    
-    
+
+    /**
+     * Reads all entity types available in the system
+     *
+     * @return list of all entity types in the system
+     */
+    List<IEntityType> getAllEntityTypes();
+
+    /**
+     * Adds an attribute definition to an entity type
+     *
+     * @param entityType the entity type that will own the attribute definition
+     * @param attrDef the attribute definition to be added
+     */
+    void addAttributeDefToEtype(IEntityType entityType, IAttributeDef attrDef);
+
+    /**
+     * Adds a matching set to an entity type
+     *
+     * @param entityType the entity type that will own the matching set
+     * @param matchingSet the matching set to be added
+     */
+    void addMatchingSetToEtype(IEntityType entityType, IMatchingSet matchingSet);
 }

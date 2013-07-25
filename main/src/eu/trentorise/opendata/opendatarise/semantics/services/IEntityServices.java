@@ -27,25 +27,68 @@ import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IValue;
 
 /**
+ * Entity services allow CRUD on entities and attributes
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IEntityServices {
-    
-    public void createEntity(IEntity entity);
-    
-    public void updateEntity(IEntity entity);
-    
-    public void deleteEntity(IEntity entity);
-    
-    public void readEntity(IEntity entity);
-    
-    public void addAttribute(IEntity entity, IAttribute attribute);
-    
-    public void addAttributeValue(IEntity entity, IAttribute attribute, 
+
+    /**
+     * Creates an entity
+     *
+     * @param entity the entity to be created
+     */
+    void createEntity(IEntity entity);
+
+    /**
+     * Updates an entity
+     *
+     * @param entity the entity to be updated
+     */
+    void updateEntity(IEntity entity);
+
+    /**
+     * Deletes an entity
+     *
+     * @param entity the entity to be deleted
+     */
+    void deleteEntity(IEntity entity);
+
+    /**
+     * Reads an entity given its entity ID
+     *
+     * @param ID the ID of the entity
+     * @return the entity which has this ID, or null if not found
+     */
+    IEntity readEntity(long ID);
+
+    /**
+     * Adds an attribute to an entity
+     *
+     * @param entity the entity that
+     * @param attribute
+     */
+    void addAttribute(IEntity entity, IAttribute attribute);
+
+    /**
+     * Adds an attribute value to an attribute in an entity
+     *
+     * @param entity the entity which owns the attribute
+     * @param attribute the attribute that owns the value
+     * @param value the value to be added
+     */
+    void addAttributeValue(IEntity entity, IAttribute attribute,
             IValue value);
-    
-    public void updateAttributeValue(IEntity entity, IAttribute attribute, 
+
+    /**
+     * Updates an attribute value in an attribute in an entity
+     *
+     * @param entity the entity which owns the attribute
+     * @param attribute the attribute that owns the value
+     * @param newValue the value to be updated
+     */
+    void updateAttributeValue(IEntity entity, IAttribute attribute,
             IValue newValue);
-    
 }

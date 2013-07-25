@@ -25,11 +25,19 @@ package eu.trentorise.opendata.opendatarise.semantics.services;
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
 
 /**
+ * Identity management services that handles the creation of IDs for entities
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IIdentityServices {
-    
-    public Long createGUID(IEntity entity);
-    
+
+    /**
+     * Creates a Globally Unique Identifier (GUID) for the given entity
+     *
+     * @param entity
+     * @return the created GUID of the entity
+     */
+    Long createGUID(IEntity entity);
 }
