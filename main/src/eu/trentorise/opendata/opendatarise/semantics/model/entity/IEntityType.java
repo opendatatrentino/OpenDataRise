@@ -26,31 +26,88 @@ import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IConcept;
 import java.util.List;
 
 /**
+ * The entity type defines the attributes that the entity can have
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IEntityType {
-    
-    public Long getGUID();
-    
-    public String getURI();
 
-    public String getName();
-    
-    public IConcept getConcept();
-    
-    public void setConcept(IConcept concept);
-    
-    public List<IAttributeDef> getAttributeDefs();
+    /**
+     * Gets the Globally Unique Identifier (GUID) for the entity type
+     *
+     * @return the Globally Unique Identifier (GUID) represented as Long
+     */
+    Long getGUID();
 
-    public void addAttributeDef(IAttributeDef attrDef);
-    
-    public void removeAttributeDef(IAttributeDef attrDef);
-    
-    public List<IMatchingSet> getMatchingSets();
-    
-    public void removeMatchingSet(IMatchingSet matchingSet);
-    
-    public void addMatchingSet(IMatchingSet matchingSet);
+    /**
+     * Gets the URI of the entity type
+     *
+     * @return a string that holds the URI of the entity type
+     */
+    String getURI();
 
+    /**
+     * Gets the name of the entity type
+     *
+     * @return the name of the entity type
+     */
+    String getName();
+
+    /**
+     * Gets the concept of the entity type
+     *
+     * @return the concept of the entity type
+     */
+    IConcept getConcept();
+
+    /**
+     * Sets the concept of the entity type
+     *
+     * @param concept the concept of the entity type
+     */
+    void setConcept(IConcept concept);
+
+    /**
+     * Gets the attribute definitions for the entity type
+     *
+     * @return the attribute definitions for the entity type
+     */
+    List<IAttributeDef> getAttributeDefs();
+
+    /**
+     * Adds an attribute definition to the entity type
+     *
+     * @param attrDef the attribute definition to be added
+     */
+    void addAttributeDef(IAttributeDef attrDef);
+
+    /**
+     * Removes an attribute definition from the entity type
+     *
+     * @param attrDef the attribute definition to be removed
+     */
+    void removeAttributeDef(IAttributeDef attrDef);
+
+    /**
+     * Gets the matching sets
+     *
+     * @return the matching sets
+     */
+    List<IMatchingSet> getMatchingSets();
+
+    /**
+     * Removes a matching set
+     *
+     * @param matchingSet the matching set to be removed
+     */
+    void removeMatchingSet(IMatchingSet matchingSet);
+
+    /**
+     * Adds a matching set
+     *
+     * @param matchingSet the matching set to be added
+     */
+    void addMatchingSet(IMatchingSet matchingSet);
 }

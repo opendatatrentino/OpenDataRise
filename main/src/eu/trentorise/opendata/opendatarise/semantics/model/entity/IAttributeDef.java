@@ -25,26 +25,69 @@ package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IConcept;
 
 /**
+ * The attribute definition stores information about the attributes, such as the
+ * Name, the Concept and if the attribute is set or not.
  *
- * TODO MOAZ
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IAttributeDef {
-    
-    
-    public Long getGUID();
 
-    public String getURI();
-    
-    public String getName();
+    /**
+     * Gets the Globally Unique Identifier (GUID) for the attribute definition
+     *
+     * @return the Globally Unique Identifier (GUID) represented as Long
+     */
+    Long getGUID();
 
-    public String getDataType();
+    /**
+     * Gets the URI of the attribute definition
+     *
+     * @return a string that holds the URI of the attribute definition
+     */
+    String getURI();
 
-    public IConcept getConcept();
+    /**
+     * Gets the attribute name
+     *
+     * @return the attribute name as string
+     */
+    String getName();
 
-    public Boolean getIsSet();
-    
-    public String getRegularExpressin();
-    
-    public void setRegularExpressin(String regularExpression);
-    
+    /**
+     * Gets the data type of the attribute definition
+     *
+     * @return the data type as string
+     */
+    String getDataType();
+
+    /**
+     * Gets the concept of the attribute definition
+     *
+     * @return the concept of the attribute definition
+     */
+    IConcept getConcept();
+
+    /**
+     * Gets the IsSet flag that tells if the attribute can hold a set of values
+     * or it can hole only one value.
+     *
+     * @return true if the attribute can hold a set or false if it can hold only
+     * one value.
+     */
+    Boolean getIsSet();
+
+    /**
+     * Gets the regular expression that all the attribute values should follow
+     *
+     * @return the regular expression as string
+     */
+    String getRegularExpression();
+
+    /**
+     * Set the regular expression that all the attribute values should follow
+     *
+     * @param regularExpression the regular expression as string
+     */
+    void setRegularExpressin(String regularExpression);
 }

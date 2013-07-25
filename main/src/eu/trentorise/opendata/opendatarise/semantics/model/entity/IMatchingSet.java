@@ -25,18 +25,47 @@ package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 import java.util.List;
 
 /**
+ * The matching set are a set of attribute definitions to be used in entity
+ * matching
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IMatchingSet {
-    
-    public Long getGUID();
-    
-    public String getURI();
-    
-    public List<IAttributeDef> getAttributeDefs();
 
-    public void addAttributeDef(IAttributeDef attrDef);
-    
-    public void removeAttributeDef(IAttributeDef attrDef);
+    /**
+     * Gets the Globally Unique Identifier (GUID) for the Matching Set
+     *
+     * @return the Globally Unique Identifier (GUID) represented as Long
+     */
+    Long getGUID();
+
+    /**
+     * Gets the URI of the Matching Set
+     *
+     * @return a string that holds the URI of the Matching Set
+     */
+    String getURI();
+
+    /**
+     * Gets the attribute definitions for the Matching Set
+     *
+     * @return the attribute definitions for the Matching Set
+     */
+    List<IAttributeDef> getAttributeDefs();
+
+    /**
+     * Adds an attribute definition to the Matching Set
+     *
+     * @param attrDef the attribute definition to be added
+     */
+    void addAttributeDef(IAttributeDef attrDef);
+
+    /**
+     * Removes an attribute definition from the Matching Set
+     *
+     * @param attrDef the attribute definition to be removed
+     */
+    void removeAttributeDef(IAttributeDef attrDef);
 }

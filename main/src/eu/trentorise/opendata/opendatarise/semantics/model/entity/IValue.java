@@ -23,13 +23,32 @@
 package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 
 /**
+ * Represents an attribute value
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IValue {
-    public Long getGUID();
-    
-    public Object getValue();
-    
-    public void setValue(Object value);
+
+    /**
+     * Gets the GUID of the value
+     *
+     * @return the GUID
+     */
+    Long getGUID();
+
+    /**
+     * Gets the value
+     *
+     * @return the value as an Object
+     */
+    Object getValue();
+
+    /**
+     * Sets the value
+     *
+     * @param value the value to be set
+     */
+    void setValue(Object value);
 }

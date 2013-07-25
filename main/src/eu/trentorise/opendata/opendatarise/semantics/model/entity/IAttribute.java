@@ -22,29 +22,70 @@
  */
 package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 
-
 import java.util.List;
 
 /**
+ * An attribute is used in entities. It holds one or more values.
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface IAttribute {
-    
-    public Long getGUID();
 
-    public IAttributeDef getAttributeDefinition();
+    /**
+     * Gets the Globally Unique Identifier (GUID) for the attribute
+     *
+     * @return the Globally Unique Identifier (GUID) represented as Long
+     */
+    Long getGUID();
 
-    public void setAttributeDefinition(IAttributeDef ad);
+    /**
+     * Gets the attribute definition of the attribute
+     *
+     * @return the attribute definition of the attribute
+     */
+    IAttributeDef getAttributeDefinition();
 
-    public void addValue(IValue value);
-    
-    public void removeValue(IValue value);
-    
-    public List<IValue> getValues();
+    /**
+     * Sets the attribute definition of the attribute
+     *
+     * @param ad the attribute definition of the attribute
+     */
+    void setAttributeDefinition(IAttributeDef ad);
 
-    public String getFirstValue();
+    /**
+     * Adds a value to the attribute
+     *
+     * @param value the value to be added
+     */
+    void addValue(IValue value);
 
-    public Long getValuesCount();
+    /**
+     * Removes a value from the attribute
+     *
+     * @param value the value to be removed
+     */
+    void removeValue(IValue value);
 
+    /**
+     * Returns all the value of the attribute
+     *
+     * @return list of all values of the attribute
+     */
+    List<IValue> getValues();
+
+    /**
+     * Gets the first value of the attribute
+     *
+     * @return the first value of the attribute
+     */
+    String getFirstValue();
+
+    /**
+     * Gets the number of values in the attribute
+     *
+     * @return the number of values in the attribute
+     */
+    Long getValuesCount();
 }
