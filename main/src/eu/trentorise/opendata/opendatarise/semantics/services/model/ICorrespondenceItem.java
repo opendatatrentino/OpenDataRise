@@ -46,9 +46,10 @@ public interface ICorrespondenceItem {
     String getTarget();
 
     /**
-     * Gets the relation char in the Correspondence item
+     * Gets the relation character in the Correspondence item. It can be one of
+     * the following characters: =<>!LMX?
      *
-     * @return the relation char
+     * @return the relation character
      */
     char getRelation();
 }

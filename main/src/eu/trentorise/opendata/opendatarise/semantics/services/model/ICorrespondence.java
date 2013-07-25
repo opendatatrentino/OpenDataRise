@@ -22,10 +22,29 @@
  */
 package eu.trentorise.opendata.opendatarise.semantics.services.model;
 
+import java.util.List;
+
 /**
+ * <i>ICorrespondence</i> represents the output of the semantic matching. It is 
+ * a list of <i>ICorrespondenceItem</i>s.
  *
  * @author Juan
+ * @author Moaz Reyad <moazreyad@gmail.com>
+ * @date Jul 24, 2013
  */
 public interface ICorrespondence {
-    
+
+    /**
+     * Sets the list of correspondence items
+     *
+     * @param correspondenceItems the list of correspondence items
+     */
+    void setCorrespondenceItems(List<ICorrespondenceItem> correspondenceItems);
+
+    /**
+     * Gets the list of correspondence items
+     *
+     * @return the list of correspondence items
+     */
+    List<ICorrespondenceItem> getCorrespondenceItems();
 }
