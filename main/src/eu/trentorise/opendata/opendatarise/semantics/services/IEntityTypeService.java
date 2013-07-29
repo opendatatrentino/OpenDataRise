@@ -24,7 +24,7 @@ package eu.trentorise.opendata.opendatarise.semantics.services;
 
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntityType;
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IMatchingSet;
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IUniqueIndexes;
 import java.util.List;
 
 /**
@@ -57,5 +57,5 @@ public interface IEntityTypeService {
      * @param entityType the entity type that will own the matching set
      * @param matchingSet the matching set to be added
      */
-    void addMatchingSetToEtype(IEntityType entityType, IMatchingSet matchingSet);
+    void addMatchingSetToEtype(IEntityType entityType, IUniqueIndexes matchingSet);
 }

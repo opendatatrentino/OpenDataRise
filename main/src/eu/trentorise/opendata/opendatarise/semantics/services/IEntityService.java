@@ -52,17 +52,17 @@ public interface IEntityService {
     /**
      * Deletes an entity
      *
-     * @param entity the entity to be deleted
+     * @param entityID the local ID of the entity to be deleted
      */
-    void deleteEntity(IEntity entity);
+    void deleteEntity(long entityID);
 
     /**
      * Reads an entity given its local entity ID
      *
-     * @param ID the ID of the entity
+     * @param entityID the local ID of the entity
      * @return the entity which has this ID, or null if not found
      */
-    IEntity readEntity(long ID);
+    IEntity readEntity(long entityID);
 
     /**
      * Adds an attribute to an entity

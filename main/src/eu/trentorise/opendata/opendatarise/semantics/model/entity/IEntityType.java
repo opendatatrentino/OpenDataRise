@@ -88,28 +88,28 @@ public interface IEntityType {
     /**
      * Removes an attribute definition from the entity type
      *
-     * @param attrDef the attribute definition to be removed
+     * @param attrDefID the local ID of the attribute definition to be removed
      */
-    void removeAttributeDef(IAttributeDef attrDef);
+    void removeAttributeDef(long attrDefID);
 
     /**
-     * Gets the matching sets
+     * Gets the unique indexes
      *
-     * @return the matching sets
+     * @return the unique indexes
      */
-    List<IMatchingSet> getMatchingSets();
+    List<IUniqueIndexes> getUniqueIndexes();
 
     /**
-     * Removes a matching set
+     * Removes Unique Indexes
      *
-     * @param matchingSet the matching set to be removed
+     * @param uniqueIndexesID the local ID of the unique indexes to be removed
      */
-    void removeMatchingSet(IMatchingSet matchingSet);
+    void removeUniqueIndexes(long uniqueIndexesID);
 
     /**
-     * Adds a matching set
+     * Adds Unique Indexes
      *
-     * @param matchingSet the matching set to be added
+     * @param uniqueIndexes the unique indexes to be added
      */
-    void addMatchingSet(IMatchingSet matchingSet);
+    void addUniqueIndexes(IUniqueIndexes uniqueIndexes);
 }

@@ -64,9 +64,9 @@ public interface IAttribute {
     /**
      * Removes a value from the attribute
      *
-     * @param value the value to be removed
+     * @param valueID the local ID of the value to be removed
      */
-    void removeValue(IValue value);
+    void removeValue(long valueID);
 
     /**
      * Returns all the value of the attribute
