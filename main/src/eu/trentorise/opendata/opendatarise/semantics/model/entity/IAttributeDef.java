@@ -75,7 +75,7 @@ public interface IAttributeDef {
      * @return true if the attribute can hold a set or false if it can hold only
      * one value.
      */
-    Boolean getIsSet();
+    boolean isSet();
 
     /**
      * Gets the regular expression that all the attribute values should follow
@@ -97,5 +97,5 @@ public interface IAttributeDef {
      * @return true if the attribute is mandatory or false if it is not
      * mandatory
      */
-    Boolean getIsMandatory();
+    boolean isMandatory();
 }

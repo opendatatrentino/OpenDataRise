@@ -34,7 +34,7 @@ public interface IConcept {
      *
      * @return the Synset's URI as string
      */
-    String getSynsetUri();
+    String getSynsetURI();
 
     /**
      * Gets the common name for the concept in the given language

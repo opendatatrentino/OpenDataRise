@@ -46,6 +46,6 @@ public interface ISemanticMatchingService {
      * 
      * @return - the correspondence
      */
-    ICorrespondence matchSchemas(String souceName, List<String> sourceColumns,
+    ICorrespondence matchSchemas(String sourceName, List<String> sourceColumns,
             IEntityType targetEntityType);
 }

@@ -33,7 +33,7 @@ import eu.trentorise.opendata.opendatarise.semantics.model.entity.IValue;
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */
-public interface IEntityServices {
+public interface IEntityService {
 
     /**
      * Creates an entity

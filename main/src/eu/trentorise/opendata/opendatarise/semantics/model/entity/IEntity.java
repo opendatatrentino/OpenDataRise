@@ -59,42 +59,42 @@ public interface IEntity {
      *
      * @return a string that holds the URL of the entity
      */
-    String getUrl();
+    String getURL();
 
     /**
      * Sets the URL of the entity
      *
      * @param url a string that holds the URL of the entity
      */
-    void setUrl(String url);
+    void setURL(String url);
 
     /**
      * Gets the identifier of the entity owner.
      *
      * @return the owner's identifier as Long
      */
-    Long getOwnerId();
+    Long getOwnerID();
 
     /**
      * Sets the identifier of the entity owner.
      *
      * @param ownerId the owner's identifier as Long
      */
-    void setOwnerId(Long ownerId);
+    void setOwnerID(Long ownerID);
 
     /**
      * Gets the external identifier of the entity
      * 
      * @return a string representing the external identifier of the entity
      */
-    String getExternalId();
+    String getExternalID();
 
     /**
      * Sets the external identifier of the entity
      * 
      * @param externalId a string representing the external identifier of the entity
      */
-    void setExternalId(String externalId);
+    void setExternalID(String externalID);
 
     /**
      * Gets the list of attributes in this entity
@@ -122,7 +122,7 @@ public interface IEntity {
      * 
      * @return the entity type
      */
-    IEntityType gettype();
+    IEntityType getEtype();
 
     /**
      * Sets the entity type

@@ -31,7 +31,7 @@ import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */
-public interface IIdentityServices {
+public interface IIdentityService {
 
     /**
      * Creates a Globally Unique Identifier (GUID) for the given entity

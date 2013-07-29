@@ -36,10 +36,10 @@ public interface IKnowledgeService {
 
     /**
      * Reading words by lemma
-     * @param wordLema the word's lemma
+     * @param wordLemma the word's lemma
      * @return the list of words that have this lemma
      */
-    List<IWord> readByWordLema(String wordLema);
+    List<IWord> readByWordLemma(String wordLemma);
 
     /**
      * Reading a word by a prefix
