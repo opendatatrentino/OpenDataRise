@@ -69,20 +69,6 @@ public interface IEntity {
     void setURL(String url);
 
     /**
-     * Gets the identifier of the entity owner.
-     *
-     * @return the owner's identifier as Long
-     */
-    Long getOwnerID();
-
-    /**
-     * Sets the identifier of the entity owner.
-     *
-     * @param ownerId the owner's identifier as Long
-     */
-    void setOwnerID(Long ownerID);
-
-    /**
      * Gets the external identifier of the entity
      * 
      * @return a string representing the external identifier of the entity
