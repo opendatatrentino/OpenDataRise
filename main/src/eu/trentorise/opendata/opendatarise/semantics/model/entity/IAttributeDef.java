@@ -23,6 +23,7 @@
 package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 
 import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IConcept;
+import java.util.Locale;
 
 /**
  * The attribute definition stores information about the attributes, such as the
@@ -48,11 +49,12 @@ public interface IAttributeDef {
     String getURI();
 
     /**
-     * Gets the attribute name
+     * Gets the attribute name in the given language
      *
+     * @param locale the language used to return the attribute name
      * @return the attribute name as string
      */
-    String getName();
+    String getName(Locale locale);
 
     /**
      * Gets the data type of the attribute definition

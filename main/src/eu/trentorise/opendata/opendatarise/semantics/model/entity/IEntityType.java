@@ -24,6 +24,7 @@ package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 
 import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IConcept;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The entity type defines the attributes that the entity can have
@@ -49,11 +50,12 @@ public interface IEntityType {
     String getURI();
 
     /**
-     * Gets the name of the entity type
+     * Gets the name of the entity type in the given language
      *
+     * @param locale the language used to return the entity type name
      * @return the name of the entity type
      */
-    String getName();
+    String getName(Locale locale);
 
     /**
      * Gets the concept of the entity type
