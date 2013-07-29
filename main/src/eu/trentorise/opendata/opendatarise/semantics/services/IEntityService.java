@@ -57,7 +57,7 @@ public interface IEntityService {
     void deleteEntity(IEntity entity);
 
     /**
-     * Reads an entity given its entity ID
+     * Reads an entity given its local entity ID
      *
      * @param ID the ID of the entity
      * @return the entity which has this ID, or null if not found
