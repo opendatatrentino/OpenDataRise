@@ -26,6 +26,7 @@ OpenDataRise adds a semantic layer upon the OpenRefine platform, so it owes a gr
 ##### OpenDataRise contributors:
 
  - David Leoni - Trento RISE 
+ - Juan Pane - DISI at University of Trento
  - Alberto Zanella - Trento RISE
  - Moaz Reyad - DISI at University of Trento
  
