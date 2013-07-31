@@ -24,7 +24,7 @@ import java.util.List;
  * An attribute is used in entities. It holds one or more values.
  *
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface IAttribute {

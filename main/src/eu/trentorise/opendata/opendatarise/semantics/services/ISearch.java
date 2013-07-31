@@ -25,7 +25,7 @@ import java.util.List;
  * Interface for entity search services
  * 
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  *
  * Todo: make sure the query syntax is in the javadoc

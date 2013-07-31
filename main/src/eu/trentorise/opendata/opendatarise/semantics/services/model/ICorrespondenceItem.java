@@ -23,7 +23,7 @@ package eu.trentorise.opendata.opendatarise.semantics.services.model;
  * It is a tuple of Source, Relation and Target.
  *
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface ICorrespondenceItem {

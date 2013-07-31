@@ -24,7 +24,7 @@ import java.util.Locale;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface IConcept {

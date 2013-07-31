@@ -26,7 +26,7 @@ package eu.trentorise.opendata.opendatarise.semantics.model.knowledge;
  * natural language text and its annotations while using the NLP services
  *
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface INLPText {

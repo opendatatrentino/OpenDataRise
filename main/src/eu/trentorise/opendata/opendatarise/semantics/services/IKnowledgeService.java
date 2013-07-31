@@ -25,7 +25,7 @@ import java.util.List;
  * Knowledge services are used to read words from the a knowledge base.
  *
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface IKnowledgeService {

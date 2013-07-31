@@ -27,7 +27,7 @@ import java.util.List;
  * Entity type services allow reading and modifying entity types
  *
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface IEntityTypeService {

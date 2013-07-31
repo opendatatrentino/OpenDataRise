@@ -25,6 +25,7 @@ import java.util.List;
  * 
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Sergey Kanshin <kanshin@disi.unitn.it>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @version July, 2013
  */
 public interface IWord {

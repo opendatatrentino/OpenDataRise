@@ -26,7 +26,7 @@ import eu.trentorise.opendata.opendatarise.semantics.model.entity.IValue;
  * Entity services allow CRUD on entities and attributes
  *
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface IEntityService {

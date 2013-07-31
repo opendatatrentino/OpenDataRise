@@ -26,7 +26,7 @@ import java.util.Locale;
  * Name, the Concept and if the attribute is set or not.
  *
  * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <moazreyad@gmail.com>
+ * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
 public interface IAttributeDef {
