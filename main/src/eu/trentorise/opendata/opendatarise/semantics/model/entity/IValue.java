@@ -25,7 +25,7 @@ package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 /**
  * Represents an attribute value
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

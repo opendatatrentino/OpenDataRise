@@ -25,6 +25,7 @@ package eu.trentorise.opendata.opendatarise.semantics.services;
 /**
  * TODO same as the one defined by moaz
  *
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

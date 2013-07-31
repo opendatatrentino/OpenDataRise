@@ -26,6 +26,7 @@ package eu.trentorise.opendata.opendatarise.semantics.services.model;
  * <i>ICorrespondenceItem</i> represents an item in the <i>ICorrespondence</i>.
  * It is a tuple of Source, Relation and Target.
  *
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

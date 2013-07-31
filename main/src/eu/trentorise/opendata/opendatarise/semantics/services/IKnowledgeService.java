@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Knowledge services are used to read words from the a knowledge base.
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

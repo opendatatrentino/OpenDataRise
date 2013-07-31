@@ -29,6 +29,7 @@ import java.util.Locale;
  * The attribute definition stores information about the attributes, such as the
  * Name, the Concept and if the attribute is set or not.
  *
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

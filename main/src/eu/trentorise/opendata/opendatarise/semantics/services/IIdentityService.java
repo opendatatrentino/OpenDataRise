@@ -27,7 +27,7 @@ import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
 /**
  * Identity management services that handles the creation of IDs for entities
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

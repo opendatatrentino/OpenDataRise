@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Entity type services allow reading and modifying entity types
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

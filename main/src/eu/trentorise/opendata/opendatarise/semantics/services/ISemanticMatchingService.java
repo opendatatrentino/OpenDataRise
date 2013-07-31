@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * A service that performs semantic matching between two schemas
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

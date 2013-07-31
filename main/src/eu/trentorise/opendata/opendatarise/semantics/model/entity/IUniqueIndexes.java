@@ -28,7 +28,7 @@ import java.util.List;
  * The unique indexes are a set of attribute definitions to be used in entity
  * matching
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

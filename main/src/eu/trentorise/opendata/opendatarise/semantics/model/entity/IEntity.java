@@ -25,9 +25,9 @@ package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 import java.util.List;
 
 /**
- * An entity is a representation of real world object. 
- * 
- * @author Juan
+ * An entity is a representation of real world object.
+ *
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

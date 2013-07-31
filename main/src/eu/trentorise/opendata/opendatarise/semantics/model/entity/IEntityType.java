@@ -29,7 +29,7 @@ import java.util.Locale;
 /**
  * The entity type defines the attributes that the entity can have
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

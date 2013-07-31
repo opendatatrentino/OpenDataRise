@@ -28,7 +28,7 @@ import java.util.List;
  * <i>ICorrespondence</i> represents the output of the semantic matching. It is 
  * a list of <i>ICorrespondenceItem</i>s.
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */

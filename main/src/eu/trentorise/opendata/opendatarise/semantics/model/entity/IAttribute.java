@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * An attribute is used in entities. It holds one or more values.
  *
- * @author Juan
+ * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <moazreyad@gmail.com>
  * @date Jul 24, 2013
  */
