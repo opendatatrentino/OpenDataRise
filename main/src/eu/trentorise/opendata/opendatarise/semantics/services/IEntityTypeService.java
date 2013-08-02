@@ -48,10 +48,10 @@ public interface IEntityTypeService {
     void addAttributeDefToEtype(IEntityType entityType, IAttributeDef attrDef);
 
     /**
-     * Adds a matching set to an entity type
+     * Adds a unique index to an entity type
      *
      * @param entityType the entity type that will own the matching set
-     * @param matchingSet the matching set to be added
+     * @param uniqueIndex the unique index to be added
      */
-    void addMatchingSetToEtype(IEntityType entityType, IUniqueIndexes matchingSet);
+    void addUniqueIndexToEtype(IEntityType entityType, IUniqueIndexes uniqueIndex);
 }
