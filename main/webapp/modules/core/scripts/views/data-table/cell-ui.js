@@ -50,7 +50,7 @@ DataTableCellUI.prototype._render = function() {
 
   var editLink = $('<a href="javascript:{}">&nbsp;</a>')
   .addClass("data-table-cell-edit")
-  .attr("title", "Edit this cell")
+  .attr("title", $.i18n._('core-views')["edit-cell"])
   .appendTo(divContent)
   .click(function() { self._startEdit(this); });
 
@@ -92,7 +92,7 @@ DataTableCellUI.prototype._render = function() {
       $('<span>').addClass("data-table-recon-new").text("new").appendTo(divContent);
 
       $('<a href="javascript:{}"></a>')
-      .text("Choose new match")
+      .text($.i18n._('core-views')["choose-match"])
       .addClass("data-table-recon-action")
       .appendTo(divContent).click(function(evt) {
         self._doRematch();
@@ -105,14 +105,14 @@ DataTableCellUI.prototype._render = function() {
       .appendTo(divContent);
 
       if (service && (service.view) && (service.view.url)) {
-        a.attr("href", service.view.url.replace("{{id}}", match.id));
+        a.attr("href", service.view.url.replace("{{id}}", encodeURIComponent(match.id)));
       } else if (ReconciliationManager.isFreebaseIdOrMid(r.identifierSpace)) {
         a.attr("href", "http://www.freebase.com/view" + match.id);
       }
 
       $('<span> </span>').appendTo(divContent);
       $('<a href="javascript:{}"></a>')
-      .text("Choose new match")
+      .text($.i18n._('core-views')["choose-match"])
       .addClass("data-table-recon-action")
       .appendTo(divContent)
       .click(function(evt) {
@@ -130,14 +130,14 @@ DataTableCellUI.prototype._render = function() {
 
             $('<a href="javascript:{}">&nbsp;</a>')
             .addClass("data-table-recon-match-similar")
-            .attr("title", "Match this topic to this and all identical cells")
+            .attr("title", $.i18n._('core-views')["match-all-cells"])
             .appendTo(li).click(function(evt) {
               self._doMatchTopicToSimilarCells(candidate);
             });
 
             $('<a href="javascript:{}">&nbsp;</a>')
             .addClass("data-table-recon-match")
-            .attr("title", "Match this topic to this cell")
+            .attr("title", $.i18n._('core-views')["match-this-cell"] )
             .appendTo(li).click(function(evt) {
               self._doMatchTopicToOneCell(candidate);
             });
@@ -148,18 +148,18 @@ DataTableCellUI.prototype._render = function() {
             .text(candidate.name)
             .appendTo(li);
 
-            // TODO: replace view URL with local code?
             if ((service) && (service.view) && (service.view.url)) {
-              a.attr("href", service.view.url.replace("{{id}}", candidate.id));
+              a.attr("href", service.view.url.replace("{{id}}", encodeURIComponent(candidate.id)));
             } else if (ReconciliationManager.isFreebaseIdOrMid(r.identifierSpace)) {
               a.attr("href", "http://www.freebase.com/view" + candidate.id);
             }
 
             var preview = null;
-            if ((service) && (service.preview)) {
+            if ((service) && (service.preview) 
+                && service.preview.url.indexOf("http://www.freebase.com/widget/topic") < 0) {
               preview = service.preview;
             } else if (ReconciliationManager.isFreebaseIdOrMid(r.identifierSpace)) {
-              preview = DataTableCellUI.topicBlockPreview;
+              preview = DataTableCellUI.internalPreview;
             }
             if (preview) {
               a.click(function(evt) {
@@ -188,19 +188,19 @@ DataTableCellUI.prototype._render = function() {
         var liNew = $('<div></div>').addClass("data-table-recon-candidate").appendTo(ul);
         $('<a href="javascript:{}">&nbsp;</a>')
         .addClass("data-table-recon-match-similar")
-        .attr("title", "Create a new topic for this and all identical cells")
+        .attr("title", $.i18n._('core-views')["create-topic-cells"])
         .appendTo(liNew).click(function(evt) {
           self._doMatchNewTopicToSimilarCells();
         });
 
         $('<a href="javascript:{}">&nbsp;</a>')
         .addClass("data-table-recon-match")
-        .attr("title", "Create a new topic for this cell")
+        .attr("title", $.i18n._('core-views')["create-topic-cell"])
         .appendTo(liNew).click(function(evt) {
           self._doMatchNewTopicToOneCell();
         });
 
-        $('<span>').text("Create new topic").appendTo(liNew);
+        $('<span>').text($.i18n._('core-views')["create-topic"]).appendTo(liNew);
 
         var suggestOptions;
         var addSuggest = false;
@@ -218,7 +218,7 @@ DataTableCellUI.prototype._render = function() {
             self._searchForMatch(suggestOptions);
             return false;
           })
-          .text("Search for match")
+          .text($.i18n._('core-views')["search-match"])
           .appendTo(extraChoices);
         }
       }
@@ -316,6 +316,15 @@ DataTableCellUI.prototype._searchForMatch = function(suggestOptions) {
   var self = this;
   var frame = $(DOM.loadHTML("core", "scripts/views/data-table/cell-recon-search-for-match.html"));
   var elmts = DOM.bind(frame);
+  
+  elmts.dialogHeader.html($.i18n._('core-views')["search-match"]);
+  elmts.or_views_searchFor.html($.i18n._('core-views')["search-for"]);
+  elmts.or_views_matchOther.html($.i18n._('core-views')["match-other"]);
+  elmts.or_views_matchThis.html($.i18n._('core-views')["match-this"]);
+  elmts.okButton.html($.i18n._('core-buttons')["match"]);
+  elmts.newButton.html($.i18n._('core-buttons')["new-topic"]);
+  elmts.clearButton.html($.i18n._('core-buttons')["dont-reconcile"]);
+  elmts.cancelButton.html($.i18n._('core-buttons')["cancel"]);
 
   var level = DialogSystem.showDialog(frame);
   var dismiss = function() {
@@ -427,34 +436,47 @@ DataTableCellUI.prototype._postProcessSeveralCells = function(command, params, b
   );
 };
 
-DataTableCellUI.topicBlockPreview = {
-  url: 'http://www.freebase.com/widget/topic{{id}}?mode=content&blocks=[{"block":"full_info"},{"block":"article_props"}]',
+DataTableCellUI.internalPreview = {
+  srchurl: 'https://www.googleapis.com/freebase/v1/search?filter=(all mid:${id})&output=(notable:/client/summary description type)&key='+CustomSuggest.FREEBASE_API_KEY+"&callback=?",
+  imgurl : 'https://www.googleapis.com/freebase/v1/image${id}?maxwidth=75&errorid=/freebase/no_image_png&key='+CustomSuggest.FREEBASE_API_KEY,
   width: 430,
   height: 300
 };
 
-// TODO: Inject code to format using Suggest here?
 DataTableCellUI.prototype._previewCandidateTopic = function(candidate, elmt, preview) {
   var self = this;
   var id = candidate.id;
-  var url = preview.url.replace("{{id}}", id);
-
   var fakeMenu = MenuSystem.createMenu();
   fakeMenu
   .width(414)
   .addClass('data-table-topic-popup')
   .html(DOM.loadHTML("core", "scripts/views/data-table/cell-recon-preview-popup-header.html"));
 
-  var iframe = $('<iframe></iframe>')
-  .width(preview.width)
-  .height(preview.height)
-  .attr("src", url)
-  .appendTo(fakeMenu);
+  if (preview && preview.url) { // Service has a preview URL associated with it
+    var url = preview.srch.replace("{{id}}", encodeURIComponent(id));
+    var iframe = $('<iframe></iframe>')
+    .width(preview.width)
+    .height(preview.height)
+    .attr("src", url)
+    .appendTo(fakeMenu);
+  } else { // Otherwise use our internal preview
+    var url = DataTableCellUI.internalPreview.srchurl.replace("\${id}",encodeURIComponent(id));
+    $.ajax(url,{dataType:"jsonp"}).done(function(searchResponse) {
+      var data = searchResponse.result[0];
+      var html = $.suggest.suggest.create_flyout(data, preview.imgurl);
+      fakeMenu.append(html);
+    });
+  }
 
   MenuSystem.showMenu(fakeMenu, function(){});
   MenuSystem.positionMenuLeftRight(fakeMenu, $(elmt));
 
   var elmts = DOM.bind(fakeMenu);
+  
+  elmts.matchButton.html($.i18n._('core-views')["match-cell"]);
+  elmts.matchSimilarButton.html($.i18n._('core-views')["match-identical"]);
+  elmts.cancelButton.html($.i18n._('core-buttons')["cancel"]);
+  
   elmts.matchButton.click(function() {
     self._doMatchTopicToOneCell(candidate);
     MenuSystem.dismissAll();
@@ -477,6 +499,18 @@ DataTableCellUI.prototype._startEdit = function(elmt) {
   menu.html(DOM.loadHTML("core", "scripts/views/data-table/cell-editor.html"));
   var elmts = DOM.bind(menu);
 
+  elmts.or_views_dataType.html($.i18n._('core-views')["data-type"]);
+  elmts.or_views_text.html($.i18n._('core-views')["text"]);
+  elmts.or_views_number.html($.i18n._('core-views')["number"]);
+  elmts.or_views_boolean.html($.i18n._('core-views')["boolean"]);
+  elmts.or_views_date.html($.i18n._('core-views')["date"]);
+  elmts.okButton.html($.i18n._('core-buttons')["apply"]);
+  elmts.or_views_enter.html($.i18n._('core-buttons')["enter"]);
+  elmts.okallButton.html($.i18n._('core-buttons')["apply-to-all"]);
+  elmts.or_views_ctrlEnter.html($.i18n._('core-views')["ctrl-enter"]);
+  elmts.cancelButton.html($.i18n._('core-buttons')["cancel"]);
+  elmts.or_views_esc.html($.i18n._('core-buttons')["esc"]);
+  
   MenuSystem.showMenu(menu, function(){});
   MenuSystem.positionMenuLeftRight(menu, $(this._td));
 
@@ -494,7 +528,7 @@ DataTableCellUI.prototype._startEdit = function(elmt) {
     if (type == "number") {
       value = parseFloat(text);
       if (isNaN(value)) {
-        alert("Not a valid number.");
+        alert($.i18n._('core-views')["not-valid-number"]);
         return;
       }
     } else if (type == "boolean") {
@@ -505,7 +539,7 @@ DataTableCellUI.prototype._startEdit = function(elmt) {
         value = DateTimeUtil.parseIso8601DateTime(text);
       }
       if (!value) {
-        alert("Not a valid date.");
+        alert($.i18n._('core-views')["not-valid-date"]);
         return;
       }
       value = value.toString("yyyy-MM-ddTHH:mm:ssZ");

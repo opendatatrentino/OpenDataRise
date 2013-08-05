@@ -61,7 +61,7 @@ Refine.XmlParserUI.prototype.confirmReadyToCreateProject = function() {
   if ((this._config.recordPath) && this._config.recordPath.length > 0) {
     return true;
   } else {
-    window.alert('Please specify a record path first.');
+    window.alert($.i18n._('core-index-import')["warning-record-path"]);
   }
 };
 
@@ -102,15 +102,24 @@ Refine.XmlParserUI.prototype._initialize = function() {
   this._optionContainerElmts = DOM.bind(this._optionContainer);
   this._optionContainerElmts.previewButton.click(function() { self._updatePreview(); });
 
+  this._optionContainerElmts.pickRecordElementsButton.html($.i18n._('core-buttons')["pick-record"]);
+  this._optionContainerElmts.previewButton.html($.i18n._('core-buttons')["update-preview"]);
+  $('#or-import-rows').text($.i18n._('core-index-parser')["rows-data"]);
+  $('#or-import-load').text($.i18n._('core-index-parser')["load-at-most"]);
+  $('#or-import-preserve').text($.i18n._('core-index-parser')["preserve-empty"]);
+  $('#or-import-trim').html($.i18n._('core-index-parser')["trim"]);
+  $('#or-import-parseCell').html($.i18n._('core-index-parser')["parse-cell"]);
+  $('#or-import-store').html($.i18n._('core-index-parser')["store-source"]);
+  
   if (this._config.limit > 0) {
     this._optionContainerElmts.limitCheckbox.attr("checked", "checked");
     this._optionContainerElmts.limitInput[0].value = this._config.limit.toString();
   }
   if (this._config.trimStrings) {
-    this._optionContainerElmts.trimStringsCheckbox.attr("checked", "checked");
+    this._optionContainerElmts.trimStringsCheckbox.attr("checked", "unchecked");
   }
   if (this._config.guessCellValueTypes) {
-    this._optionContainerElmts.guessCellValueTypesCheckbox.attr("checked", "checked");
+    this._optionContainerElmts.guessCellValueTypesCheckbox.attr("checked", "unchecked");
   }
   if (this._config.storeEmptyStrings) {
     this._optionContainerElmts.storeEmptyStringsCheckbox.attr("checked", "checked");
@@ -135,6 +144,8 @@ Refine.XmlParserUI.prototype._showPickRecordElementsUI = function() {
   this._dataContainer.unbind().empty().html(
       DOM.loadHTML("core", "scripts/index/parser-interfaces/xml-parser-select-ui.html"));
 
+  $('#or-import-clickXML').text($.i18n._('core-index-parser')["click-xml"]);
+  
   var elmts = DOM.bind(this._dataContainer);
 
   var escapeElmt = $('<span>');

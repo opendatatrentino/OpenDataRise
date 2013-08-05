@@ -51,7 +51,7 @@ This is the full list of Open Refine contributors (in chronological order):
  - Heather Campbell <campbellh@google.com>
  - Thad Guidry <thadguidry@gmail.com>
  - Paul Makepeace <paulm@paulm.com>
- - TomaÅ¾ Å olc <tomaz.solc@zemanta.com>
+ - Tomaž Šolc <tomaz.solc@zemanta.com>
  - Gabriel Sjoberg <GabrielSjoberg@gmail.com>
  - Rod Salazar <rodrod.salazar@gmail.com>
  - pxb <pxb1988@gmail.com>

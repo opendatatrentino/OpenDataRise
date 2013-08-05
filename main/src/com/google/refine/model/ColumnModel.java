@@ -74,6 +74,9 @@ public class ColumnModel implements Jsonizable {
         return _maxCellIndex;
     }
 
+    /**
+     * @return the next available cell index
+     */
     synchronized public int allocateNewCellIndex() {
         return ++_maxCellIndex;
     }
@@ -280,11 +283,25 @@ public class ColumnModel implements Jsonizable {
         _nameToColumn = new HashMap<String, Column>();
         _cellIndexToColumn = new HashMap<Integer, Column>();
         _columnNames = new ArrayList<String>();
-        
+        int maxCellIndex = -1;
         for (Column column : columns) {
             _nameToColumn.put(column.getName(), column);
-            _cellIndexToColumn.put(column.getCellIndex(), column);
+            int cidx = column.getCellIndex();
+            if (cidx > maxCellIndex) {
+                maxCellIndex = cidx;
+            }
+            _cellIndexToColumn.put(cidx, column);
             _columnNames.add(column.getName());
+        }
+        _maxCellIndex = maxCellIndex;
+    }
+    
+    /**
+     * Clear cached value computations for all columns
+     */
+    public void clearPrecomputes() {
+        for (Column column : columns) {
+            column.clearPrecomputes();
         }
     }
 }

@@ -35,6 +35,7 @@ package com.google.refine.importing;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -82,7 +83,7 @@ public class ImportingManager {
     
     static private RefineServlet servlet;
     static private File importDir;
-    final static private Map<Long, ImportingJob> jobs = new HashMap<Long, ImportingJob>();
+    final static private Map<Long, ImportingJob> jobs = Collections.synchronizedMap(new HashMap<Long, ImportingJob>());
     
     // Mapping from format to label, e.g., "text" to "Text files", "text/xml" to "XML files"
     final static public Map<String, Format> formatToRecord = new HashMap<String, Format>();
@@ -288,12 +289,15 @@ public class ImportingManager {
     
     static private void cleanUpStaleJobs() {
         long now = System.currentTimeMillis();
-        for (Long id : new HashSet<Long>(jobs.keySet())) {
+        HashSet<Long> keys;
+        synchronized(jobs) {
+            keys = new HashSet<Long>(jobs.keySet());
+        }
+        for (Long id : keys) {
             ImportingJob job = jobs.get(id);
             if (job != null && !job.updating && now - job.lastTouched > s_stalePeriod) {
                 job.dispose();
                 jobs.remove(id);
-                
                 logger.info("Disposed " + id);
             }
         }
