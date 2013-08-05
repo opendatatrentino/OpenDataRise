@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.trentorise.opendatarise.commands;
+package eu.trentorise.opendata.opendatarise.commands;
 
 import com.google.refine.commands.Command;
 import com.google.refine.model.AbstractOperation;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import com.google.refine.process.Process;
-import eu.trentorise.opendatarise.operations.SetStepOperation;
+import eu.trentorise.opendata.opendatarise.operations.SetStepOperation;
 
 
 /**

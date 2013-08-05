@@ -1,5 +1,5 @@
 
-package eu.trentorise.opendatarise.httpwrapper;
+package eu.trentorise.opendata.opendatarise.httpwrapper;
 
 import java.io.File;
 import java.io.StringWriter;

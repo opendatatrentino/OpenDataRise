@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.trentorise.opendatarise;
+package eu.trentorise.opendata.opendatarise;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
