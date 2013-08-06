@@ -6,6 +6,8 @@ var ClientSideResourceManager = Packages.com.google.refine.ClientSideResourceMan
 var davProject = Packages.com.google.refine.model.Project;
 var PO = Packages.eu.trentorise.opendata.opendatarise.OdrProjectOverlay;
 var ODR = Packages.eu.trentorise.opendata.opendatarise.ODR;
+var VelocityHelper = Packages.eu.trentorise.opendata.opendatarise.VelocityHelper;
+var CKANalyzeRawStats = Packages.eu.trentorise.opendata.opendatarise.CKANalyzeRawStats;
 var logger = ODR.logger;
 var OperationRegistry = Packages.com.google.refine.operations.OperationRegistry;
 var RefineServlet = Packages.com.google.refine.RefineServlet;
@@ -38,7 +40,7 @@ function init() {
             "project/scripts",
             module,
             [
-                "i18n/" + ODR.language + "/main.js",
+                "i18n/" + ODR.getLocale().toLanguageTag() + "/main.js",
                 "scripts/ODR.js"                
             ]
             );
@@ -59,6 +61,11 @@ function init() {
             "OdrProjectOverlay",
             PO);
     
+    logger.debug("Initalizing CKANalyzeRawStats");
+    CKANalyzeRawStats.init();
+    
+    // logger.debug(CKANalyzeRawStats.cip);
+    
     logger.info("Finished initializing.");
 
 }
@@ -68,13 +75,30 @@ function init() {
  */
 
 function process(path, request, response) {
+    var context = {};    
     // Analyze path and handle this request yourself.
 
     if (path === "/" || path === "") {
-        var context = {};
+
 
         send(request, response, "index.vt", context);
+    } else
+    
+    logger.debug("Received request for path: " + path);
+    
+    if (path === "ckanalyze-raw.vt") {
+                
+        context = { ckanStats: CKANalyzeRawStats.getStats(),
+                    catalogStats : CKANalyzeRawStats.getStats().getCatalogStats(),
+                    // Velocity doesn't like static classes. Screw it.
+                    vh : new VelocityHelper()};        
+        
+        send(request, response, "ckanalyze-raw.vt", context);
+        //send(request, response, "index.vt", context);
+    } else {        
+        send(request, response, path, context);
     }
+    
 }
 
  

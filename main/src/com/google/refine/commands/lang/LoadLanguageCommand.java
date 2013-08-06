@@ -69,6 +69,11 @@ public class LoadLanguageCommand extends Command {
                 response.getWriter().flush();
                 response.getWriter().close();
                 loaded = true;
+                
+                // odr start                
+                eu.trentorise.opendata.opendatarise.ODR.setLocale(lang);
+                // odr end
+                
                 break;
             } catch (FileNotFoundException e1) {
                 json = null;

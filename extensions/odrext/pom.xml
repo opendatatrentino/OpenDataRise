@@ -44,20 +44,40 @@
         </dependency>  
         
         <dependency> 
-            <groupId>eu.trentorise.opendatadeps</groupId>
+            <groupId>eu.trentorise.opendata.deps</groupId>
             <artifactId> json </artifactId>
             <version> 20100208 </version>
             <scope>system</scope>
             <systemPath>${basedir}/../../main/webapp/WEB-INF/lib/json-20100208.jar</systemPath> 
         </dependency>
+        
+        
         <dependency> 
-            <groupId>eu.trentorise.opendatadeps</groupId>
+            <groupId>eu.trentorise.opendata.deps</groupId>
             <artifactId> jetty </artifactId>
             <version> 6.1.22 </version>
             <scope>system</scope>
             <systemPath>${basedir}/../../server/lib/jetty-6.1.22.jar</systemPath> 
         </dependency>
+
+        <dependency> 
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId> ckanalyze-model</artifactId>
+            <version> 0.0.1-SNAPSHOT </version>
+            <scope>system</scope>
+            <systemPath>${basedir}/module/MOD-INF/lib/ckanalyze-model-0.0.1-SNAPSHOT.jar</systemPath> 
+        </dependency>
+
+        <dependency> 
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId> ckanalyze-client</artifactId>
+            <version> 0.0.1-SNAPSHOT </version>
+            <scope>system</scope>
+            <systemPath>${basedir}/module/MOD-INF/lib/ckanalyze-client-0.0.1-SNAPSHOT.jar</systemPath> 
+        </dependency>
         
+                        
+                        
     </dependencies>
   
 

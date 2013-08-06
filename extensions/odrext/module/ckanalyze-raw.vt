@@ -1,0 +1,55 @@
+
+#*
+ * Access this page at the URL /extension/sample/
+ *#
+<html>
+  <head>
+    <title>CKANalyze Raw stats</title>
+  </head>
+  <body>
+    <h1>CKANalyze Raw stats</h1>
+    <br/>
+    <br/>
+    <p> 
+    </p>
+    <!-- Avg column count: $avgColumnCount  <br/> -->
+
+
+<h3>Catalog stats: <h3>
+<br/>
+<table border="1" width="100%" cellpadding="1" cellspacing="0">
+	<tr>
+		<td>Datasets</td>
+		<td>$catalogStats.getTotalDatasetsCount() </td>
+		<td>Avg rows</td>
+		<td>$ckanStats.formatAvgRowCount()</td>
+		<td>% of float columns</td>
+		<td>$ckanStats.formatCatalogColumnTypePercentage("FLOAT")</td>
+		<td>% of date columns</td>
+		<td>$ckanStats.formatCatalogColumnTypePercentage("DATE")</td>
+		<td>% of GeoJSON columns</td>
+		<td>$ckanStats.formatCatalogColumnTypePercentage("GEOJSON")</td>
+		<td>avg string length</td>
+		<td>$ckanStats.formatAvgStringLength()</td>
+	</tr>
+	<tr>
+		<td>Total size (kb)</td>
+		<td>$ckanStats.formatTotalFileSizeCount()</td>
+		<td>Avg columns</td>
+		<td>$ckanStats.formatAvgColumnCount() </td>
+		<td>% of integer columns</td>
+		<td>$ckanStats.formatCatalogColumnTypePercentage("INT")</td>
+		<td>% of string columns</td>
+		<td>$ckanStats.formatCatalogColumnTypePercentage("STRING")</td>
+		<td>% of empty columns</td>
+		<td>$ckanStats.formatCatalogColumnTypePercentage("EMPTY")</td>
+
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+
+
+
+  </body>
+</html>
