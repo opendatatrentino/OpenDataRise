@@ -5,10 +5,11 @@
 package eu.trentorise.opendata.opendatarise;
 
 import eu.trentorise.opendata.ckanalyze.client.CkanalyzeClient;
-import eu.trentorise.opendata.ckanalyze.model.catalog.CatalogueDatatypeCount;
-import eu.trentorise.opendata.ckanalyze.model.catalog.CatalogueStat;
+import eu.trentorise.opendata.ckanalyze.model.catalog.CatalogStats;
+import eu.trentorise.opendata.ckanalyze.model.Types;
+import eu.trentorise.opendata.ckanalyze.model.resources.ResourceStats;
 import java.text.NumberFormat;
-import org.apache.velocity.VelocityContext;
+
 
 
 
@@ -21,13 +22,15 @@ import org.apache.velocity.VelocityContext;
 public class CKANalyzeRawStats {
     
     static CKANalyzeRawStats stats;
+    static String DATI_TRENTINO_IT = "http://dati.trentino.it";
     
     CkanalyzeClient client;
-    CatalogueStat catalogStats;
+    CatalogStats catalogStats;
+    
 
     
     
-    public CatalogueStat getCatalogStats(){
+    public CatalogStats getCatalogStats(){
         return catalogStats;
     }
 
@@ -39,39 +42,44 @@ public class CKANalyzeRawStats {
     
     public CKANalyzeRawStats() {
         client = new CkanalyzeClient("http://opendata.disi.unitn.it:8080/ckanalyze-web");
-        this.catalogStats = client.getCatalogueStat("http://dati.trentino.it");
+        this.catalogStats = client.getCatalogStats(DATI_TRENTINO_IT);
+        
     }
     
 
-    public String formatCatalogColumnTypePercentage(String type){
-        Double d = this.catalogStats.getAvgColsPerTypeMap().get(type);
+    public String formatCatalogColumnTypePercentage(String type){        
+        Long count = this.catalogStats.getColsPerTypeMap().get(Types.valueOf(type));
+                
+        double d = ((double) count) / this.catalogStats.getTotalColsCount();
         try {
-            double sum = 0.0;
-            for (CatalogueDatatypeCount c : this.catalogStats.getAvgColsPerType()){
-                sum += c.getCount();
-            }
-
             NumberFormat percentFormat = NumberFormat.getPercentInstance(ODR.getLocale());
-            percentFormat.setMaximumFractionDigits(1);
-            return percentFormat.format(d );
-        } catch (IllegalArgumentException e){
-            return ("Error converting percentage for " + type + ": value is " + d);
+            percentFormat.setMaximumFractionDigits(1);     
             
+            ODR.logger.debug("Count for " + type + "column is " + count);
+        
+            return  percentFormat.format(d); 
+        } catch (IllegalArgumentException e){
+            return ("Error converting percentage for " + type + ": value is " + d);            
         }
     }    
     
-    
-    
-    
-    
+                
     public static final void init(){
          stats = new CKANalyzeRawStats();
-         readCatalogueStats();                
+         readCatalogStats();     
+         ResourceStats resStats = stats.client.getResourceStats(DATI_TRENTINO_IT, "d0892ada-b8b9-43b6-81b9-47a86be126db");
+        
+         /*
+         ODR.logger.debug("laghi monitorati column count: " + resStats.getColumnCount());         
+         ODR.logger.debug("laghi monitorati string columns: " + resStats.getColsPerTypeMap().get(Types.STRING));
+         ODR.logger.debug("laghi monitorati float columns: " + resStats.getColsPerTypeMap().get(Types.FLOAT));
+         */
+         
     }    
     
-    public static final void readCatalogueStats(){
+    public static final void readCatalogStats(){
        
-        stats.catalogStats = stats.client.getCatalogueStat("http://dati.trentino.it");
+        stats.catalogStats = stats.client.getCatalogStats("http://dati.trentino.it");
         //System.out.println(catalogStat.getAvgColsPerType());
                 
     }
@@ -92,7 +100,7 @@ public class CKANalyzeRawStats {
         return VelocityHelper.formatAvg(stats.catalogStats.getAvgRowCount());
     }
 
-
+    
     
     
 }
