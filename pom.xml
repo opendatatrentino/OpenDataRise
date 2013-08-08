@@ -14,11 +14,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-<!--
+
    <modules>
-        <module>extensions/odrext</module>        
+        <module>extensions/odrext</module>  
+        <module>extensions/rdf-extension</module>  
    </modules>
--->   
+
    <build>
     <sourceDirectory>${basedir}/main/src/</sourceDirectory>
  <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    

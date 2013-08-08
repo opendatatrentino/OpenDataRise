@@ -10,11 +10,11 @@
     </parent>
 
 
-    <groupId>eu.trentorise.opendata.opendatarise</groupId>
-    <artifactId>odrext</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <groupId>eu.trentorise.opendata.deps</groupId>
+    <artifactId>rdf-extension</artifactId>
+    <version>0.8-684b4ecf35</version>
     <packaging>jar</packaging>
-    <name>OpenDataRise Extension</name>
+    <name>Rdf Extension</name>
     <url>http://maven.apache.org</url>
 
 
@@ -24,8 +24,8 @@
     </properties>
     
     <build>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <sourceDirectory>${basedir}/src</sourceDirectory>
+        <!-- <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory> -->
         <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
         todo p3 dav review this   
          <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
@@ -42,50 +42,24 @@
             <artifactId>odrapp</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>  
-        
-        
-        
-        <dependency>
-            <groupId>eu.trentorise.opendata.deps</groupId>
-            <artifactId>.rdf-extension</artifactId>
-            <version>0.8-684b4ecf35</version>
-        </dependency>          
-        
+
+       
         <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
+            <groupId>eu.trentorise.opendata.opendatadeps</groupId>
             <artifactId> json </artifactId>
             <version> 20100208 </version>
             <scope>system</scope>
             <systemPath>${basedir}/../../main/webapp/WEB-INF/lib/json-20100208.jar</systemPath> 
         </dependency>
-        
-        
         <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
+            <groupId>eu.trentorise.opendata.opendatadeps</groupId>
             <artifactId> jetty </artifactId>
             <version> 6.1.22 </version>
             <scope>system</scope>
             <systemPath>${basedir}/../../server/lib/jetty-6.1.22.jar</systemPath> 
         </dependency>
-
-        <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
-            <artifactId> ckanalyze-model</artifactId>
-            <version> 0.0.1-SNAPSHOT </version>
-            <scope>system</scope>
-            <systemPath>${basedir}/module/MOD-INF/lib/ckanalyze-model-0.0.1-SNAPSHOT.jar</systemPath> 
-        </dependency>
-
-        <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
-            <artifactId> ckanalyze-client</artifactId>
-            <version> 0.0.1-SNAPSHOT </version>
-            <scope>system</scope>
-            <systemPath>${basedir}/module/MOD-INF/lib/ckanalyze-client-0.0.1-SNAPSHOT.jar</systemPath> 
-        </dependency>
+                  
         
-                        
-                        
     </dependencies>
   
 
