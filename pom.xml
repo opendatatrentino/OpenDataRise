@@ -18,7 +18,8 @@
    <modules>
        <module>main</module>        
        <module>server</module>        
-        <module>extensions/odrext</module>        
+       <module>extensions/odrext</module>        
+       <module>extensions/rdf-extension</module>
    </modules>
 
    

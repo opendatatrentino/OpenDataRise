@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>eu.trentorise.opendata.deps</groupId>
+  <artifactId>jdatapath</artifactId>
+  <versioning>
+    <release>alpha2</release>
+    <versions>
+      <version>alpha2</version>
+    </versions>
+    <lastUpdated>20130808163343</lastUpdated>
+  </versioning>
+</metadata>
