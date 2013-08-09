@@ -4,11 +4,32 @@
 
   <groupId>eu.trentorise.opendata.opendatarise</groupId>
   <artifactId>odrapp</artifactId>
-  <version>0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-
-  <name>OpenDataRise Application</name>
+  <packaging>pom</packaging>  
+  <name>OpenDataRise Application</name>  
+  <version>0.2-SNAPSHOT</version>
+  <description>Tool to cleanse and semantify datasets from CKAN repositories. Based on OpenRefine.</description>  
   <url>http://maven.apache.org</url>
+  <licenses>
+    <license>
+      <name>TBD</name>
+      <url>TBD</url>
+      <distribution>manual</distribution> 
+    </license>
+  </licenses>
+
+    <scm>
+        <url>git@github.com:opendatatrentino/OpenDataRise.git</url>
+        <connection>scm:git:git://github.com/opendatatrentino/OpenDataRise</connection>
+        <developerConnection>scm:git:https://github.com/opendatatrentino/OpenDataRise.git</developerConnection>        
+    </scm>
+
+  <developers>
+    <developer>
+      <id>davidleoni</id>
+      <name>David Leoni</name>
+      <email>david.leoni@trentorise.eu</email>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,8 +39,7 @@
    <modules>
        <module>main</module>        
        <module>server</module>        
-       <module>extensions/odrext</module>        
-       <module>extensions/rdf-extension</module>
+       <module>extensions/odrext</module>             
    </modules>
 
    

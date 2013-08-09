@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eu.trentorise.opendata.opendatarise</groupId>
+
     <artifactId>server</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>OpenDataRise Server</name>
@@ -13,6 +13,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <parent>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
+        <artifactId>odrapp</artifactId>
+        <version>0.2-SNAPSHOT</version>        
+    </parent>
+
 
     <repositories>
         <!--Local repository-->
@@ -26,6 +33,7 @@
          
     <build>
         <sourceDirectory>${basedir}/src/</sourceDirectory>
+        <outputDirectory>${basedir}/classes</outputDirectory>        
         <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
         todo p3 dav review this   
          <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
@@ -60,6 +68,22 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.15</version>
+                        <exclusions>
+                <!-- these ones cannot be found and are not inside Refine  libs anyway -->
+                <exclusion>
+                    <artifactId>jmxri</artifactId>
+                    <groupId>com.sun.jmx</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jms</artifactId>
+                    <groupId>javax.jms</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jmxtools</artifactId>
+                    <groupId>com.sun.jdmk</groupId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
     
 
@@ -98,8 +122,18 @@
         </dependency>
 
 
+        <!-- class Refine loads main folder via butterfly -->
+        <dependency>
+            <groupId>eu.trentorise.opendata.opendatarise</groupId>
+            <artifactId>main</artifactId>
+            <version>0.2-SNAPSHOT</version>
+            <scope>runtime</scope>            
+        </dependency>   
 
         <!-- **********************        NEW DEPENDENCIES FOR ODR          **************************** -->
+
+     
+            
 
     </dependencies> 
 </project>

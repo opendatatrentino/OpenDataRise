@@ -5,12 +5,12 @@
     <parent>
         <groupId>eu.trentorise.opendata.opendatarise</groupId>
         <artifactId>odrapp</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
 
-    <groupId>eu.trentorise.opendata.opendatarise</groupId>
+    
     <artifactId>odrext</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -24,13 +24,13 @@
     </properties>
     
     <build>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <outputDirectory>${basedir}/module/MOF-INF/classes</outputDirectory>
+        
         <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
         todo p3 dav review this   
          <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
-        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
-        <outputDirectory>${basedir}/target/classes</outputDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory> 
+        
         <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
         -->
   
@@ -39,28 +39,13 @@
     <dependencies>
         <dependency>
             <groupId>eu.trentorise.opendata.opendatarise</groupId>
-            <artifactId>odrapp</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <artifactId>main</artifactId>
+            <version>0.2-SNAPSHOT</version>
         </dependency>  
         
-        <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
-            <artifactId> json </artifactId>
-            <version> 20100208 </version>
-        </dependency>
+
         
-        <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
-            <artifactId> jetty </artifactId>
-            <version> 6.1.22 </version>            
-        </dependency>
-
-        <dependency>
-            <groupId>eu.trentorise.opendata.deps</groupId>
-            <artifactId>rdfextension</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>  
-
+ 
     </dependencies>
   
 

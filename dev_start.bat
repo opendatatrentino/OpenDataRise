@@ -4,8 +4,8 @@ rem It modifies the /d behaviour: the /d now let you to specify a data dir
 rem where refine stores data
 rem the /debug option let you to set the logging level
 rem You have also the possibility to specify a default refineport (DEVPORT) and a default datadir (setting the DEVPATH variable).
-rem This script let you also to run server TestNG test cases: use the server_test or server_tests option.
-rem This script remove the data dir each time you start Refine and replace it with a default one (stored in \backup-data-dir
+rem This script let you also to run server TestNG test cases: use the server_test option.
+rem This script remove the data dir each time you start Refine and replace it with a default one (stored in src/test/resources/backup-data-dir
 rem Created by azanella
 
 SET DEVPORT=4444
@@ -64,8 +64,8 @@ echo      default: 1024M
 echo.
 echo  "/x" enable JMX monitoring (for jconsole and friends)
 echo.
-echo  "/keepdatadir" keep the existing data dir. Do not replace with
-echo  \backup-data-dir
+echo  "/keepdatadir" keep the existing data dir. Do not replace with content of
+echo  src/test/resources/backup-data-dir 
 echo.
 echo "and <action> is one of
 echo.
@@ -75,7 +75,6 @@ echo.
 echo   clean ..................... Clean compiled classes
 echo   distclean ................. Remove all generated files
 echo   server_test ..................... Run TestNG server test
-echo   server_tests ..................... Run TestNG server test
 echo.
 goto end
 
@@ -210,7 +209,7 @@ if "%REFINE_TEST_DIR%"=="" set REFINE_TEST_DIR=main\tests
 REM added by azanella on 2013/06/13
 if not "%ODR_KEEPDATADIR%" == "" goto endRemove
 rd /S /Q %REFINE_DATA_DIR%
-xcopy /E /I /Q backup-data-dir %REFINE_DATA_DIR%
+xcopy /E /I /Q src\test\resources\backup-data-dir %REFINE_DATA_DIR%
 :endRemove
 
 if not "%REFINE_PORT%" == "" goto gotPort
@@ -245,8 +244,7 @@ if ""%ACTION%"" == ""clean"" goto doAnt
 if ""%ACTION%"" == ""distclean"" goto doAnt
 if ""%ACTION%"" == ""run"" goto doRun
 rem Added by azanella on May, 22 2013
-if ""%ACTION%"" == ""server_test"" goto doSrvTests
-if ""%ACTION%"" == ""server_tests"" goto doSrvTests
+if ""%ACTION%"" == ""server_test"" goto doAnt
 
 
 :doRun
@@ -254,15 +252,6 @@ set CLASSPATH="%REFINE_CLASSES_DIR%;%REFINE_LIB_DIR%\*"
 "%JAVA_HOME%\bin\java.exe" -cp %CLASSPATH% %OPTS% -Djava.library.path=%REFINE_LIB_DIR%/native/windows com.google.refine.Refine
 goto end
 
-REM Added by azanella on May 22, 2013
-:doSrvTests
-call "%ANT_HOME%\bin\ant.bat" -f build.xml build_tests
-set CLASSPATH="%REFINE_TEST_DIR%\server\classes;%REFINE_WEBAPP%/WEB-INF\classes;%REFINE_CLASSES_DIR%;%REFINE_TEST_DIR%\server\lib\*;%REFINE_LIB_DIR%\*;%REFINE_WEBAPP%\WEB-INF\lib\*"
-set TESTS=-excludegroups broken %REFINE_TEST_DIR%\server\conf\tests.xml
-set RUN_CMD="%JAVA_HOME%\bin\java.exe" -cp %CLASSPATH% %OPTS% org.testng.TestNG -d %REFINE_BUILD_DIR%\server_tests -listener org.testng.reporters.DotTestListener %TESTS%
-rem echo %RUN_CMD%
-%RUN_CMD%
-goto end
 
 :doAnt
 if not "%ANT_HOME%" == "" goto gotAntHome

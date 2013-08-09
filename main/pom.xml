@@ -2,13 +2,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>eu.trentorise.opendata.opendatarise</groupId>
-    <artifactId>main</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    
+    <artifactId>main</artifactId>    
     <packaging>jar</packaging>
 
     <name>OpenDataRise Main</name>
     <url>http://maven.apache.org</url>
+
+    <parent>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
+        <artifactId>odrapp</artifactId>
+        <version>0.2-SNAPSHOT</version>        
+    </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,11 +26,18 @@
             <name>project</name>
             <url>file:${project.basedir}/repo</url>
         </repository>
-    </repositories>
- 
+        
+        <!--Local repository-->
+        <repository>
+            <id>project.rdflocal</id>
+            <name>project</name>
+            <url>file:${project.basedir}/../extensions/rdf-extension/repo</url>
+        </repository>
+    </repositories> 
          
     <build>
         <sourceDirectory>${basedir}/src/</sourceDirectory>
+        <outputDirectory>${basedir}/webapp/WEB-INF/classes</outputDirectory>
         <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
         todo p3 dav review this   
          <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
@@ -53,7 +65,7 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.5</version>
+            <version>1.6</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -88,22 +100,17 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.1.2</version>
+            <version>4.2.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
-            <version>4.1.3</version>
+            <version>4.2.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
             <version>4.2.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.12</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -160,8 +167,30 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.15</version>
+            <exclusions>
+                <!-- these ones cannot be found and are not inside Refine  libs anyway -->
+                <exclusion>
+                    <artifactId>jmxri</artifactId>
+                    <groupId>com.sun.jmx</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jms</artifactId>
+                    <groupId>javax.jms</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jmxtools</artifactId>
+                    <groupId>com.sun.jdmk</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-    
+
+            <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.12</version>
+        </dependency>
+
+            
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
@@ -262,18 +291,110 @@
     
         <!-- **********************        NEW DEPENDENCIES FOR ODR          **************************** -->             
      
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>2.0</version>
-        </dependency>
+<!-- ************  START FROM RDF-EXTENSION   -->
+
 
         <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>2.0</version>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.14</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-larq</artifactId>
+            <version>1.0.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-iri</artifactId>
+            <version>0.9.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>2.7.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>2.9.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>net.rootdev</groupId>
+            <artifactId>java-rdfa</artifactId>
+            <version>0.4.1</version>
+        </dependency>
         
+       <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        
+        <!-- conflicts with  httpclient-4.25
+            commons-httpclient-3.0.1
+        -->
+        <dependency>
+            <groupId>org.apache.james</groupId>
+            <artifactId>apache-mime4j</artifactId>
+            <version>0.6</version>
+        </dependency>        
+        <!-- there could be a conflict with guava 13 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>r07</version>
+        </dependency> -->
+
+        <!-- actually deri's uses 1.9.5 but Refine's Jackson is 1.9.12 -->
+         <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>any23-core</artifactId>
+            <version>0.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>tika-parsers</artifactId>
+            <version>0.6</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>openrdf-sesame-onejar</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>htmlparser</artifactId>
+            <version>1.3</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>simmetrics</artifactId>
+            <version>0.6.2-d070207</version>
+        </dependency>
+ 
+        
+<!-- ************  END FROM RDF-EXTENSION   -->
+
     </dependencies> 
 </project>
