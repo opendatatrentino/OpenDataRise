@@ -3,3 +3,8 @@
 *.lock
 *.DS_Store
 module/MOD-INF/classes/*
+# odr start
+tmp/
+test-output/
+#odr end
+
