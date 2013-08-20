@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.openrefine.deps</groupId>
+  <artifactId>opencsv</artifactId>
+  <versioning>
+    <versions>
+      <version>2.4-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20130819170126</lastUpdated>
+  </versioning>
+</metadata>

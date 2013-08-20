@@ -31,6 +31,7 @@ public class ApplicationContext {
 		this.workingDir = workingDir;
 		this.vocabularySearcher = new VocabularySearcher(this.workingDir);
 		this.predefinedVocabularyManager = new PredefinedVocabularyManager(this,this.workingDir);
+                
 		InputStream in = this.getClass().getResourceAsStream("/files/prefixes");
 		this.prefixManager = new PrefixManager(in);
 	}

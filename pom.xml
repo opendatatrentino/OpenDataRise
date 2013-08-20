@@ -1,21 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>eu.trentorise.opendata.opendatarise</groupId>
-  <artifactId>odrapp</artifactId>
-  <packaging>pom</packaging>  
-  <name>OpenDataRise Application</name>  
-  <version>0.2-SNAPSHOT</version>
-  <description>Tool to cleanse and semantify datasets from CKAN repositories. Based on OpenRefine.</description>  
-  <url>http://maven.apache.org</url>
-  <licenses>
-    <license>
-      <name>TBD</name>
-      <url>TBD</url>
-      <distribution>manual</distribution> 
-    </license>
-  </licenses>
+    <groupId>eu.trentorise.opendata.opendatarise</groupId>
+    <artifactId>odrapp</artifactId>
+    <packaging>pom</packaging>  
+    <name>OpenDataRise Application</name>  
+    <version>0.2-SNAPSHOT</version>
+    <description>Tool to cleanse and semantify datasets from CKAN repositories. Based on OpenRefine.</description>  
+    <url>https://github.com/opendatatrentino/OpenDataRise</url>
+    <licenses>
+        <license>
+            <name>todo p2</name>
+            <url>todo p2</url>
+            <distribution>manual</distribution> 
+        </license>
+    </licenses>
 
     <scm>
         <url>git@github.com:opendatatrentino/OpenDataRise.git</url>
@@ -23,48 +23,57 @@
         <developerConnection>scm:git:https://github.com/opendatatrentino/OpenDataRise.git</developerConnection>        
     </scm>
 
-  <developers>
-    <developer>
-      <id>davidleoni</id>
-      <name>David Leoni</name>
-      <email>david.leoni@trentorise.eu</email>
-    </developer>
-  </developers>
+    <developers>
+        <developer>
+            <id>davidleoni</id>
+            <name>David Leoni</name>
+            <email>david.leoni@trentorise.eu</email>
+        </developer>
+    </developers>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 
-   <modules>
-       <module>main</module>        
-       <module>server</module>        
-       <module>extensions/odrext</module>             
-   </modules>
+    <modules>
+        <module>main</module>        
+        <module>server</module>        
+        <module>extensions</module>             
+    </modules>
 
    
          
-   <build>
- <!--   <sourceDirectory>${basedir}/main/src/</sourceDirectory> 
-   <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
-    todo p3 dav review this   
-     <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
-    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
-    <outputDirectory>${basedir}/target/classes</outputDirectory>
-    <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
-    -->
-  
-  </build> 
-
-  <dependencies>
-      <!--
-    <dependency>
-        <groupId>eu.trentorise.opendata.opendatarise</groupId>
-        <artifactId>odrext</artifactId>
-        <version>0.1-SNAPSHOT</version>
-    </dependency>
-    -->
+    <build>
+        <directory>${basedir}/build</directory>
+        
+        <!-- <directory>${basedir}/build</directory>
+        <outputDirectory>${project.build.directory}</outputDirectory>
+        <testOutputDirectory>${project.build.outputDirectory}</testOutputDirectory>
+        -->
+       
+        <!--   <sourceDirectory>${basedir}/main/src/</sourceDirectory> 
+       <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
+        todo p3 dav review this   
+         <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <outputDirectory>${basedir}/target/classes</outputDirectory>
+        <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+        -->
  
+    </build> 
+
+    <dependencies>
+  
+        <!--
+        <dependency>
+            <groupId>eu.trentorise.opendata.opendatarise</groupId>
+            <artifactId>odrext</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        -->
+ 
+
                                     
-  </dependencies> 
+    </dependencies> 
 </project>

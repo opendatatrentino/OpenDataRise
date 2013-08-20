@@ -197,6 +197,9 @@ class RefineServer extends Server {
         final String contextPath = Configurations.get("refine.context_path","/");                       
         logger.info("Initializing context: '" + contextPath + "' from '" + webapp.getAbsolutePath() + "'");
         WebAppContext context = new WebAppContext(webapp.getAbsolutePath(), contextPath);
+        // odr start  Servlets prevent applications from accessing server classes, which is bad in our case
+        context.setParentLoaderPriority(true);
+        // odr end
         context.setMaxFormContentSize(1048576);      
         this.addHandler(context);
         this.setStopAtShutdown(true);
