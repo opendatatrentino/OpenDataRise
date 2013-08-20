@@ -1,0 +1,527 @@
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    
+    <artifactId>main</artifactId>    
+    <packaging>jar</packaging>
+
+    <name>OpenDataRise Main</name>
+ 
+
+    <parent>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
+        <artifactId>odrapp</artifactId>
+        <version>0.2-SNAPSHOT</version>        
+    </parent>
+
+    <properties>        
+        <tests.dir>${project.basedir}/tests</tests.dir>
+        <server.tests.dir>${tests.dir}/server</server.tests.dir>
+        <server.tests.classes.dir>${project.basedir}/tests</server.tests.classes.dir>
+    </properties>
+
+    <repositories>
+        <!--Local repository-->
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <url>file:${project.basedir}/repo</url>
+        </repository>
+        
+        <!--Local repository-->
+        <repository>
+            <id>project.rdflocal</id>
+            <name>project</name>
+            <url>file:${project.basedir}/../extensions/rdf-extension/repo</url>
+        </repository>
+    </repositories> 
+         
+    <build>
+        <sourceDirectory>${basedir}/src/</sourceDirectory>
+        <outputDirectory>${basedir}/webapp/WEB-INF/classes</outputDirectory>
+        <testSourceDirectory>${basedir}/tests/server/src</testSourceDirectory>
+        
+        <plugins>
+                         
+            <!-- it turns out copying files with Maven sucks, this plugin looks like the most general solution -->
+            <plugin>
+                <groupId>com.github.goldin</groupId>
+                <artifactId>copy-maven-plugin</artifactId>
+                <version>0.2.5</version>
+                <executions>
+                    
+                    <execution>
+                        <id>copy-log4j-properties</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.sourceDirectory}</directory>
+                                    <targetPath>${project.build.outputDirectory}</targetPath>            
+                                    <includes>                                      
+                                        <include>log4j.properties</include>
+                                    </includes>
+                                </resource>
+
+                            </resources>
+                        </configuration>
+                    </execution>   
+                                                            
+                    <execution>
+                        <id>copy-test-log4j-properties</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.testSourceDirectory}</directory>
+                                    <targetPath>${project.build.testOutputDirectory}</targetPath>            
+                                    <includes>                                      
+                                        <include>tests.log4j.properties</include>
+                                    </includes>
+                                </resource>
+
+                            </resources>
+                        </configuration>
+                    </execution>
+                                                                                                                   
+                    <execution>
+                        <id>copy-rdf-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <!-- copy vocabularies -->
+                                <resource>
+                                    <directory>${project.build.sourceDirectory}/org/deri/</directory>
+                                    <targetPath>${project.build.outputDirectory}/org/deri/</targetPath>          
+                                    <includes>                                      
+                                        <include>**/*.tsv</include>
+                                    </includes>
+                                     <preservePath>true</preservePath>
+                                </resource>
+                                <!-- copy other resources -->
+                                <resource>
+                                    <directory>${project.parent.basedir}/extensions/rdf-extension/resources</directory>
+                                    <targetPath>${project.build.outputDirectory}</targetPath>          
+                                    <includes>                                      
+                                        <include>**/*</include>
+                                    </includes>
+                                    <preservePath>true</preservePath>
+                                </resource>                                
+                            </resources>
+                        </configuration>
+                    </execution>          
+                              
+                </executions>
+            </plugin>     
+             
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.15</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${server.tests.dir}/conf/tests.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <systemPropertyVariables>
+                        <!--  maybe testOutputDirectory is enough <workingdir>${</workingdir> -->
+                        <listener>org.testng.reporters.DotTestListener</listener>
+                        <excludedgroups>broken</excludedgroups>                
+                    </systemPropertyVariables>
+                    
+                </configuration>
+            </plugin>
+   
+          
+       
+    
+        </plugins>
+    </build> 
+
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.clojure</groupId>
+            <artifactId>clojure</artifactId>
+            <version>1.4.0</version>
+            <classifier>slim</classifier>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.odftoolkit</groupId>
+            <artifactId>odfdom-java</artifactId>
+            <version>0.8.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>oauth.signpost</groupId>
+            <artifactId>signpost-commonshttp4</artifactId>
+            <version>1.2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>oauth.signpost</groupId>
+            <artifactId>signpost-core</artifactId>
+            <version>1.2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.15</version>
+            <exclusions>
+                <!-- these ones cannot be found and are not inside Refine  libs anyway -->
+                <exclusion>
+                    <artifactId>jmxri</artifactId>
+                    <groupId>com.sun.jmx</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jms</artifactId>
+                    <groupId>javax.jms</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jmxtools</artifactId>
+                    <groupId>com.sun.jdmk</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.12</version>
+        </dependency>
+
+            
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>servlet-api-2.5</artifactId>
+            <version>6.1.11</version>
+        </dependency>  
+        <dependency>
+            <groupId>rhino</groupId>
+            <artifactId>js</artifactId>
+            <version>1.7R2</version>
+        </dependency> 
+        
+        <!-- **********************        TEST DEPENDENCIES          **************************** -->         
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.12.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+       
+
+        <!-- **********************        LOCAL REPO DEPENDENCIES          **************************** -->             
+
+        <!-- used this in the cmd windows shell. in Powershell it doesn't work!!!!
+        C:\Users\david_2\Da\prj\opendatarise\OpenDataRise\prj\main> mvn deploy:deploy-file  -DgroupId=eu.trentorise.opendata.deps -DartifactId=arith-code -Dpackaging=jar -Dversion=1.1    -Dfile=///C:/Users/david_2/Da/prj/opendatarise/OpenDataRise/prj/main/webapp/WEB-INF/lib/arithcode-1.1.jar   -Durl=file://C:/Users/david_2/Da/prj/opendatarise/OpenDataRise/prj/main/repo/            -->
+                                    
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> ant-tools </artifactId>
+            <version> 1.8.0 </version>		
+        </dependency>
+
+
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> arithcode </artifactId>
+            <version> 1.1 </version>		
+        </dependency>
+
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> butterfly </artifactId>
+            <version> trunk </version>		
+        </dependency>    
+            
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> icu4j </artifactId>
+            <version> 4.2.1 </version>		
+        </dependency>    
+    
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> jrdf </artifactId>
+            <version> 0.5.6 </version>		
+        </dependency>    
+    
+        <!-- a patched version of official json by Refine authors -->
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> json </artifactId>
+            <version> 20100208 </version>		
+        </dependency>   
+         
+    
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> marc4j </artifactId>
+            <version> 2.4 </version>		
+        </dependency>    
+    
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> opencsv </artifactId>
+            <version> 2.4-SNAPSHOT </version>		
+        </dependency>    
+       
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> secondstring </artifactId>
+            <version> 20100303 </version>		
+        </dependency>     
+    
+        <dependency> 
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId> vicino </artifactId>
+            <version> 1.1 </version>		
+        </dependency>     
+        
+        <!-- slightly different in size than http://repo.typesafe.com/typesafe/repo/com/metaweb/lessen/1.0/ -->
+        <dependency>
+            <groupId>org.openrefine.deps</groupId>
+            <artifactId>lessen</artifactId>
+            <version>trunk-r8</version>
+        </dependency>        
+        
+    
+        <!-- **********************        NEW DEPENDENCIES FOR ODR          **************************** -->             
+     
+        <!-- ************  START FROM RDF-EXTENSION   -->
+
+
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-larq</artifactId>
+            <version>1.0.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-iri</artifactId>
+            <version>0.9.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>2.7.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>2.9.0-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>net.rootdev</groupId>
+            <artifactId>java-rdfa</artifactId>
+            <version>0.4.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        
+        <!-- conflicts with  httpclient-4.25 -->
+        
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>        
+        
+        <dependency>
+            <groupId>org.apache.james</groupId>
+            <artifactId>apache-mime4j</artifactId>
+            <version>0.6</version>
+        </dependency>        
+        <!-- there could be a conflict with guava 13 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>r07</version>
+        </dependency> -->
+
+        <!-- actually deri's uses 1.9.5 but Refine's Jackson is 1.9.12 -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>any23-core</artifactId>
+            <version>0.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>tika-parsers</artifactId>
+            <version>0.6</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>openrdf-sesame-onejar</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>htmlparser</artifactId>
+            <version>1.3</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>eu.trentorise.opendata.deps</groupId>
+            <artifactId>simmetrics</artifactId>
+            <version>0.6.2-d070207</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>3.0.4.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- in theory there would be a test dependency for jackson-core-asl-1.5.6 and jackson-mapper-asl-1.5.6 -->
+        <!-- ************  END FROM RDF-EXTENSION   -->
+
+    </dependencies> 
+</project>

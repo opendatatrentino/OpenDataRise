@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <artifactId>extensions</artifactId>
+    <version>0.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>OpenDataRise Extensions</name>
+
+    <parent>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
+        <artifactId>odrapp</artifactId>
+        <version>0.2-SNAPSHOT</version>        
+    </parent>
+    
+    <modules>
+        <module>freebase</module>              
+        <!-- came from the future, better to comment it for now
+            <module> gdata </module>   -->        
+        <module>jython</module>
+        <module>pc-axis</module>               
+        <module>odrext</module> 
+        <module>rdf-extension</module>
+        <module>sample</module> 
+    </modules>
+
+
+    <build>
+        <outputDirectory>${basedir}/module/MOD-INF/classes</outputDirectory> 
+        <sourceDirectory>${basedir}/src</sourceDirectory>
+    </build>         
+        
+
+        
+
+
+    
+    
+    <dependencies>
+        <dependency>
+            <groupId>eu.trentorise.opendata.opendatarise</groupId>
+            <artifactId>main</artifactId>
+            <version>0.2-SNAPSHOT</version>
+        </dependency>
+
+             
+    </dependencies>
+</project>

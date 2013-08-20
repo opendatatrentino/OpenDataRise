@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <name>Freebase Extension</name>
+
+    <parent>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
+        <artifactId>extensions</artifactId>
+        <version>0.2-SNAPSHOT</version>
+    </parent>
+
+    
+    
+    <artifactId>freebase-extension</artifactId>
+    <version>2.6-SNAPSHOT</version>
+    
+    
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        
+        <!-- couldn't find rev25 in maven central, used 35 instead -->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-freebase</artifactId>
+            <version>v1-rev35-1.13.2-beta</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson</artifactId>
+            <version>1.13.1-beta</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-servlet</artifactId>
+            <version>1.13.1-beta</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -2,63 +2,31 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>OpenDataRise Extension</name>
+
     <parent>
         <groupId>eu.trentorise.opendata.opendatarise</groupId>
-        <artifactId>odrapp</artifactId>
-        <version>0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <artifactId>extensions</artifactId>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
 
-    <groupId>eu.trentorise.opendata.opendatarise</groupId>
+    
     <artifactId>odrext</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>OpenDataRise Extension</name>
-    <url>http://maven.apache.org</url>
 
-
-    
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    
     <build>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
-        <!--  <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
-        todo p3 dav review this   
-         <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
-        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
-        <outputDirectory>${basedir}/target/classes</outputDirectory>
-        <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
-        -->
-  
-    </build> 
+        <testSourceDirectory>${basedir}/tests/server</testSourceDirectory>        
+    </build>
 
     <dependencies>
         <dependency>
-            <groupId>eu.trentorise.opendata.opendatarise</groupId>
-            <artifactId>odrapp</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>  
-        
-        <dependency> 
-            <groupId>eu.trentorise.opendatadeps</groupId>
-            <artifactId> json </artifactId>
-            <version> 20100208 </version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../../main/webapp/WEB-INF/lib/json-20100208.jar</systemPath> 
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.1.1</version>
+            <scope>test</scope>
         </dependency>
-        <dependency> 
-            <groupId>eu.trentorise.opendatadeps</groupId>
-            <artifactId> jetty </artifactId>
-            <version> 6.1.22 </version>
-            <scope>system</scope>
-            <systemPath>${basedir}/../../server/lib/jetty-6.1.22.jar</systemPath> 
-        </dependency>
-        
     </dependencies>
   
-
 </project>

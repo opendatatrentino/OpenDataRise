@@ -4,6 +4,7 @@
  */
 package eu.trentorise.opendata.opendatarise;
 
+import com.google.refine.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class ODR {
     public static final Logger logger = LoggerFactory.getLogger("odr");
     public static String language;
     public static HashMap<Label, String> labelDict =  new HashMap<Label,String>();
+    public static String PROJECT_OVERLAY_NAME = "OdrProjectOverlay";
             
     public static final String getLabelString(Label label){
         return labelDict.get(label);
@@ -40,6 +42,14 @@ public class ODR {
         labelDict.put(Label.EXPORTING, "Exporting");
         labelDict.put(Label.PUBLISHING, "Publishing");    
 
+    }
+
+    public static void initOverlay(Project prj) {
+                
+        OdrProjectOverlay po = new OdrProjectOverlay();
+        po.setProject(prj);                
+        prj.overlayModels.put(ODR.PROJECT_OVERLAY_NAME, po);
+        
     }
     
     

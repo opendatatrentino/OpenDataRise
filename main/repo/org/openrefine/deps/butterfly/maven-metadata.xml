@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.openrefine.deps</groupId>
+  <artifactId>butterfly</artifactId>
+  <versioning>
+    <release>trunk</release>
+    <versions>
+      <version>trunk</version>
+    </versions>
+    <lastUpdated>20130819170109</lastUpdated>
+  </versioning>
+</metadata>

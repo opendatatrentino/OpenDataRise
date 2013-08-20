@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.openrefine.deps</groupId>
+  <artifactId>secondstring</artifactId>
+  <versioning>
+    <release>20100303</release>
+    <versions>
+      <version>20100303</version>
+    </versions>
+    <lastUpdated>20130819170129</lastUpdated>
+  </versioning>
+</metadata>

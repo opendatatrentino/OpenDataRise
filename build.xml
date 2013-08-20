@@ -178,6 +178,8 @@
     		classpathref="tests.class.path">
     	  <xmlfileset file="${server.tests.dir}/conf/tests.xml"/>
     	</testng>
+        <!-- odr -->
+        <echo message="${line.separator}${line.separator}Test results were written to ${build.dir}/server_tests"/>
     </target>
 
     <!-- ================================================================== -->

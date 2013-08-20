@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.openrefine.deps</groupId>
+  <artifactId>ant-tools</artifactId>
+  <versioning>
+    <release>1.8.0</release>
+    <versions>
+      <version>1.8.0</version>
+    </versions>
+    <lastUpdated>20130819170103</lastUpdated>
+  </versioning>
+</metadata>

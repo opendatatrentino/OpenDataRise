@@ -103,7 +103,7 @@ public class ClientSideResourceManager {
         }
     }
     
-    static protected String resolve(ButterflyModule module, String path) {
+    static protected String resolve(ButterflyModule module, String path) {        
         MountPoint mountPoint = module.getMountPoint();
         if (mountPoint != null) {
             String mountPointPath = mountPoint.getMountPoint();
