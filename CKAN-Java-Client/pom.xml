@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>eu.trentorise.opendata.opendatarise.deps</groupId>
+    <artifactId>CKAN-Java-Client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>  
+    <name>CKAN Java Client</name>  
+
+    
+    <description></description>  
+    <url>https://github.com/andmar8/CKAN-Java-Client</url>
+    <licenses>
+        <license>
+            <name>AGPL</name>
+            <url>todo p2</url>
+            <distribution>manual</distribution> 
+        </license>
+    </licenses>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+   
+         
+    <build>        
+        <sourceDirectory>${basedir}/src/</sourceDirectory>   
+		
+        <!-- <directory>${basedir}/build</directory>
+        <outputDirectory>${project.build.directory}</outputDirectory>
+        <testOutputDirectory>${project.build.outputDirectory}</testOutputDirectory>
+        -->
+       
+        <!--   <sourceDirectory>${basedir}/main/src/</sourceDirectory> 
+       <sourceDirectory>${basedir}/server/src/</sourceDirectory>    
+        todo p3 dav review this   
+         <scriptSourceDirectory>${basedir}/src/main/scripts</scriptSourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <outputDirectory>${basedir}/target/classes</outputDirectory>
+        <testOutputDirectory>${basedir}/target/test-classes</testOutputDirectory>
+        -->
+ 
+    </build> 
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.2.2</version>
+        </dependency>
+    </dependencies> 
+</project>
