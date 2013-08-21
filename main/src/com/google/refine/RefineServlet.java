@@ -241,7 +241,12 @@ public class RefineServlet extends Butterfly {
         return new File(getTempDir(), name);
     }
     
-    public File getCacheDir(String name) {
+    /**
+     * odr modified set to static
+     * @param name
+     * @return 
+     */
+    static public File getCacheDir(String name) {
         File dir = new File(new File(s_dataDir, "cache"), name);
         dir.mkdirs();
         
