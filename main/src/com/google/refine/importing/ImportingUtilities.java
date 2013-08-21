@@ -89,6 +89,8 @@ import com.google.refine.importing.ImportingManager.Format;
 import com.google.refine.importing.UrlRewriter.Result;
 import com.google.refine.model.Project;
 import com.google.refine.util.JSONUtilities;
+import eu.trentorise.opendata.opendatarise.ODR;
+import eu.trentorise.opendata.opendatarise.OdrProjectOverlay;
 
 public class ImportingUtilities {
     final static protected Logger logger = LoggerFactory.getLogger("importing-utilities");
@@ -986,6 +988,7 @@ public class ImportingUtilities {
                 }
             }.start();
         }
+        ((OdrProjectOverlay)(project.overlayModels.get(ODR.PROJECT_OVERLAY_NAME))).setCreatedWithOdr(true);
         return project.id;
     }
     

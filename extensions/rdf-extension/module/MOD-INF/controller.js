@@ -145,7 +145,8 @@ function init() {
 	//RefineServlet.registerCommand(module, "sindiceReconcile", new SindiceReconcileCommand());
 	//this is just to initialize ServiceRegistry
 	RefineServlet.registerCommand(module, "reconcile-initialize", new InitializationCommand());
-       
+
+    
     /*
      *  Client-side Resources
      */
@@ -155,19 +156,20 @@ function init() {
     ClientSideResourceManager.addPaths(
         "project/scripts",
         module,
-        [
-            "scripts/rdf-data-table-view.js",
-            "scripts/menu-bar-extensions.js",
-            "scripts/rdf-schema-alignment.js",
-            "scripts/rdf-schema-alignment-ui-node.js",
-            "scripts/rdf-schema-alignment-ui-link.js",
-            "scripts/suggestterm.suggest.js",
-            "scripts/rdf-schema-manage-vocabs-widget.js",
-            "scripts/rdf-schema-vocabulary-manager.js",
-            "scripts/rdf-schema-new-prefix-widget.js",
-            "scripts/externals/jquery.form.js",
-            "scripts/sindice/sindice-dialog.js",
-            "scripts/common.js"
+        [  
+                "scripts/rdf-data-table-view.js",
+                "scripts/menu-bar-extensions.js",
+                "scripts/rdf-schema-alignment.js",
+                "scripts/rdf-schema-alignment-ui-node.js",
+                "scripts/rdf-schema-alignment-ui-link.js",
+                "scripts/suggestterm.suggest.js",
+                "scripts/rdf-schema-manage-vocabs-widget.js",
+                "scripts/rdf-schema-vocabulary-manager.js",
+                "scripts/rdf-schema-new-prefix-widget.js",
+                "scripts/externals/jquery.form.js",
+                "scripts/sindice/sindice-dialog.js",
+                "scripts/common.js" 
+            
 		]
     );
     
@@ -175,10 +177,12 @@ function init() {
     ClientSideResourceManager.addPaths(
         "project/styles",
         module,
-        [
+        [ 
             "styles/rdf-schema-alignment-dialog.css",
 			"styles/rdf-reconcile-service.css",
             "styles/sindice/recon-dialog.css"
+            
+            
         ]
     );
     

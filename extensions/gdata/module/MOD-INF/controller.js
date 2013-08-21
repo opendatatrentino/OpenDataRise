@@ -40,6 +40,8 @@ var ClientSideResourceManager = Packages.com.google.refine.ClientSideResourceMan
  * Function invoked to initialize the extension.
  */
 function init() {
+    
+    
   var RS = Packages.com.google.refine.RefineServlet;
   RS.registerCommand(module, "deauthorize", Packages.com.google.refine.extension.gdata.DeAuthorizeCommand());
   RS.registerCommand(module, "upload", Packages.com.google.refine.extension.gdata.UploadCommand());
@@ -84,7 +86,7 @@ function init() {
       "scripts/gdata-extension.js",
       "scripts/project/exporters.js"
     ]
-  );
+  );  
 }
 
 /*

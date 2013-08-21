@@ -4,6 +4,7 @@
  */
 package eu.trentorise.opendata.opendatarise;
 
+import com.google.refine.model.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.HashMap;
@@ -17,8 +18,9 @@ public class ODR {
     public static final int MAX_STEPS = 8;
     public static final Logger logger = LoggerFactory.getLogger("odr");    
     public static HashMap<Label, String> labelDict =  new HashMap<Label,String>();
+    public static String PROJECT_OVERLAY_NAME = "OdrProjectOverlay";
     private static Locale locale;
-            
+    
     public static final String getLabelString(Label label){
         return labelDict.get(label);
     }
@@ -51,6 +53,14 @@ public class ODR {
     public static void setLocale(Locale locale) {   
         ODR.logger.debug("Setting language to " + locale.toLanguageTag());                        
         ODR.locale = locale;
+    }
+
+    public static void initOverlay(Project prj) {
+                
+        OdrProjectOverlay po = new OdrProjectOverlay();
+        po.setProject(prj);                
+        prj.overlayModels.put(ODR.PROJECT_OVERLAY_NAME, po);
+        
     }
     
     public static Locale getLocale(){

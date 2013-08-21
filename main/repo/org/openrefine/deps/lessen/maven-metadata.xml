@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.openrefine.deps</groupId>
+  <artifactId>lessen</artifactId>
+  <versioning>
+    <release>trunk-r8</release>
+    <versions>
+      <version>trunk-r8</version>
+    </versions>
+    <lastUpdated>20130819170134</lastUpdated>
+  </versioning>
+</metadata>

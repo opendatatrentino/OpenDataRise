@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.openrefine.deps</groupId>
+  <artifactId>google-api-services-fusiontables</artifactId>
+  <versioning>
+    <release>v1-rev17-1.13.2-beta</release>
+    <versions>
+      <version>v1-rev17-1.13.2-beta</version>
+    </versions>
+    <lastUpdated>20130819174814</lastUpdated>
+  </versioning>
+</metadata>
