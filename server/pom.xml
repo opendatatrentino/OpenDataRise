@@ -85,7 +85,7 @@
                                 <argument>-Drefine.autoreload=true</argument> 
                                 <argument>-Drefine.port=4444</argument>
                                 <argument>-Drefine.webapp=../main/webapp</argument>
-                                
+                                <argument>-Drefine.verbosity=debug</argument>
                                 
                                 <argument>-classpath</argument>
                                 <!-- automatically creates the classpath using all project dependencies,
