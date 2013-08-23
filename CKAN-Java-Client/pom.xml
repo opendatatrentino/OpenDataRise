@@ -8,6 +8,11 @@
     <packaging>jar</packaging>  
     <name>CKAN Java Client</name>  
 
+    <parent>
+        <groupId>eu.trentorise.opendata.opendatarise</groupId>
+        <artifactId>odrapp</artifactId>
+        <version>0.2-SNAPSHOT</version>        
+    </parent>
     
     <description></description>  
     <url>https://github.com/andmar8/CKAN-Java-Client</url>
@@ -28,7 +33,7 @@
    
          
     <build>        
-        <sourceDirectory>${basedir}/src/</sourceDirectory>   
+        <sourceDirectory>${basedir}/src/</sourceDirectory>
 		
         <!-- <directory>${basedir}/build</directory>
         <outputDirectory>${project.build.directory}</outputDirectory>
