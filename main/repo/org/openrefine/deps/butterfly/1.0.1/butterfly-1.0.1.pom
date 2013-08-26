@@ -4,5 +4,5 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openrefine.deps</groupId>
   <artifactId>butterfly</artifactId>
-  <version>trunk</version>
+  <version>1.0.1</version>
 </project>

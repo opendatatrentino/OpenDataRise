@@ -12,13 +12,13 @@
     </groups>
 <!-- odr start this ones give problems -->
     <classes>
-      <!-- odr start see  https://github.com/opendatatrentino/OpenDataRise/issues/24 -->
+      <!-- odr start see  https://github.com/opendatatrentino/OpenDataRise/issues/24 
       <class name="com.google.refine.tests.model.CacheTests">
         <methods>
           <exclude name="testIssue567" />
         </methods>
       </class>
-<!--       odr end  -->    
+       odr end  -->    
     </classes>
 
   </test>
