@@ -318,7 +318,7 @@
             <scope>runtime</scope>                         
         </dependency>                                                                                                          
         <dependency>
-            <groupId>org.deri.grefine</groupId>
+            <groupId>eu.trentorise.opendata.opendatarise</groupId>
             <artifactId>rdf-extension</artifactId>
             <version>0.8-684b4ecf35</version>
             <scope>runtime</scope>                         
@@ -332,12 +332,7 @@
         </dependency>   
                                       
         <!-- **********************        NEW DEPENDENCIES FOR ODR          **************************** -->
-         <dependency>
-            <groupId>eu.trentorise.opendata.opendatarise.deps</groupId>
-            <artifactId>CKAN-Java-Client</artifactId>
-            <version>1.0-SNAPSHOT</version>                      
-            <scope>runtime</scope>                         
-        </dependency>
+
      
             
 

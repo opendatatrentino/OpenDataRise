@@ -1,5 +1,5 @@
     <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     
@@ -106,7 +106,7 @@
                                     <includes>                                      
                                         <include>**/*.tsv</include>
                                     </includes>
-                                    <preservePath>true</preservePath>
+                                     <preservePath>true</preservePath>
                                 </resource>
                                 <!-- copy other resources -->
                                 <resource>
@@ -142,18 +142,7 @@
             </plugin>
    
           
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>       
+       
     
         </plugins>
     </build> 
@@ -342,7 +331,7 @@
         <!-- **********************        LOCAL REPO DEPENDENCIES          **************************** -->             
 
         <!-- used this in the cmd windows shell. in Powershell it doesn't work!!!!
-C:\Users\david_2\Da\prj\opendatarise\OpenDataRise\prj\main>mvn deploy:deploy-file  -DgroupId=eu.trentorise.opendata.deps -Dpackaging=jar -Durl=file:repo/ -DartifactId=butterfly  -Dversion=trunk -Dsources=webapp/WEB-INF/lib-src/butterfly-trunk-sources.jar    -Dfile=webapp/WEB-INF/lib/butterfly-trunk.jar          -->
+        C:\Users\david_2\Da\prj\opendatarise\OpenDataRise\prj\main> mvn deploy:deploy-file  -DgroupId=eu.trentorise.opendata.deps -DartifactId=arith-code -Dpackaging=jar -Dversion=1.1    -Dfile=///C:/Users/david_2/Da/prj/opendatarise/OpenDataRise/prj/main/webapp/WEB-INF/lib/arithcode-1.1.jar   -Durl=file://C:/Users/david_2/Da/prj/opendatarise/OpenDataRise/prj/main/repo/            -->
                                     
         <dependency> 
             <groupId>org.openrefine.deps</groupId>
@@ -533,37 +522,6 @@ C:\Users\david_2\Da\prj\opendatarise\OpenDataRise\prj\main>mvn deploy:deploy-fil
         
         <!-- in theory there would be a test dependency for jackson-core-asl-1.5.6 and jackson-mapper-asl-1.5.6 -->
         <!-- ************  END FROM RDF-EXTENSION   -->
-        <!-- ************ for ckanlayze *************** -->
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>1.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-json</artifactId>
-            <version>1.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-xc</artifactId>
-            <version>1.9.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
-            <version>1.9.12</version>
-        </dependency>
-        <!-- ************ end for ckanalyze ************ -->
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <version>2.0.1</version>
-        </dependency>
+
     </dependencies> 
 </project>

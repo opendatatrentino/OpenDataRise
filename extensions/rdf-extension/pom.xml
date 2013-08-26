@@ -11,10 +11,12 @@
     </parent>
 
 
-    <groupId>org.deri.grefine</groupId>    
+    
     <artifactId>rdf-extension</artifactId>
     <version>0.8-684b4ecf35</version>
     <packaging>jar</packaging>
 
 
+    
+  
 </project>

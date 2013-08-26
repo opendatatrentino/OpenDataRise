@@ -11,10 +11,9 @@
 
     },
     "step-1": {
-        "ckan" : "CKAN",
         "name": "Selection",
         "help-1-title": "",
-        "help-1-descr": ""        
+        "help-1-descr": ""
     },
     "step-2": {
         "name": "Schema matching",

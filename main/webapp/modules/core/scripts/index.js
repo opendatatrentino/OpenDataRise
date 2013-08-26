@@ -172,8 +172,6 @@ $(function() {
     .css("margin-top", leftPanelBodyVPaddings + "px")
     .css("width", ($('#left-panel').width() - leftPanelBodyHPaddings) + "px")
     .css("height", ($('#left-panel').height() - leftPanelBodyVPaddings) + "px");
-    
-
 
     $('#right-panel')
     .css("left", leftPanelWidth + "px")

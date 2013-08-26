@@ -326,7 +326,7 @@ function init() {
       "scripts/util/dom.js",
       "scripts/util/date-time.js",
       "scripts/util/encoding.js",
-      "scripts/util/sign.js",      
+      "scripts/util/sign.js",
 
       "scripts/index.js",
       "scripts/index/create-project-ui.js",

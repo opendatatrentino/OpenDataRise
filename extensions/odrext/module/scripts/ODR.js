@@ -11,7 +11,7 @@ $.ajax({
 	type : "POST",
 	async : false,
 	data : {
-	  module : "odrext"
+	  module : "odrext",
 //		lang : lang
 	},
 	success : function(data) {
@@ -109,8 +109,7 @@ var ODR = {
     /**
      * Fills an helpbox with string taken from the language dictionary
      * @param {string} id id of the helpbox to fill in. ie 'myHelpbox'
-     * @param {number} nElements number of elements to fill   
-     * @param {string} dict Dictionary where to find helpbox contents 
+     * @param {number} nElements number of elements to fill    
      */
     fillHelpBox : function(id, dict, nElements){
         var helpbox = $("#"+id);
