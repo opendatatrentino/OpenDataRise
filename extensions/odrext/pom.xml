@@ -46,19 +46,15 @@
 
 
         <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
+            <groupId>eu.trentorise.opendata</groupId>
             <artifactId> ckanalyze-model</artifactId>
-            <version> 0.0.1-SNAPSHOT </version>
-            <scope>system</scope>
-            <systemPath>${basedir}/module/MOD-INF/lib/ckanalyze-model-0.0.1-SNAPSHOT.jar</systemPath> 
+            <version> 0.0.1-SNAPSHOT </version>            
         </dependency>
 
         <dependency> 
-            <groupId>eu.trentorise.opendata.deps</groupId>
+            <groupId>eu.trentorise.opendata</groupId>
             <artifactId> ckanalyze-client</artifactId>
-            <version> 0.0.1-SNAPSHOT </version>
-            <scope>system</scope>
-            <systemPath>${basedir}/module/MOD-INF/lib/ckanalyze-client-0.0.1-SNAPSHOT.jar</systemPath> 
+            <version> 0.0.1-SNAPSHOT </version>                        
         </dependency>
         <!--
     <dependency>

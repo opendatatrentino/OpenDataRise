@@ -38,8 +38,8 @@ function init() {
             "index/scripts",
             module,
             [
-                "scripts/widgets/helpbox-widget.js",
-                "scripts/index/ckan-importing-controller.js"
+                "scripts/widgets/helpbox-widget.js"
+                //,"scripts/index/ckan-importing-controller.js"
             ]);
 
 
@@ -78,7 +78,7 @@ function init() {
             "index/scripts",
             module,
             [
-                "scripts/ODRCKAN.js"
+              //  "scripts/ODRCKAN.js"
             ]
             );
 
@@ -86,7 +86,7 @@ function init() {
             "index/styles",
             module,
             [
-                "styles/ODRCKAN.less"
+               // "styles/ODRCKAN.less"
             ]
             );
 

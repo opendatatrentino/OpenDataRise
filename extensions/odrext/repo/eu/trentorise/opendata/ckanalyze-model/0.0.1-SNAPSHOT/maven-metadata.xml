@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>eu.trentorise.opendata</groupId>
+  <artifactId>ckanalyze-model</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20130826.161754</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20130826161754</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.0.1-20130826.161754-1</value>
+        <updated>20130826161754</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.0.1-20130826.161754-1</value>
+        <updated>20130826161754</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
