@@ -1,6 +1,25 @@
-/*global ODRDICT */
+/*global ODRDICT,$ */
 // This file is added to the /project page
 
+
+//Internationalization init
+var lang = navigator.language.split("-")[0]
+		|| navigator.userLanguage.split("-")[0];
+var dictionary = "";
+$.ajax({
+	url : "/command/core/load-language?",
+	type : "POST",
+	async : false,
+	data : {
+	  module : "odrext",
+//		lang : lang
+	},
+	success : function(data) {
+		dictionary = data;
+	}
+});
+$.i18n.setDictionary(dictionary);
+// End internationalization
 
 
 
@@ -38,7 +57,7 @@ var ODR = {
     },
     
     /**
-     * @param {Number} step
+     * @param {number} step
      */
     setStep : function(step){        
         
@@ -86,7 +105,55 @@ var ODR = {
                                           });
         ODR.updateUI();
     },
-    
+
+    /**
+     * Fills an helpbox with string taken from the language dictionary
+     * @param {string} id id of the helpbox to fill in. ie 'myHelpbox'
+     * @param {number} nElements number of elements to fill    
+     */
+    fillHelpBox : function(id, dict, nElements){
+        var helpbox = $("#"+id);
+        var i;
+        var prefix;
+        var descr;
+        console.log("Filling helpbox: ", id, " with dict ", dict);
+        
+        helpbox.empty();
+        for (i=1;i<=nElements;i++){
+            prefix = "help-"+i+"-";
+            descr = $.i18n._(dict)[prefix+"descr"];
+            if (!descr) {
+                descr = "";
+            }
+/*            helpbox.append("<h3 class='helpbox'><div><a href='#'>"+$.i18n._(dict)[prefix+"title"]
+                    +"</a></div></h3><div> <p>"
+                    + descr +"</p></div>");
+*/            
+            helpbox.append("<h3 class='helpbox'> " +
+"<table border='0'  cellpadding='3' cellspacing='3'>" + 
+	"<tr>" +
+	"	<td ><a class='helpbox-triangle' style='font-size:8px; margin-right:5px;'>▶</a></td>"+
+		"<td><a href='#'>"+$.i18n._(dict)[prefix+"title"]+"</a></td>"+
+	"</tr>"+
+"</table></h3>" + 
+
+"<p>" +descr +"</p></div>");
+
+            
+            
+        }         
+        helpbox.togglepanels();
+    },
+            
+    /**
+     * @return {boolean}
+     */
+    isHorizontallyReconciled : function(){             
+        return (theProject.overlayModels.OdrProjectOverlay.rowModelTotal === theProject.overlayModels.OdrProjectOverlay.horizontallyReconciledRows);
+    },
+
+        
+            
     /**
      * 
      * @returns {undefined}
@@ -94,8 +161,9 @@ var ODR = {
     updateUI : function(onDone){
         console.log("odr: updateUI");        
         var po = theProject.overlayModels.OdrProjectOverlay;
-        $("#odr-step-title").text(ODRDICT.STEP + " " + po.step + ": " + ODRDICT.STEPS[po.step].NAME);
-        $("#odr-nav-help-text").text(ODRDICT.STEPS[po.step].DESCRIPTION);
+        
+
+        
         if (po.step < 3){
             $("#odr-nav-prev-button").hide();
             $("#odr-nav-next-button").show();            
@@ -108,25 +176,46 @@ var ODR = {
             $("#odr-nav-next-button").hide();            
         }      
         
+        if (po.step > 1){
+            $("#odr-step-title").text($.i18n._("navigation")["step"] + " " + po.step +": " + $.i18n._("step-"+po.step)["name"]) ;
+        }
+        
         switch (po.step) {
-            case 1: 
+            case 1:                 
                 break;
             case 2: 
+                ODR.fillHelpBox("odr-nav-helpbox", "step-" + po.step, 3);
                 break;                
             case 3: 
+                ODR.fillHelpBox("odr-nav-helpbox", "step-" + po.step, 3);
                 break;                
             case 4: 
+                ODR.fillHelpBox("odr-nav-helpbox", "step-" + po.step, 3);
                 break;                
             case 5: 
+                if (ODR.isHorizontallyReconciled()){
+                    console.log("Completely horizontally reconciled.");
+                    ODR.fillHelpBox("odr-nav-helpbox", "step-5", 3);
+                } else {
+                    console.log("Not completely horizontally reconciled yet");
+                    ODR.fillHelpBox("odr-nav-helpbox", "step-5-automatic-reconcile", 4);
+                }
                 break;                
             case 6: 
+                ODR.fillHelpBox("odr-nav-helpbox", "step-" + po.step, 3);
                 break;                
             case 7: 
+                ODR.fillHelpBox("odr-nav-helpbox", "step-" + po.step, 4);
                 break;                
             case 8: 
-                
-                break;                            
+                ODR.fillHelpBox("odr-nav-helpbox", "step-" + po.step, 1);
+                break;             
         }
+        
+        $("#odr-nav-more-help").text($.i18n._("navigation")["more-help"]);
+        // todo  fix the more help link  see https://github.com/opendatatrentino/OpenDataRise/issues/26          
+                          
+        
         
         if (onDone) {
             onDone();

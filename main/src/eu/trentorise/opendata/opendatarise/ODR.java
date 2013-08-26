@@ -15,8 +15,7 @@ import java.util.HashMap;
 
 public class ODR {
     public static final int MAX_STEPS = 8;
-    public static final Logger logger = LoggerFactory.getLogger("odr");
-    public static String language;
+    public static final Logger logger = LoggerFactory.getLogger("odr");    
     public static HashMap<Label, String> labelDict =  new HashMap<Label,String>();
     public static String PROJECT_OVERLAY_NAME = "OdrProjectOverlay";
             
@@ -33,7 +32,6 @@ public class ODR {
     
     
     public static final void init(){        
-        ODR.language = "en-us";
         labelDict.put(Label.SELECTION, "Selection");
         labelDict.put(Label.SCHEMA_MATCHING, "Schema matching");
         labelDict.put(Label.DATA_VALIDATION, "Data Validation");

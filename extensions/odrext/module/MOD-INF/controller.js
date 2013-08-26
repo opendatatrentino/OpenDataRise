@@ -15,16 +15,16 @@ var RefineServlet = Packages.com.google.refine.RefineServlet;
  * Function invoked to initialize the extension.
  */
 function init() {
-    
+
     logger.info("Initializing...");
-    
+
     // ok I admit I want a Java init and for now didn't find a better way to do it
     ODR.init();
-    
+
     /*
-    *  Operations
-    */
-    OperationRegistry.registerOperation( module, "set-step", Packages.eu.trentorise.opendata.opendatarise.operations.SetStepOperation);
+     *  Operations
+     */
+    OperationRegistry.registerOperation(module, "set-step", Packages.eu.trentorise.opendata.opendatarise.operations.SetStepOperation);
 
     /*
      *  Commands
@@ -32,14 +32,30 @@ function init() {
     RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand());
 
 
+    ClientSideResourceManager.addPaths(
+            "index/scripts",
+            module,
+            [
+                "scripts/widgets/helpbox-widget.js"
+            ]);
+
+
+    // Style files to inject into /project page
+    ClientSideResourceManager.addPaths(
+            "index/styles",
+            module,
+            [
+                "styles/widgets/helpbox-widget.less"
+            ]
+            );
 
     // Script files to inject into /project page
     ClientSideResourceManager.addPaths(
             "project/scripts",
             module,
             [
-                "i18n/" + ODR.language + "/main.js",
-                "scripts/ODR.js"                
+                "scripts/ODR.js",
+                "scripts/widgets/helpbox-widget.js"
             ]
             );
 
@@ -48,7 +64,8 @@ function init() {
             "project/styles",
             module,
             [
-                "styles/project-injection.less"
+                "styles/project-injection.less",
+                "styles/widgets/helpbox-widget.less"
             ]
             );
 
@@ -58,7 +75,7 @@ function init() {
     davProject.registerOverlayModel(
             "OdrProjectOverlay",
             PO);
-    
+
     logger.info("Finished initializing.");
 
 }
@@ -77,9 +94,9 @@ function process(path, request, response) {
     }
 }
 
- 
- function send(request, response, template, context) {
+
+function send(request, response, template, context) {
     butterfly.sendTextFromTemplate(request, response, context, template, encoding, html);
- }
- 
- 
+}
+
+

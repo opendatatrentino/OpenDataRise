@@ -96,9 +96,13 @@ BrowsingEngine.prototype._initializeUI = function() {
 
   this._div.html(
     '<div class="browsing-panel-help" bind="help">' +
-    '<h1>'+$.i18n._('core-project')["use-facets"]+'</h1>' +
-    '<p>'+$.i18n._('core-project')["use-to-select"]+'</p>' +
-    '<p>'+$.i18n._('core-project')["not-sure"]+'<br /><a href="https://github.com/OpenRefine/OpenRefine/wiki/Screencasts" target="_blank"><b>'+$.i18n._('core-project')["watch-cast"]+'</b></a></p>' +
+    '<h1>'+$.i18n._('core-facets')["use-facets"]+'</h1>' +
+     //'<p>'+$.i18n._('core-project')["use-to-select"]+'</p>' +
+    '<p>'+$.i18n._('core-facets')["help-1-title"]+'</p>' +
+    '<p>'+$.i18n._('core-facets')["help-2-title"]+'</p>' +
+     '<p>'+$.i18n._('core-project')["not-sure"]+'<br /><a href="https://github.com/OpenRefine/OpenRefine/wiki/Screencasts" target="_blank"><b>'+$.i18n._('core-project')["watch-cast"]+'</b></a></p>' +
+    //odr this one doesn't work see https://github.com/opendatatrentino/OpenDataRise/issues/29
+    //'<div id="refine-facet-helpbox"></div>' +
     '</div>' +
     '<div class="browsing-panel-header" bind="header">' +
     '<div class="browsing-panel-indicator" bind="indicator">' +
@@ -114,6 +118,8 @@ BrowsingEngine.prototype._initializeUI = function() {
     '</div>' +
     '<ul bind="facets" class="facets-container"></ul>'
   );
+//  odr doesn't work see https://github.com/opendatatrentino/OpenDataRise/issues/29
+//  ODR.fillHelpBox("refine-facet-helpbox","core-facets",2);
   this._elmts = DOM.bind(this._div);
   this._elmts.facets.sortable({
     handle: '.facet-title',

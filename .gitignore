@@ -29,3 +29,4 @@ test-output/
 extensions/odrext/target/
 target/
 /velocity.log
+*/.svn/*
