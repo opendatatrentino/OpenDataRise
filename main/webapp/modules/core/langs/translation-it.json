@@ -245,6 +245,11 @@
 		"json-text": "Il seguente JSON codifica le opzioni impostate nelle altre schede. Puoi copiarlo e salvarlo per riutilizzarlo, incollandolo qui e cliccando Applica."
 	},
 	"core-facets": {
+                "odr start":"",                        				
+                "use-facets": "Utilizzo faccette",
+                "help-1-title": "Usa le faccette per selezionare il sottoinsieme di dati su cui lavorare",
+                "help-2-title": "Scegli le faccette dai menu in cima alle colonne",
+                "odr-end":"",
 		"remove-facet": "Rimuovi questa faccetta",
 		"reset": "reset",
 		"invert": "inverti",
@@ -294,8 +299,6 @@
 		"undo-redo": "Annulla / Rifai",
 		"extensions": "Estensioni",
 		"proj-name": "Clicca per rinominare il progetto",
-		"use-facets": "Utilizza faccette e filtri",
-		"use-to-select": "Usa faccette e filtri per selezionare il sottoinsieme di dati su cui lavorare. Seleziona faccette e filtri dal menu in cima ad ogni colonna.",
 		"not-sure": "Non sai come iniziare?",
 		"watch-cast": "Guarda questi screencasts",
 		"refreshing-facet": "Aggiornando faccette...",

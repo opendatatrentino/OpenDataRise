@@ -33,15 +33,33 @@ function init() {
      */
     RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand());
 
-  
+
+    ClientSideResourceManager.addPaths(
+            "index/scripts",
+            module,
+            [
+                "scripts/widgets/helpbox-widget.js",
+                "scripts/index/ckan-importing-controller.js"
+            ]);
+
+
+    // Style files to inject into /project page
+    ClientSideResourceManager.addPaths(
+            "index/styles",
+            module,
+            [
+                "styles/widgets/helpbox-widget.less"
+            ]
+            );
 
     // Script files to inject into /project page
     ClientSideResourceManager.addPaths(
             "project/scripts",
             module,
             [
-                "i18n/" + ODR.getLocale().toLanguageTag() + "/main.js",
-                "scripts/ODR.js"
+                "scripts/ODR.js",
+                "scripts/widgets/helpbox-widget.js"                
+                
             ]
             );
 
@@ -50,7 +68,8 @@ function init() {
             "project/styles",
             module,
             [
-                "styles/project-injection.less"
+                "styles/project-injection.less",
+                "styles/widgets/helpbox-widget.less"
             ]
             );
 

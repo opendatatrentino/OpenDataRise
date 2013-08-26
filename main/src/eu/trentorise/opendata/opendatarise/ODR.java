@@ -34,7 +34,6 @@ public class ODR {
     
     
     public static final void init(){        
-        ODR.locale = Locale.forLanguageTag("en-us");
         labelDict.put(Label.SELECTION, "Selection");
         labelDict.put(Label.SCHEMA_MATCHING, "Schema matching");
         labelDict.put(Label.DATA_VALIDATION, "Data Validation");

@@ -1,0 +1,73 @@
+
+{
+    "navigation": {
+        "step": "Step",
+        "more-help": "More help"
+    },
+    "step-0": {
+        "name": "BAD STEP",
+        "help-1-title": "ERROR: I shouldn't be in this step",
+        "help-1-descr": "ERROR: I shouldn't be in this step"
+
+    },
+    "step-1": {
+        "name": "Selection",
+        "help-1-title": "",
+        "help-1-descr": ""
+    },
+    "step-2": {
+        "name": "Schema matching",
+        "help-1-title": "Match types in the source fields with types in the target entity type",
+        "help-2-title": "You can preview the data in the left area of the screen",
+        "help-3-title": "When done, click NEXT to proceed to Data Validation step"
+    },
+    "step-3": {
+        "name": "Data validation",
+        "help-1-title": "Columns with a red title require attention",
+        "help-1-descr": "Columns with a red title and a progress bar contain an amount of of cells not respecting the column type indicated by the progress bar",
+        "help-2-title": "Each cell content must respect its column type",
+        "help-2-descr": "When values respect the type indicated in their column they are displayed in green, otherwise they are displayed in black",
+        "help-3-title": "When done, click NEXT to go to the enrichment step"
+    },
+    "step-4": {
+        "name": "Enrichment",
+        "help-1-title": "Enrich columns with relational attributes",
+        "help-1-descr": "In columns with a red title, for relational attiributes select Reconcile->Start reconciling from the column menu to link names in the cells to entities",
+        "help-2-title": "Enrich columns of type SemantifiedText",
+        "help-2-descr": "In columns of type SemantifiedText with a red title, select Perform NLP from the column menu to enrich the text",
+        "help-3-title": "When all bars are green, click NEXT",
+        "help-3-descr": "By clicking NEXT you will proceed to the Reconciliation (at row level) step."
+    },
+    "step-5": {
+        "name": "Reconciliation",
+        "help-1-title": "Each row represents an entity",
+        "help-2-title": "Choose the service to link rows to entities",
+        "help-3-title": "Choose on which attributes perform the search",
+        "help-4-title": "click RECONCILE to start horizontal reconciciliation"
+    },
+    "step-5-automatic-reconcile": {
+        "help-1-title": "Assign to each row a unique id in the first column",
+        "help-2-title": "Create new entities or update existing ones",
+        "help-3-title": "Click NEXT button to proceed to Export step"
+    },
+    "step-6": {
+        "name": "Exporting",
+        "help-1-title": "Commit changes to Entitypedia",
+        "help-2-title": "Download the RDF version of the dataset",
+        "help-3-title": "Click NEXT button to proceed to Publish step"
+    },
+    "step-7": {
+        "name": "Publishing",
+        "help-1-title": "A new RDF dataset resource will be now created on CKAN",
+        "help-2-title": "Enter the metadata values to associate to the resource on CKAN",
+        "help-3-title": "Click Upload",
+        "help-4-title": "Clic NEXT to proceed to visualization step"
+    },
+    "step-8": {
+        "name": "Visualization",
+        "help-1-title": "Todo - Yet to be decided"
+    }
+
+
+
+}

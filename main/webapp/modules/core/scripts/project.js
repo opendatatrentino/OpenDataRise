@@ -72,8 +72,7 @@ function resize() {
 
   var leftPanelPaddings = ui.leftPanelDiv.outerHeight(true) - ui.leftPanelDiv.height();
   ui.leftPanelDiv
-  //.css("top", top + "px")
-  .css("top", 200 + "px") // dav let's make it fixed
+  .css("top", top + "px")  
   .css("left", "0px")
   .css("height", (height - leftPanelPaddings) + "px")
   .css("width", leftPanelWidth + "px");
@@ -194,6 +193,13 @@ Refine.setTitle = function(status) {
   $("#project-name-button").text(theProject.metadata.name);
 };
 
+/**
+ * Reinitializes column and overlay models, but NOT the row model.
+ * 
+ * @param {type} f
+ * @param {type} fError
+ * @returns {undefined}
+ */
 Refine.reinitializeProjectData = function(f, fError) {
     console.log("reinitializeProjectData");
   $.getJSON(
@@ -213,7 +219,13 @@ Refine.reinitializeProjectData = function(f, fError) {
               if (data.hasOwnProperty(n)) {
                 theProject[n] = data[n];
               }
-            }            
+            }    
+            // odr start
+            console.log("inside reinitializeProjectData:");
+            console.log("  Now column model is loaded.");
+            console.log("  Now overlay models are loaded.");
+            console.log("  theProject = ", theProject);
+            // odr end
             f();
           },
           'json'
@@ -253,6 +265,7 @@ Refine._renameProject = function() {
 
 /*
  *  Utility state functions
+ *  odr comment: functions are executed in the order they are pushed, so ie  ui.dataTableView.update(onDone); is called before than   ui.browsingEngine.update(onDone);
  */
 
 Refine.createUpdateFunction = function(options, onFinallyDone) {
@@ -466,7 +479,9 @@ Refine.fetchRows = function(start, limit, onDone, sorting) {
           }
         }
       }
-
+      // odr start
+      console.log("Now row model is loaded");
+      // odr end
       if (onDone) {
         onDone();
       }

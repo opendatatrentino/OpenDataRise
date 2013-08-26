@@ -51,7 +51,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <div id="left-panel" class="main-layout-panel"><div id="left-panel-body">
     <ul id="action-area-tabs">
     </ul>
-    
+    <div id="help-box"></div>
     <div id="project-links">
       <div id="logo-container">
         <img alt="OpenDataRise logo" src="images/logo-gem-40.png" />
