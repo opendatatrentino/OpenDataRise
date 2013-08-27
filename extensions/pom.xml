@@ -16,9 +16,8 @@
     </parent>
     
     <modules>
-        <module>freebase</module>              
-        <!-- came from the future, better to comment it for now
-            <module> gdata </module>   -->        
+        <module>freebase</module>                      
+        <module> gdata </module>      
         <module>jython</module>
         <module>pc-axis</module>               
         <module>odrext</module> 

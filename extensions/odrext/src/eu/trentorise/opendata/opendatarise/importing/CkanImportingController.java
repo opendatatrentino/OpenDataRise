@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-package com.google.refine.extension.gdata;
+package eu.trentorise.opendata.opendatarise.importing;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -49,20 +49,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONWriter;
 
-import com.google.api.services.fusiontables.Fusiontables;
-import com.google.api.services.fusiontables.model.Table;
-import com.google.api.services.fusiontables.model.TableList;
-import com.google.gdata.client.docs.DocsService;
-import com.google.gdata.client.spreadsheet.FeedURLFactory;
-import com.google.gdata.client.spreadsheet.SpreadsheetService;
-import com.google.gdata.data.DateTime;
-import com.google.gdata.data.Person;
-import com.google.gdata.data.spreadsheet.SpreadsheetEntry;
-import com.google.gdata.data.spreadsheet.SpreadsheetFeed;
-import com.google.gdata.data.spreadsheet.WorksheetEntry;
-import com.google.gdata.data.spreadsheet.WorksheetFeed;
-import com.google.gdata.util.AuthenticationException;
-import com.google.gdata.util.ServiceException;
+
 
 import com.google.refine.ProjectManager;
 import com.google.refine.ProjectMetadata;
@@ -76,7 +63,7 @@ import com.google.refine.model.Project;
 import com.google.refine.util.JSONUtilities;
 import com.google.refine.util.ParsingUtilities;
 
-public class GDataImportingController implements ImportingController {
+public class CkanImportingController implements ImportingController {
 
     protected RefineServlet servlet;
     
@@ -88,7 +75,7 @@ public class GDataImportingController implements ImportingController {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        HttpUtilities.respond(response, "error", "GET not implemented");
+        HttpUtilities.respond(response, "ok", "GET not implemented");
     }
 
     @Override
@@ -96,7 +83,7 @@ public class GDataImportingController implements ImportingController {
         throws ServletException, IOException {
 
         Properties parameters = ParsingUtilities.parseUrlParameters(request);
-        String subCommand = parameters.getProperty("subCommand");
+      /*  String subCommand = parameters.getProperty("subCommand");
         if ("list-documents".equals(subCommand)) {
             doListDocuments(request, response, parameters);
         } else if ("initialize-parser-ui".equals(subCommand)) {
@@ -107,9 +94,10 @@ public class GDataImportingController implements ImportingController {
             doCreateProject(request, response, parameters);
         } else {
             HttpUtilities.respond(response, "error", "No such sub command");
-        }
+        }*/
+        HttpUtilities.respond(response, "ok", "GET not implemented");
     }
-
+/*
     private void doListDocuments(HttpServletRequest request, HttpServletResponse response, Properties parameters)
         throws ServletException, IOException {
 
@@ -233,13 +221,13 @@ public class GDataImportingController implements ImportingController {
             } else if ("table".equals(type)) {
                 // No metadata for a fusion table.
             }
-            /* TODO: else */
+            
             
             HttpUtilities.respond(response, result.toString());
         } catch (ServiceException e) {
             e.printStackTrace();
             HttpUtilities.respond(response, "error", "Internal error: " + e.getLocalizedMessage());
-        }
+        } 
     }
     
     private List<WorksheetEntry> reallyTryToGetWorksheetEntriesForDoc(URL docUrl, String token) throws IOException, ServiceException {
@@ -259,7 +247,7 @@ public class GDataImportingController implements ImportingController {
                 
                 return getWorksheetEntriesForDoc(new URL(urlString2), token);
             }
-            */
+            * /
             throw e;
         }
     }
@@ -412,5 +400,5 @@ public class GDataImportingController implements ImportingController {
         } catch (JSONException e) {
             throw new ServletException(e);
         }
-    }
+    }*/
 }

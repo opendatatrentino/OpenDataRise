@@ -31,12 +31,24 @@ function init() {
      */
     RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand());
 
+    // Register importer and exporter
+    var IM = Packages.com.google.refine.importing.ImportingManager;
+
+    IM.registerController(
+      module,
+      "ckan-importing-controller",
+      new Packages.eu.trentorise.opendata.opendatarise.importing.CkanImportingController()
+    );
 
     ClientSideResourceManager.addPaths(
             "index/scripts",
             module,
             [
-                "scripts/widgets/helpbox-widget.js"
+                "externals/jquery.dataTables.min.js",
+                "scripts/widgets/helpbox-widget.js",                
+                "scripts/index/ckan-importing-controller.js",
+                "scripts/index/ckan-source-ui.js"
+                
             ]);
 
 
@@ -45,7 +57,8 @@ function init() {
             "index/styles",
             module,
             [
-                "styles/widgets/helpbox-widget.less"
+                "styles/widgets/helpbox-widget.less",
+                "styles/index/ckan-source-ui.less"
             ]
             );
 
