@@ -45,7 +45,8 @@ function init() {
             module,
             [
                 "externals/jquery.dataTables.min.js",
-                "scripts/widgets/helpbox-widget.js",                
+                "scripts/widgets/combobox-widget.js",
+                "scripts/widgets/helpbox-widget.js",
                 "scripts/index/ckan-importing-controller.js",
                 "scripts/index/ckan-source-ui.js"
                 
@@ -57,6 +58,7 @@ function init() {
             "index/styles",
             module,
             [
+                "styles/widgets/combobox-widget.less",
                 "styles/widgets/helpbox-widget.less",
                 "styles/index/ckan-source-ui.less"
             ]
@@ -67,7 +69,9 @@ function init() {
             "project/scripts",
             module,
             [
+                
                 "scripts/ODR.js",
+                "scripts/widgets/combobox-widget.js",
                 "scripts/widgets/helpbox-widget.js"
             ]
             );
@@ -78,6 +82,7 @@ function init() {
             module,
             [
                 "styles/project-injection.less",
+                "styles/widgets/combobox-widget.less",
                 "styles/widgets/helpbox-widget.less"
             ]
             );

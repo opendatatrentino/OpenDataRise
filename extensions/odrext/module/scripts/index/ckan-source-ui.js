@@ -48,6 +48,7 @@ ODRCKAN.CkanSourceUI.prototype = {
         return "meteo"; // todo
     }, // todo
     set textQuery(text) {
+
     }, // todo
     get formats() {
         return ["csv"]; // todo    
@@ -62,26 +63,26 @@ ODRCKAN.CkanSourceUI.prototype = {
         body.html(DOM.loadHTML("odrext", "scripts/index/ckan-source-ui.html"));
 
         this._elmts = DOM.bind(body);
-        
 
-        $('#or-import-enterurl').text($.i18n._('core-index-import')["enter-url"]);
-        this._elmts.addButton.html($.i18n._('core-buttons')["add-url"]);
+
+        //$('#or-import-enterurl').text($.i18n._('core-index-import')["enter-url"]);
         this._elmts.nextButton.html($.i18n._('core-buttons')["next"]);
 
         this._elmts.nextButton.click(function(evt) {
-            if ($.trim(self._elmts.urlInput[0].value).length === 0) {
-                window.alert($.i18n._('core-index-import')["warning-web-address"]);
+            if ($.trim(self._elmts.ckanUrl[0].value).length === 0) {
+                // window.alert($.i18n._('core-index-import')["warning-web-address"]);
             } else {
-                console.log("  self._elmts.form = ",self._elmts.form);
+                console.log("  self._elmts.form = ", self._elmts.form);
                 self._controller.startImportJob(self._elmts.form, $.i18n._('core-index-import')["downloading-data"]);
             }
         });
-        this._elmts.addButton.click(function(evt) {
-            self._elmts.buttons.before(self._elmts.urlRow.clone());
+
+        $("#ckan-url").combobox({//autocomplete({
+            //source: ["http://dati.trentino.it", "http://data.gov.uk"],
+            //minLength: 0
         });
+
         this.initResourcesTable(body);
-    },
-    focus: function() {
     },
     initResourcesTable: function(body) {
         oTable = $('#resourcesTable').dataTable({
@@ -127,6 +128,13 @@ ODRCKAN.CkanSourceUI.prototype = {
             "aaSorting": [[1, 'asc']],
             "sDom": 'lfr<"giveHeight"t>ip'
         });
+    },
+    focus: function() {
+    },
+    search: function() {
+        throw new Error("todo search not implmented yet");
+        //self._elmts.urlInput[0].value
+
     }
 
 };
