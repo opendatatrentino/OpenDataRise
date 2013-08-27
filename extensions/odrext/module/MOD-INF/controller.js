@@ -29,8 +29,9 @@ function init() {
     /*
      *  Commands
      */
-    RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand());
-
+    RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand()); 
+    RefineServlet.registerCommand(module, "search-ckan", new Packages.eu.trentorise.opendata.opendatarise.commands.SearchCatalogCommand());
+    
     // Register importer and exporter
     var IM = Packages.com.google.refine.importing.ImportingManager;
 

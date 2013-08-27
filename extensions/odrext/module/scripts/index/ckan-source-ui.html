@@ -1,7 +1,9 @@
 
 
-
+<button id="debug-search-button" bind="debugSearchButton">Debug search button</button> <br/>
 <form bind="form">
+    
+    
     <div id="ckan-ctrl-header"> 
 
         <div  style="position: relative;
@@ -36,31 +38,31 @@
                             <tr>
                                 <td>Datasets</td>
                                 <td bind="totalDatasetsCount"> </td>
-                                <!--<td>Avg rows</td>
-                                <td>$ckanStats.formatAvgRowCount()</td>
+                                <td>Avg rows</td>
+                                <td bind="avgRowCount"></td>
                                 <td>% of float columns</td>
-                                <td>$ckanStats.formatCatalogColumnTypePercentage("FLOAT")</td>
+                                <td bind="floatPercentage"></td>
                                 <td>% of date columns</td>
-                                <td>$ckanStats.formatCatalogColumnTypePercentage("DATE")</td>
+                                <td bind="datePercentage"></td>
                                 <td>% of GeoJSON columns</td>
-                                <td>$ckanStats.formatCatalogColumnTypePercentage("GEOJSON")</td>
+                                <td bind="geojsonPercentage"></td>
                                 <td>avg string length</td>
-                                <td>$ckanStats.formatAvgStringLength()</td> -->
+                                <td bind="avgStringLength"></td>
                             </tr>
                             <tr>
                                 <td>Total size (kb)</td>
-                                <td>ckanStats.formatTotalFileSizeCount()</td>
-                                <!--<td>Avg columns</td>
-                                <td>$ckanStats.formatAvgColumnCount() </td>
+                                <td bind="totalFileSizeCount"></td>
+                                <td>Avg columns</td>
+                                <td bind="avgColumnCount"> </td>
                                 <td>% of integer columns</td>
-                                <td>$ckanStats.formatCatalogColumnTypePercentage("INT")</td>
+                                <td bind="intPercentage"></td>
                                 <td>% of string columns</td>
-                                <td>$ckanStats.formatCatalogColumnTypePercentage("STRING")</td>
+                                <td bind="stringPercentage"></td>
                                 <td>% of empty columns</td>
-                                <td>$ckanStats.formatCatalogColumnTypePercentage("EMPTY")</td>
+                                <td bind="emptyPercentage"></td>
 
                                 <td></td>
-                                <td></td>-->
+                                <td></td>
                             </tr> 
                         </table>  
 
@@ -100,14 +102,34 @@
                     <table cellpadding="0" cellspacing="0" border="0" class="display" id="resourcesTable">
                         <thead>
                             <tr>
-                                <th>Rendering engine</th>
-                                <th>Browser</th>
-                                <th>Platform(s)</th>
-                                <th>Engine version</th>
-                                <th>CSS grade</th>
+                                <th>Dataset name</th>
+                                <th>Resource name</th>
+                                <th>Category</th>
+                                <th>Format</th>
+                                <th>Columns</th>
+                                <th>Rows</th>
+                                <th>String columns</th>
+                                <th>Float columns</th>
+                                <th>Integer columns</th>
+                                <th>Date columns</th>
+                                <th>GeoJSON columns</th>
+                                <th>Empty columns</th>                                
+                                <th>Avg string length</th>
                             </tr>
                         </thead>
                         <tbody>
+                        </tbody>
+                    </table>
+
+
+                </td>
+            </tr>
+        </table>        
+
+    </div>
+
+
+<!--
                             <tr class="gradeX">
                                 <td>Trident</td>
                                 <td>Internet
@@ -511,18 +533,7 @@
                                 <td class="center">-</td>
                                 <td class="center">U</td>
                             </tr>
-                        </tbody>
-                    </table>
-
-
-                </td>
-            </tr>
-        </table>        
-
-    </div>
-
-
-
+-->
 
 
 </form>

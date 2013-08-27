@@ -69,32 +69,50 @@ ODRCKAN.CkanSourceUI.prototype = {
         this._elmts.nextButton.html($.i18n._('core-buttons')["next"]);
 
         this._elmts.nextButton.click(function(evt) {
-            if ($.trim(self._elmts.ckanUrl[0].value).length === 0) {
-                // window.alert($.i18n._('core-index-import')["warning-web-address"]);
-            } else {
-                console.log("  self._elmts.form = ", self._elmts.form);
-                self._controller.startImportJob(self._elmts.form, $.i18n._('core-index-import')["downloading-data"]);
-            }
+
+            console.log("  self._elmts.form = ", self._elmts.form);
+            self._controller.startImportJob(self._elmts.form, $.i18n._('core-index-import')["downloading-data"]);
+
         });
 
-        $("#ckan-url").combobox({//autocomplete({
+        this._elmts.ckanUrl.combobox({//autocomplete({
             //source: ["http://dati.trentino.it", "http://data.gov.uk"],
             //minLength: 0
         });
+        
+        this._elmts.debugSearchButton.click(function(evt) {
+            self.oTable.fnDraw();
+        });
+        
+        self.initResourcesTable();
+        
 
-        this.initResourcesTable(body);
     },
-    initResourcesTable: function(body) {
-        oTable = $('#resourcesTable').dataTable({
+    initResourcesTable: function() {
+        var self = this;
+        self.oTable = $('#resourcesTable').dataTable({
             /*       "sPaginationType": "full_numbers",
              "bServerSide": true,
              "sAjaxSource": "/extension/odrext/search-ckan ", //script-to-accept-request.php",
              // "sServerMethod": "GET",  // really needed?
              "fnServerParams": function ( aoData ) {
              aoData.push( { "text": "more_data", "value": "my_value" } );
-             }
-             
+             }             
              "iDisplayLength": 10, */
+            "bFilter": false,
+            "bLengthChange":false,
+            "bSort": false,
+            "sServerMethod": "POST",
+            "sPaginationType": "full_numbers",
+            "bServerSide": true,
+            "sAjaxSource": "/command/odrext/search-ckan ", //script-to-accept-request.php",            
+            "fnServerParams": function(aoData) {
+                aoData.push({"name": "ckanUrl", "value": self._elmts.ckanUrl[0].value});
+                aoData.push({"name": "ckanSearchInput", "value": self._elmts.ckanSearchInput[0].value});
+                aoData.push({"name": "formatCsv", "value": self._elmts.ckanFormatCsv.is(':checked')});
+                aoData.push({"name": "formatXml", "value": self._elmts.ckanFormatXml.is(':checked')});
+                aoData.push({"name": "formatJson", "value": self._elmts.ckanFormatJson.is(':checked')});
+            },
             "fnDrawCallback": function(oSettings) {
                 if (oSettings.aiDisplay.length === 0)
                 {

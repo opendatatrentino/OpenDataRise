@@ -13,7 +13,7 @@ ODRCKAN.CkanImportingController = function(createProjectUI) {
     id: "ckan-source",
     ui: ckanSourceUi
   });
-  //createProjectUI.selectImportSource(ckanSourceUi);
+  //bah doesn't work createProjectUI.selectImportSource(ckanSourceUi);
 };
 Refine.CreateProjectUI.controllers.push(ODRCKAN.CkanImportingController);
 
