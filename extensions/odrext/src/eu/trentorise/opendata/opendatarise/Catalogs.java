@@ -57,22 +57,29 @@ public class Catalogs implements Serializable {
     public static final String DATI_TRENTINO_IT = "http://dati.trentino.it";
     public static final String DISI_CKANALYZE_URL = "http://opendata.disi.unitn.it:8080/ckanalyze-web";
     
-    private static ImmutableMap<String, Catalog> catalogs;
-    private static String ckanalyzeServerUrl;
+    private ImmutableMap<String, Catalog> catalogs;
+    private String ckanalyzeServerUrl;
+    private String lastUsedCatalog;
+    private static Catalogs singleton;
 
-    static public String getCkanalyzeServerUrl(){
-        return ckanalyzeServerUrl;
+    static public synchronized String getCkanalyzeServerUrl(){
+        return singleton.ckanalyzeServerUrl;
     }
+    
+    static public synchronized String getLastUsedCatalog(){
+        return singleton.lastUsedCatalog;
+    }
+    
     public static final void init() {
         FileInputStream fin = null;
         String fn = CATALOGS_DIR + CATALOGS_FILE;
         try {
-            ckanalyzeServerUrl = DISI_CKANALYZE_URL; // todo should read it from somewhere
+            
             // loads catalogs
             File dir = RefineServlet.getCacheDir(CATALOGS_DIR);
             fin = new FileInputStream(dir.getAbsolutePath() + "/" + CATALOGS_FILE);
             ObjectInputStream ois = new ObjectInputStream(fin);
-            catalogs = (ImmutableMap<String, Catalog>) ois.readObject();
+            singleton = (Catalogs) ois.readObject();
             
         } catch (FileNotFoundException ex) {            
             ODR.logger.info("Didn't find any previous catalog information.");
@@ -89,7 +96,7 @@ public class Catalogs implements Serializable {
             } catch (Exception ex) {
                 Logger.getLogger(Catalogs.class.getName()).log(Level.SEVERE, null, ex);
             }
-            catalogs = ImmutableMap.<String, Catalog>of();            
+            singleton = new Catalogs();            
         }
 
     }
@@ -99,27 +106,29 @@ public class Catalogs implements Serializable {
      * @param catalog
      * @return null if the catalog is not found
      */
-    public static Catalog getCatalog(String catalog) {
-        return catalogs.get(catalog);
+    public static synchronized Catalog getCatalog(String catalog) {
+        return singleton.catalogs.get(catalog);
     }
     
   
     private Catalogs() {
-        throw new OdrException("Why are you calling me!?");
+        ckanalyzeServerUrl = DISI_CKANALYZE_URL; // todo should read it from somewhere
+        catalogs = ImmutableMap.<String,Catalog>of(DATI_TRENTINO_IT,new Catalog(DATI_TRENTINO_IT));
+        lastUsedCatalog = DATI_TRENTINO_IT;
     }    
 
     /**
-     * Saves to disk all info OpenDataRise got about a given catalog
+     * Saves to disk all info OpenDataRise about catalogs
      * @param catalog 
      */
-    private synchronized void saveCatalogs(Catalog catalog){        
+    private synchronized void saveCatalogs(){        
         OutputStream file = null;
         try {            
             File dir = RefineServlet.getCacheDir(CATALOGS_DIR);            
             file = new FileOutputStream( dir.getAbsolutePath() + "/" + CATALOGS_FILE );
             OutputStream buffer = new BufferedOutputStream( file );
             ObjectOutput output = new ObjectOutputStream( buffer );          
-            output.writeObject(catalogs);
+            output.writeObject(singleton);
         } catch (Exception ex) {
             throw new OdrException("Couldn't write to file: "+ CATALOGS_DIR + CATALOGS_FILE);
         } finally {
@@ -188,24 +197,6 @@ public class Catalogs implements Serializable {
             return ("Error converting percentage for " + type + ": value is " + d);
         }
     }
-
-
-    public static final String formatAvgStringLength(String catalogUri) {
-        return VelocityHelper.formatAvg(catalogs.get(catalogUri).getStats().getAvgStringLength(), 2);
-    }
-
-    public static final String formatTotalFileSizeCount(String catalogUri) {
-        return VelocityHelper.formatFilesize(catalogs.get(catalogUri).getStats().getTotalFileSizeCount());
-    }
-
-    public static final String formatAvgColumnCount(String catalogUri) {
-        return VelocityHelper.formatAvg(catalogs.get(catalogUri).getStats().getAvgColumnCount());
-    }
-
-    public static final String formatAvgRowCount(String catalogUri) {
-        return VelocityHelper.formatAvg(catalogs.get(catalogUri).getStats().getAvgRowCount());
-    }
-
 
 
 

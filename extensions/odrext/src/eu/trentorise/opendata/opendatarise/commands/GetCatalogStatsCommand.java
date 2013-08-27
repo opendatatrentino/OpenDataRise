@@ -38,8 +38,8 @@ public class GetCatalogStatsCommand extends Command {
             response.setHeader("Content-Type", "application/json");
             JSONWriter writer = new JSONWriter(response.getWriter());
 
-            String catalogUri = request.getParameter("catalogUri");
-            Catalog catalog = Catalogs.getCatalog(catalogUri);
+            String catalogUrl = request.getParameter("catalogUrl");
+            Catalog catalog = Catalogs.getCatalog(catalogUrl);
             if (catalog == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             } else {
@@ -47,7 +47,7 @@ public class GetCatalogStatsCommand extends Command {
                 writer.object();
                 writer.key("");
 
-                String stats = om.writeValueAsString(Catalogs.getCatalog(catalogUri).getStats());
+                String stats = om.writeValueAsString(Catalogs.getCatalog(catalogUrl).getStats());
                 ODR.logger.debug("Stats to send: \n" + stats);
                 writer.key("stats");
                 writer.value(stats);

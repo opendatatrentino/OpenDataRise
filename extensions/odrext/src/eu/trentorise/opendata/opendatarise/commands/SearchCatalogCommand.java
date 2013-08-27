@@ -28,6 +28,9 @@ import org.json.JSONWriter;
 public class SearchCatalogCommand extends Command {
 
     @Override
+    /**
+     * had issues using GET in browser side  datatables
+     */
         public void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
  
