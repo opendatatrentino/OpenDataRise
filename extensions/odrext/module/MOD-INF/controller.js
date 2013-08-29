@@ -9,7 +9,7 @@ var ODR = Packages.eu.trentorise.opendata.opendatarise.ODR;
 var logger = ODR.logger;
 var OperationRegistry = Packages.com.google.refine.operations.OperationRegistry;
 var RefineServlet = Packages.com.google.refine.RefineServlet;
-
+var Catalogs = Packages.eu.trentorise.opendata.opendatarise.Catalogs;
 
 /*
  * Function invoked to initialize the extension.
@@ -31,6 +31,7 @@ function init() {
      */
     RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand()); 
     RefineServlet.registerCommand(module, "search-ckan", new Packages.eu.trentorise.opendata.opendatarise.commands.SearchCatalogCommand());
+    RefineServlet.registerCommand(module, "get-catalog-stats", new Packages.eu.trentorise.opendata.opendatarise.commands.GetCatalogStatsCommand());
     
     // Register importer and exporter
     var IM = Packages.com.google.refine.importing.ImportingManager;
@@ -94,10 +95,15 @@ function init() {
     davProject.registerOverlayModel(
             "OdrProjectOverlay",
             PO);
-
+            
+        
+    logger.info("Initializing catalogs...");
+    Catalogs.init();
+    
     logger.info("Finished initializing.");
 
 }
+
 
 /*
  * Function invoked to handle each request in a custom way.
@@ -105,12 +111,18 @@ function init() {
 
 function process(path, request, response) {
     // Analyze path and handle this request yourself.
-
+    var context = {};
+    
     if (path === "/" || path === "") {
-        var context = {};
+        
 
         send(request, response, "index.vt", context);
-    }
+    } 
+    
+    if (path.endsWith(".vt.html") || path.endsWith(".vt.htm") || path.endsWith(".vt")){
+        send(request, response, path, context);
+    }        
+          
 }
 
 

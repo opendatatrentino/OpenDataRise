@@ -12,4 +12,8 @@ public class OdrException extends RuntimeException {
     public OdrException(String s){
         super("OdrException: " + s);
     }
+
+    public OdrException(String s, Exception ex) {
+        super("OdrException: " + s, ex);
+    }
 }

@@ -1,7 +1,7 @@
 
 
 <button id="debug-search-button" bind="debugSearchButton">Debug search button</button> <br/>
-<form bind="form">
+<form id="ckanForm" bind="form">
     
     
     <div id="ckan-ctrl-header"> 
@@ -25,8 +25,8 @@
                         URL of the CKAN catalog: 
                         <select id="ckan-url" bind="ckanUrl" class="default-importing-web-url">
                             <option value="">Select one...</option>
-                            <option value="dati.trentino.it">http://dati.trentino.it</option>
-                            <option value="data.gov.uk">http://data.gov.uk</option>
+                            <option value="http://dati.trentino.it"  selected="selected">http://dati.trentino.it</option>
+                            <option value="http://data.gov.uk">http://data.gov.uk</option>
 
                         </select>
                     </div>
@@ -89,16 +89,16 @@
 
                         <div class="ckan-facet">
                             <div class="ckan-facet-title"> File types  </div>
-                            <input id="ckan-format-csv" type="checkbox"  value="csv" bind="ckanFormatCsv">CSV<br>
-                            <input id="ckan-format-xml" type="checkbox"  value="xml" bind="ckanFormatXml">XML<br>
-                            <input id="ckan-format-json" type="checkbox"  value="json" bind="ckanFormatJson">JSON<br>
+                            <input id="ckan-format-csv" type="radio" name="fileformats" value="csv" checked>CSV<br>
+                            <input id="ckan-format-xml" type="radio" name="fileformats" value="xml" bind="ckanFormatXml">XML<br>
+                            <input id="ckan-format-json" type="radio" name="fileformats" value="json" bind="ckanFormatJson">JSON<br>
                         </div> 
 
 
                     </div>                     
                 </td>
                 <td>
-
+                    
                     <table cellpadding="0" cellspacing="0" border="0" class="display" id="resourcesTable">
                         <thead>
                             <tr>

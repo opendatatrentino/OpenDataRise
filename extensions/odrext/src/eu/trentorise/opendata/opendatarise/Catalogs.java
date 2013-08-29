@@ -4,8 +4,7 @@
  */
 package eu.trentorise.opendata.opendatarise;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+
 import com.google.refine.RefineServlet;
 import eu.trentorise.opendata.ckanalyze.client.CkanalyzeClient;
 import eu.trentorise.opendata.ckanalyze.model.catalog.CatalogStats;
@@ -57,46 +56,55 @@ public class Catalogs implements Serializable {
     public static final String DATI_TRENTINO_IT = "http://dati.trentino.it";
     public static final String DISI_CKANALYZE_URL = "http://opendata.disi.unitn.it:8080/ckanalyze-web";
     
-    private ImmutableMap<String, Catalog> catalogs;
+    private HashMap<String, Catalog> catalogs;
     private String ckanalyzeServerUrl;
     private String lastUsedCatalog;
     private static Catalogs singleton;
 
-    static public synchronized String getCkanalyzeServerUrl(){
-        return singleton.ckanalyzeServerUrl;
+    public synchronized String getCkanalyzeServerUrl(){
+        return ckanalyzeServerUrl;
     }
     
-    static public synchronized String getLastUsedCatalog(){
-        return singleton.lastUsedCatalog;
+    public synchronized String getLastUsedCatalog(){
+        return lastUsedCatalog;
+    }
+    
+    static String getAbsCatalogsFile(){        
+        return RefineServlet.getCacheDir(CATALOGS_DIR).getAbsolutePath() + File.separator + CATALOGS_FILE;
     }
     
     public static final void init() {
-        FileInputStream fin = null;
-        String fn = CATALOGS_DIR + CATALOGS_FILE;
-        try {
-            
-            // loads catalogs
-            File dir = RefineServlet.getCacheDir(CATALOGS_DIR);
-            fin = new FileInputStream(dir.getAbsolutePath() + "/" + CATALOGS_FILE);
-            ObjectInputStream ois = new ObjectInputStream(fin);
-            singleton = (Catalogs) ois.readObject();
-            
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        String absPath = getAbsCatalogsFile();
+        try {            
+            // loads catalogs           
+            fis = new FileInputStream(absPath);
+            ois = new ObjectInputStream(fis);
+            singleton = (Catalogs) ois.readObject();            
         } catch (FileNotFoundException ex) {            
             ODR.logger.info("Didn't find any previous catalog information.");
         } catch (IOException ex) {            
-            throw new OdrException("Couldn't read file: " + fn );            
+            throw new OdrException("Couldn't read file: " + absPath, ex );            
             // todo should save corrupted file somewhere and better report error
         } catch (Exception ex) {
             throw new RuntimeException(ex);            
         } finally {
             try {
-                if (fin != null) {
-                    fin.close();
+                
+                if (fis != null) {
+                    fis.close();                    
                 }
+                if (ois != null) {
+                    fis.close();                    
+                }
+                
             } catch (Exception ex) {
                 Logger.getLogger(Catalogs.class.getName()).log(Level.SEVERE, null, ex);
             }
-            singleton = new Catalogs();            
+            if (singleton == null) {
+                singleton = new Catalogs();
+            }            
         }
 
     }
@@ -106,14 +114,27 @@ public class Catalogs implements Serializable {
      * @param catalog
      * @return null if the catalog is not found
      */
-    public static synchronized Catalog getCatalog(String catalog) {
-        return singleton.catalogs.get(catalog);
+    public synchronized Catalog getCatalog(String catalog) {
+        Catalog res = catalogs.get(catalog);
+        if (res == null){
+            throw new RuntimeException("Catalog "+catalog+" is not present!");
+        }
+        return catalogs.get(catalog);
     }
     
+    /**
+     * 
+     * 
+    */
+    public synchronized Catalog putCatalog(String catalogUrl){
+        Catalog newCatalog = new Catalog(catalogUrl);
+        catalogs.put(catalogUrl,newCatalog);
+        return newCatalog;
+    }    
   
     private Catalogs() {
         ckanalyzeServerUrl = DISI_CKANALYZE_URL; // todo should read it from somewhere
-        catalogs = ImmutableMap.<String,Catalog>of(DATI_TRENTINO_IT,new Catalog(DATI_TRENTINO_IT));
+        catalogs = new HashMap<String,Catalog>();
         lastUsedCatalog = DATI_TRENTINO_IT;
     }    
 
@@ -121,19 +142,29 @@ public class Catalogs implements Serializable {
      * Saves to disk all info OpenDataRise about catalogs
      * @param catalog 
      */
-    private synchronized void saveCatalogs(){        
+    public synchronized static void saveCatalogs(){        
         OutputStream file = null;
+        ObjectOutput oos = null;
+        
+        String absPath = getAbsCatalogsFile();
+        
         try {            
-            File dir = RefineServlet.getCacheDir(CATALOGS_DIR);            
-            file = new FileOutputStream( dir.getAbsolutePath() + "/" + CATALOGS_FILE );
+            
+            file = new FileOutputStream( absPath);
             OutputStream buffer = new BufferedOutputStream( file );
-            ObjectOutput output = new ObjectOutputStream( buffer );          
-            output.writeObject(singleton);
-        } catch (Exception ex) {
-            throw new OdrException("Couldn't write to file: "+ CATALOGS_DIR + CATALOGS_FILE);
+            oos = new ObjectOutputStream( buffer );          
+            oos.writeObject(singleton);
+        } catch (Exception ex) {            
+            throw new OdrException("Couldn't write to file: "+ absPath,ex);
         } finally {
             try {
-                file.close();
+                if (oos != null){
+                    oos.close();
+                }
+                
+                if (file != null){
+                    file.close();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(Catalogs.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -141,7 +172,6 @@ public class Catalogs implements Serializable {
         }
                  
     }
-    
     
     
     /*
@@ -178,29 +208,24 @@ public class Catalogs implements Serializable {
     */ 
  
 
-
-
-
-    public String formatCatalogColumnTypePercentage(String catalogUrl, String type) {
-        Catalog catalog = catalogs.get(catalogUrl);
-        Long count = catalog.getStats().getColsPerTypeMap().get(Types.valueOf(type));
-
-        double d = ((double) count) / catalog.getStats().getTotalColsCount();
-        try {
-            NumberFormat percentFormat = NumberFormat.getPercentInstance(ODR.getLocale());
-            percentFormat.setMaximumFractionDigits(1);
-
-            ODR.logger.debug("Count for " + type + "column is " + count);
-
-            return percentFormat.format(d);
-        } catch (IllegalArgumentException e) {
-            return ("Error converting percentage for " + type + ": value is " + d);
+    private synchronized HashMap<String, Catalog> getCatalogs() {
+        return catalogs;
+    }
+    
+    public static Catalogs getSingleton(){
+        if (singleton == null){
+            throw new RuntimeException("Catalogs singleton has not been created yet!");
         }
+        return singleton;
     }
 
-
-
-    private synchronized ImmutableMap<String, Catalog> getCatalogs() {
-        return catalogs;
+    synchronized public Catalog putIfNotExistingCatalog(String catalogUrl) {
+       if (!catalogs.containsKey(catalogUrl)){
+           Catalog newCatalog = new Catalog(catalogUrl);
+           catalogs.put(catalogUrl,newCatalog);
+           return newCatalog;
+       } else {
+           return catalogs.get(catalogUrl);
+       }
     }
 }

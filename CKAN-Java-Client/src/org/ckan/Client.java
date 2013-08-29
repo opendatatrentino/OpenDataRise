@@ -168,6 +168,7 @@ public final class Client
     
     /**
     * Loads a JSON string into a class of the specified type.
+    * 
     */
     protected <T> T getGsonObjectFromJson(Class<T> cls, String data, String action) throws CKANException
     {
@@ -176,6 +177,19 @@ public final class Client
         return (T)o;
     }
 
+    
+    /**
+     * odr
+    * Loads a JSON string into a class of the specified type.
+    */
+    public <T> T getGsonObjectFromGenericJson(Class<T> cls, String data, String action) throws CKANException
+    {
+        Object o = gson.fromJson(data, cls);
+        
+        return (T)o;
+    }
+    
+    
     protected String getJsonFromGsonObject(Object o)
     {
         return gson.toJson(o);
