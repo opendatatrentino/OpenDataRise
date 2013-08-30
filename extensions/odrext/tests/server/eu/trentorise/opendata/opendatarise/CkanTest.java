@@ -148,11 +148,7 @@ public class CkanTest extends RefineTest {
             writer.value( 7.2);
             writer.endArray();
             writer.endArray();
-            /*            String stats = om.writeValueAsString(Catalogs.getCatalog(catalogUri).getStats());
-             ODR.logger.debug("Stats to send: \n" + stats);
-             writer.key("stats");
-             writer.value(stats);
-             */
+ 
             writer.endObject();
             response.setStatus(HttpServletResponse.SC_OK);
 
@@ -169,9 +165,9 @@ public class CkanTest extends RefineTest {
         int limit = 10;
             Catalogs.init();        
             Catalogs.getSingleton().putCatalog(CKAN_TESTING_INSTANCE);
-            SearchResults sr = Catalogs.getSingleton().getCatalog(Catalogs.DATI_TRENTINO_IT).search("", "csv", 0, limit);
-            assert(sr.getResults().size() == limit);
-        
+            SearchResults srs = Catalogs.getSingleton().getCatalog(Catalogs.DATI_TRENTINO_IT).search("", "csv", 0, limit);
+            assert(srs.getResults().size() == limit);
+            
     }
 
     

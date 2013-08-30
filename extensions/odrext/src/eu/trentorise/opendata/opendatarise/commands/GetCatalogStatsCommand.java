@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.JSONWriter;
 
 /**
@@ -42,11 +43,10 @@ public class GetCatalogStatsCommand extends Command {
             Catalog catalog = Catalogs.getSingleton().putCatalog(catalogUrl);
             if (catalog.getStats() == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            } else {
-                ODR.logger.debug("Stats to send: \n" + catalog.getStats());
+            } else {                
                 writer.object();
-                writer.key("stats");
-                writer.value(catalog.getStats());
+                writer.key("stats");                
+                writer.value(new JSONObject(om.writeValueAsString(catalog.getStats())));
                 writer.endObject();
                 response.setStatus(HttpServletResponse.SC_OK);
             }

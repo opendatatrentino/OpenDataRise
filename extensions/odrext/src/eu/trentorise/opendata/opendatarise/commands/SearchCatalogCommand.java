@@ -15,7 +15,7 @@ import eu.trentorise.opendata.opendatarise.Catalog;
 import eu.trentorise.opendata.opendatarise.Catalogs;
 import eu.trentorise.opendata.opendatarise.ODR;
 import eu.trentorise.opendata.opendatarise.Utils;
-import static eu.trentorise.opendata.opendatarise.Utils.colFreq;
+import static eu.trentorise.opendata.opendatarise.Utils.colFreqToString;
 import eu.trentorise.opendata.opendatarise.importing.SearchResult;
 import eu.trentorise.opendata.opendatarise.importing.SearchResults;
 import java.io.IOException;
@@ -25,19 +25,18 @@ import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.ckan.resource.impl.Dataset;
 import org.ckan.resource.impl.Group;
+import org.ckan.resource.impl.Resource;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONWriter;
-
 
 /**
  *
  * @author David Leoni
  */
 public class SearchCatalogCommand extends Command {
-
-
 
     @Override
     /**
@@ -54,7 +53,7 @@ public class SearchCatalogCommand extends Command {
 
             String catalogUrl = request.getParameter("ckanUrl");
             String ckanSearchInput = request.getParameter("ckanSearchInput");
-            
+
             String format = request.getParameter("format");
 
             /*          
@@ -77,56 +76,57 @@ public class SearchCatalogCommand extends Command {
             int iDisplayLength = Integer.parseInt(request.getParameter("iDisplayLength"));
             ODR.logger.debug("iDisplayLength = " + iDisplayLength);
 
-            
+
             Catalog catalog = Catalogs.getSingleton().putIfNotExistingCatalog(catalogUrl);
 
-            SearchResults sr = catalog.search(ckanSearchInput, format, iDisplayStart, iDisplayLength);
+            SearchResults srs = catalog.search(ckanSearchInput, format, iDisplayStart, iDisplayLength);
 
             writer.object();
             writer.key("sEcho");
             writer.value(sEcho);
             writer.key("iTotalRecords");
-            writer.value(sr.getiTotalRecords());
+            writer.value(srs.getiTotalRecords());
             writer.key("iTotalDisplayRecords");
-            writer.value(sr.getiTotalDisplayRecords()); // todo
+            writer.value(srs.getiTotalDisplayRecords()); // todo
             writer.key("aaData");
             writer.array();
-            for (SearchResult r : sr.getResults()) {
-                ResourceStats s = r.getResourceStats();
+            for (SearchResult sr : srs.getResults()) {
+                ResourceStats s = sr.getResourceStats();
+                Resource r = sr.getResource();
+                Dataset d = sr.getDataset();
                 writer.array();
-                writer.value(r.getDataset().getName());
-                writer.value(r.getResource().getName());
-                List<Group> groups = r.getDataset().getGroups();
-                if (groups.size() > 0) {
+                writer.value(d == null ? "-" : d.getTitle());
+                writer.value(r.getName());
+                if (d == null) {
                     writer.value("-");
                 } else {
-                    writer.value(groups.get(0).getName());
-                    for (int i = 1; i < groups.size(); i++) {
-                        writer.value("," + groups.get(i).getName());
+                    List<Group> groups = d.getGroups();
+                    if (groups.size() == 0) {
+                        writer.value("-");
+                    } else {
+                        String groupsList = groups.get(0).getName();
+
+                        for (int i = 1; i < groups.size(); i++) {
+                            groupsList += " " + groups.get(i).getName();
+                        }
+                        writer.value(groupsList);
                     }
 
                 }
 
-                writer.value(r.getResource().getFormat());
-                writer.value(s.getColumnCount());
-                writer.value(s.getRowCount());
-                writer.value(colFreq(s, Types.STRING));
-                writer.value(colFreq(s, Types.FLOAT));
-                writer.value(colFreq(s, Types.INT));
-                writer.value(colFreq(s, Types.DATE));
-                writer.value(colFreq(s, Types.GEOJSON));
-                writer.value(colFreq(s, Types.EMPTY));
-                writer.value(s.getStringLengthAvg());
+                writer.value(r.getFormat());
+                writer.value(s == null ? "-" : s.getColumnCount());
+                writer.value(s == null ? "-" : s.getRowCount());
+                writer.value(colFreqToString(s, Types.STRING));
+                writer.value(colFreqToString(s, Types.FLOAT));
+                writer.value(colFreqToString(s, Types.INT));
+                writer.value(colFreqToString(s, Types.DATE));
+                writer.value(colFreqToString(s, Types.GEOJSON));
+                writer.value(colFreqToString(s, Types.EMPTY));
+                writer.value(s == null ? "-" : s.getStringLengthAvg());
                 writer.endArray();
-            }
-            writer.array();
+            }            
             writer.endArray();
-            writer.endArray();
-            /*            String stats = om.writeValueAsString(Catalogs.getCatalog(catalogUri).getStats());
-             ODR.logger.debug("Stats to send: \n" + stats);
-             writer.key("stats");
-             writer.value(stats);
-             */
             writer.endObject();
             response.setStatus(HttpServletResponse.SC_OK);
 

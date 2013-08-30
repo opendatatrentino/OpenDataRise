@@ -5,6 +5,7 @@
 package eu.trentorise.opendata.opendatarise.importing;
 
 import eu.trentorise.opendata.ckanalyze.model.resources.ResourceStats;
+import javax.annotation.Nonnull;
 import org.ckan.resource.impl.Dataset;
 import org.ckan.resource.impl.Resource;
 import org.json.JSONObject;
@@ -16,14 +17,18 @@ import org.json.JSONObject;
 public class SearchResult {
     private Dataset dataset;    
     private Resource resource;    
-    private ResourceStats resourceStats;
-    
+    private ResourceStats resourceStats;    
    
-
-    public SearchResult(Dataset dataset, Resource resource, ResourceStats resourceStats){
+    /**
+     *      
+     * @param dataset
+     * @param resource
+     * @param resourceStats 
+     */
+    public SearchResult( @Nonnull Resource resource, Dataset dataset, ResourceStats resourceStats){
         this.dataset = dataset;
         this.resource = resource;
-        this.resourceStats  = resourceStats;
+        this.resourceStats  = resourceStats;        
     }
 
     public Resource getResource() {
@@ -37,6 +42,7 @@ public class SearchResult {
     public Dataset getDataset() {
         return dataset;
     }
+
     
     
 }

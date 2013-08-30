@@ -19,18 +19,21 @@ import org.apache.http.impl.client.DefaultHttpClient;
  */
 public class Utils {
     
+    
+    
     /**
      * Returns frequency of a column of a given type. 
      * @param s
      * @param type
      * @return 
      */
-    public static int colFreq(ResourceStats s, Types type) {
-        Integer freq = s.getColsPerTypeMap().get(type);
-        if (type == null) {
-            return 0;
+    public static  String colFreqToString(ResourceStats s, Types type) {
+        if (s == null) return "-";
+        Integer freq = s.getColsPerTypeMap().get(type);        
+        if (freq == null) {
+            return "0";
         } else {
-            return freq;
+            return freq.toString();
         }
     }    
     

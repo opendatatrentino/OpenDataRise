@@ -135,9 +135,9 @@ ODRCKAN.CkanSourceUI.prototype = {
             "bServerSide": true,
             "sAjaxSource": "/command/odrext/search-ckan", //script-to-accept-request.php",            
             "fnServerParams": function(aoData) {
-                aoData.push({"name": "ckanUrl", "value": self._elmts.ckanUrl[0].value});
-                aoData.push({"name": "ckanSearchInput", "value": self._elmts.ckanSearchInput[0].value});
-                aoData.push({"name": "format", "value": $('input[name=fileformats]:checked', '#ckanForm').val()});
+                aoData.push({name: "ckanUrl", value: self._elmts.ckanUrl[0].value});
+                aoData.push({name: "ckanSearchInput", value: self._elmts.ckanSearchInput[0].value});
+                aoData.push({name: "format", value: $('input[name=fileformats]:checked', '#ckanForm').val()});
             },
             /*"fnServerData": function(sSource, aoData, fnCallback) {
                 console.log("inside fnServerData()");
@@ -160,7 +160,7 @@ ODRCKAN.CkanSourceUI.prototype = {
                 for (var i = 0; i < nTrs.length; i++)
                 {
                     var iDisplayIndex = oSettings._iDisplayStart + i;
-                    var sGroup = oSettings.aoData[ oSettings.aiDisplay[iDisplayIndex] ]._aData[0];
+                    var sGroup = oSettings.aoData[ oSettings.aiDisplay[i] ]._aData[0];   // odr substituted i to iDisplayIndex for http://datatables.net/forums/discussion/907/strange-firebug-alert-ff-after-change-pagination-in-row-grouping/p1
                     if (sGroup !== sLastGroup)
                     {
                         var nGroup = document.createElement('tr');

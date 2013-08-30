@@ -122,13 +122,35 @@ public class Catalog implements Serializable {
                 
                 for (int i = 0; i < resourcesList.length(); i++){
                     //ckanClient.getResource(resourcesList.getString(i));  // this stinky command uses old ckan api
-
-                    Resource resource = ckanClient.getGsonObjectFromGenericJson(Resource.class,resourcesList.getString(i),"getResource");
-                    Dataset dataset = ckanClient.getDataset(resource.getPackage_id());
-                    SearchResult result = new SearchResult(  dataset,  resource, ckanalyzeClient.getResourceStats(url, resource.getId()));
+                    Resource resource = null;
+                    try {
+                        resource = ckanClient.getGsonObjectFromGenericJson(Resource.class,resourcesList.getString(i),"getResource");
+                        if (resource == null) {
+                            throw new NullPointerException("Resource must not be null");
+                            
+                        }
+                    } catch (Exception ex){
+                        continue; // problematic resources are not included in the search                        
+                    }
 
                     
+                    Dataset dataset;
+                    try {                        
+                        dataset = ckanClient.getDataset(resource.getPackage_id());
+                    } catch (Exception ex){
+                        dataset = null;                    
+                    }
+                    
+                    ResourceStats stats;
+                    try {
+                         stats = ckanalyzeClient.getResourceStats(url, resource.getId());
+                    } catch (Exception ex) {
+                        stats = null;
+                    }
+                    
+                    SearchResult result = new SearchResult(resource, dataset, stats);
                     results.add(result);
+                    
                 }
                     
                 
