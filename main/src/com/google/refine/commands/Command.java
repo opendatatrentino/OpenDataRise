@@ -1,35 +1,35 @@
 /*
 
-Copyright 2010, Google Inc.
-All rights reserved.
+ Copyright 2010, Google Inc.
+ All rights reserved.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are
+ met:
 
-    * Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the
-distribution.
-    * Neither the name of Google Inc. nor the names of its
-contributors may be used to endorse or promote products derived from
-this software without specific prior written permission.
+ * Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above
+ copyright notice, this list of conditions and the following disclaimer
+ in the documentation and/or other materials provided with the
+ distribution.
+ * Neither the name of Google Inc. nor the names of its
+ contributors may be used to endorse or promote products derived from
+ this software without specific prior written permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,           
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY           
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,           
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY           
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-*/
+ */
 
 package com.google.refine.commands;
 
@@ -59,6 +59,15 @@ import com.google.refine.history.HistoryEntry;
 import com.google.refine.model.Project;
 import com.google.refine.process.Process;
 import com.google.refine.util.ParsingUtilities;
+import eu.trentorise.opendata.opendatarise.OdrResponse;
+import java.io.Serializable;
+import java.util.logging.Level;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * The super class of all calls that the client side can invoke, most of which
@@ -67,36 +76,43 @@ import com.google.refine.util.ParsingUtilities;
 public abstract class Command {
 
     final static protected Logger logger = LoggerFactory.getLogger("command");
-
     protected RefineServlet servlet;
-    
+
     public void init(RefineServlet servlet) {
         this.servlet = servlet;
     }
-    
+
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
         throw new UnsupportedOperationException();
-    };
+    }
+
+    ;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
         throw new UnsupportedOperationException();
-    };
+    }
+
+    ;
 
     public void doPut(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
 
         throw new UnsupportedOperationException();
-    };
+    }
+
+    ;
 
     public void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         throw new UnsupportedOperationException();
-    };
+    }
+
+    ;
 
     /**
      * Whether each request to this command should be logged. For some commands
@@ -108,31 +124,31 @@ public abstract class Command {
     }
 
     /**
-     * Utility function to get the browsing engine's configuration as a JSON object
-     * from the "engine" request parameter, most often in the POST body.
+     * Utility function to get the browsing engine's configuration as a JSON
+     * object from the "engine" request parameter, most often in the POST body.
      *
      * @param request
      * @return
      * @throws JSONException
      */
     static protected JSONObject getEngineConfig(HttpServletRequest request)
-    throws JSONException {
+            throws JSONException {
         if (request == null) {
             throw new IllegalArgumentException("parameter 'request' should not be null");
         }
-        
+
         String json = request.getParameter("engine");
-        try{
+        try {
             return (json == null) ? null : ParsingUtilities.evaluateJsonStringToObject(json);
-        } catch (JSONException e){
-            logger.debug( json + " could not be parsed to JSON");
+        } catch (JSONException e) {
+            logger.debug(json + " could not be parsed to JSON");
             return null;
         }
     }
 
     /**
-     * Utility function to reconstruct the browsing engine from the "engine" request parameter,
-     * most often in the POST body.
+     * Utility function to reconstruct the browsing engine from the "engine"
+     * request parameter, most often in the POST body.
      *
      * @param request
      * @param project
@@ -140,7 +156,7 @@ public abstract class Command {
      * @throws Exception
      */
     static protected Engine getEngine(HttpServletRequest request, Project project)
-    throws Exception {
+            throws Exception {
         if (request == null) {
             throw new IllegalArgumentException("parameter 'request' should not be null");
         }
@@ -187,8 +203,8 @@ public abstract class Command {
     }
 
     /**
-     * Utility method for retrieving the ProjectMetadata object having the ID specified
-     * in the "project" URL parameter.
+     * Utility method for retrieving the ProjectMetadata object having the ID
+     * specified in the "project" URL parameter.
      *
      * @param request
      * @return
@@ -208,7 +224,7 @@ public abstract class Command {
         }
         throw new ServletException("Can't find project metadata: missing or bad URL parameter");
     }
-    
+
     static protected int getIntegerParameter(HttpServletRequest request, String name, int def) {
         if (request == null) {
             throw new IllegalArgumentException("parameter 'request' should not be null");
@@ -230,18 +246,17 @@ public abstract class Command {
             try {
                 return ParsingUtilities.evaluateJsonStringToObject(value);
             } catch (JSONException e) {
-                logger.warn("error getting json parameter",e);
+                logger.warn("error getting json parameter", e);
             }
         }
         return null;
     }
 
     static protected void performProcessAndRespond(
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Project project,
-        Process process
-    ) throws Exception {
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Project project,
+            Process process) throws Exception {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Type", "application/json");
 
@@ -252,8 +267,10 @@ public abstract class Command {
             Properties options = new Properties();
 
             writer.object();
-            writer.key("code"); writer.value("ok");
-            writer.key("historyEntry"); historyEntry.write(writer, options);
+            writer.key("code");
+            writer.value("ok");
+            writer.key("historyEntry");
+            historyEntry.write(writer, options);
             writer.endObject();
 
             w.flush();
@@ -264,7 +281,7 @@ public abstract class Command {
     }
 
     static protected void respond(HttpServletResponse response, String content)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -279,20 +296,22 @@ public abstract class Command {
     }
 
     static protected void respond(HttpServletResponse response, String status, String message)
-        throws IOException, JSONException {
+            throws IOException, JSONException {
 
         Writer w = response.getWriter();
         JSONWriter writer = new JSONWriter(w);
         writer.object();
-        writer.key("status"); writer.value(status);
-        writer.key("message"); writer.value(message);
+        writer.key("status");
+        writer.value(status);
+        writer.key("message");
+        writer.value(message);
         writer.endObject();
         w.flush();
         w.close();
     }
 
     static protected void respondJSON(HttpServletResponse response, Jsonizable o)
-        throws IOException, JSONException {
+            throws IOException, JSONException {
 
         respondJSON(response, o, new Properties());
     }
@@ -312,9 +331,87 @@ public abstract class Command {
         w.flush();
         w.close();
     }
+    /**
+     * odr new
+     */
+    static public final int DEFAULT_ADDITIONAL_CODE = 0;
 
+    
+    /**
+     * odr new An attempt to have a cleaner respond system. Logs the exception, responds with 500 and closes the write stream. The browser doesn't receive the exception stack trace
+     *
+     * @param OdrResponse
+     * @param response
+     * @param e
+     */
+    static protected void odrRespondException(HttpServletResponse response, Exception e) {
+        OdrResponse odrResponse = new OdrResponse();
+        odrResponse.setResponseCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        odrRespondException(odrResponse,response, e);
+    }
+    
+    
+    static private void setOdrHeaders(HttpServletResponse response){        
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-Type", "application/json");
+        response.setHeader("Cache-Control", "no-cache");    
+    };
+    
+    /**
+     * odr new An attempt to have a cleaner respond system. Responds with the
+     * given OdrResponse, logs the exception and closes the write stream. The browser doesn't receive the exception stack trace
+     *
+     * @param OdrResponse
+     * @param response
+     * @param e
+     */
+    static protected void odrRespondException(OdrResponse odrResponse, HttpServletResponse response, Exception e) {        
+        try {
+            logger.warn("Exception caught", e);
+            setOdrHeaders(response);
+            response.setStatus(odrResponse.getResponseCode());
+            ObjectMapper om = new ObjectMapper();
+
+            Writer w = response.getWriter();
+            w.write(om.writeValueAsString(odrResponse));
+            w.flush();
+            w.close();
+        } catch (Exception ex) {
+            logger.error("Couldn't respond properly:", ex);
+        }
+    }
+
+    /**
+     * odr new 
+     * @param odrResponse
+     * @param response 
+     */
+    static protected void odrRespond(OdrResponse odrResponse, HttpServletResponse response) {       
+        try {
+            setOdrHeaders(response);    
+            response.setStatus(odrResponse.getResponseCode()); 
+            ObjectMapper om = new ObjectMapper();
+            Writer w = response.getWriter();
+            w.write(om.writeValueAsString(odrResponse));
+            w.flush();
+            w.close();            
+        } catch (Exception ex) {
+            logger.error("Couldn't respond properly:", ex);
+        }        
+    }
+
+
+    /**
+     * odr doc It calls respond which returns a
+     * response.setStatus(HttpServletResponse.SC_OK);
+     *
+     * @param response
+     * @param e
+     * @throws IOException
+     * @throws ServletException
+     */
     static protected void respondException(HttpServletResponse response, Exception e)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         logger.warn("Exception caught", e);
 
@@ -342,31 +439,30 @@ public abstract class Command {
             e.printStackTrace(response.getWriter());
         }
     }
-    
+
     protected void respondWithErrorPage(
-        HttpServletRequest request, 
-        HttpServletResponse response, 
-        String message, 
-        Throwable e
-    ) {
+            HttpServletRequest request,
+            HttpServletResponse response,
+            String message,
+            Throwable e) {
         VelocityContext context = new VelocityContext();
-        
+
         context.put("message", message);
-        
+
         if (e != null) {
             StringWriter writer = new StringWriter();
-            
+
             e.printStackTrace(new PrintWriter(writer));
-            
+
             context.put("stack", writer.toString());
         } else {
             context.put("stack", "");
         }
-        
+
         try {
             servlet.getModule("core").sendTextFromTemplate(
-                request, response, context, "error.vt", "UTF-8", "text/html", true);
-            
+                    request, response, context, "error.vt", "UTF-8", "text/html", true);
+
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -375,5 +471,4 @@ public abstract class Command {
     static protected void redirect(HttpServletResponse response, String url) throws IOException {
         response.sendRedirect(url);
     }
-
 }

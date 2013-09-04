@@ -2,8 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.trentorise.opendata.opendatarise;
+package eu.trentorise.opendata.opendatarise.commands;
 
+import com.google.refine.ProjectManager;
+import com.google.refine.commands.history.CancelProcessesCommand;
+import com.google.refine.model.Project;
+import com.google.refine.process.ProcessManager;
 import com.google.refine.tests.RefineServletStub;
 import eu.trentorise.opendata.opendatarise.Catalogs;
 import java.util.Iterator;
@@ -14,9 +18,13 @@ import org.ckan.result.list.impl.DatasetSearchList;
 import org.testng.annotations.Test;
 
 import com.google.refine.tests.RefineTest;
+import eu.trentorise.opendata.opendatarise.Catalog;
+import eu.trentorise.opendata.opendatarise.ODR;
+import eu.trentorise.opendata.opendatarise.Utils;
 import eu.trentorise.opendata.opendatarise.importing.SearchResults;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,25 +34,69 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONWriter;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 
 /**
  *
  * @author David Leoni
  */
-@Test
+
 public class CkanTest extends RefineTest {
 
-    public static final String CKAN_TESTING_INSTANCE = Catalogs.DATI_TRENTINO_IT; // todo we need our testing instance        
+    
     
     RefineServletStub servlet;
-    @Override
-    @BeforeSuite
-    public void init() {
-        super.init();        
-        logger = LoggerFactory.getLogger(this.getClass());
-        //System.setProperty("log4j.configuration", "tests.log4j.properties");
+    
+      
+    // mocks
+    HttpServletRequest request = null;
+    HttpServletResponse response = null;
+    PrintWriter pw = null;    
+    String testCatalog;
+
+
+    @BeforeClass
+    public void beforeClass() {
+        System.out.println("CkanTest.beforeClass ");        
+        logger = LoggerFactory.getLogger(this.getClass());        
+        testCatalog = System.getProperty("testCatalog");
+        assert testCatalog != null;
+        assert logger != null;
+        logger.info("Testing against catalog: " + testCatalog);
     }    
+    
+    
+    @BeforeMethod
+    public void SetUp() {       
+        System.out.println("CkanTest.beforeTest ");
+        pw = mock(PrintWriter.class);
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);        
+        Catalogs.delete();
+        Catalogs.init();        
+    }    
+    
+    @AfterMethod
+    public void TearDown() {       
+        System.out.println("CkanTest.afterTest ");
+        pw = null;
+        request = null;
+        response = null;   
+        Catalogs.delete();        
+    }    
+
+    
     
     /**
      * Just to try it out
@@ -160,35 +212,6 @@ public class CkanTest extends RefineTest {
     }
 
 
-    @Test
-    public void testSearch() throws Exception {
-        int limit = 10;
-            Catalogs.init();        
-            Catalogs.getSingleton().putCatalog(CKAN_TESTING_INSTANCE);
-            SearchResults srs = Catalogs.getSingleton().getCatalog(Catalogs.DATI_TRENTINO_IT).search("", "csv", 0, limit);
-            assert(srs.getResults().size() == limit);
-            
-    }
-
-    
-    @Test
-    public void testSaveCatalogs() {
-        
-        Catalogs.init();
-        Catalogs catalogs = Catalogs.getSingleton();
-        catalogs.putCatalog(CKAN_TESTING_INSTANCE);
-        
-        Catalogs.saveCatalogs();
-        
-        Catalogs.init();
-        // throws if catalog is not found
-        catalogs.getCatalog(CKAN_TESTING_INSTANCE);
-        
-        File file = new File(Catalogs.getAbsCatalogsFile());
-        assert file.exists();
-        
-
-    }
 
     
     /**
@@ -197,7 +220,7 @@ public class CkanTest extends RefineTest {
      */
     protected void getResources() throws Exception {
     
-            Catalogs.init();
+            
             String url = "http://dati.trentino.it";
 
             String format = "csv";
@@ -218,8 +241,8 @@ public class CkanTest extends RefineTest {
 
                 JSONArray resourcesList = resourcesQueryResponse.getJSONArray("results");
                 
-                Catalog catalog = new Catalog(Catalogs.DATI_TRENTINO_IT);
-                org.ckan.Client ckanClient = new org.ckan.Client(new org.ckan.Connection(Catalogs.DATI_TRENTINO_IT), "");
+                Catalog catalog = new Catalog(testCatalog);
+                org.ckan.Client ckanClient = new org.ckan.Client(new org.ckan.Connection(testCatalog), "");
                 for (int i = 0; i < resourcesList.length(); i++){
                     logger.info("Processing resource " + resourcesList.getString(i));
                     //Resource resource = ckanClient.getResource(resourcesList.getString(i));

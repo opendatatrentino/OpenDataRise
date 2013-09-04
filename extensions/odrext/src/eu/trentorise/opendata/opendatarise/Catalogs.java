@@ -23,9 +23,11 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.ckan.CKANException;
@@ -52,8 +54,7 @@ class ResourceRow implements Serializable {
 public class Catalogs implements Serializable {
 
     public static final String CATALOGS_DIR = "odrext/catalogs/";
-    public static final String CATALOGS_FILE =  "catalogs.bin";
-    public static final String DATI_TRENTINO_IT = "http://dati.trentino.it";
+    public static final String CATALOGS_FILE =  "catalogs.bin";    
     public static final String DISI_CKANALYZE_URL = "http://opendata.disi.unitn.it:8080/ckanalyze-web";
     
     private HashMap<String, Catalog> catalogs;
@@ -65,11 +66,15 @@ public class Catalogs implements Serializable {
         return ckanalyzeServerUrl;
     }
     
+    public synchronized Set<String> getCatalogsSet(){
+        return catalogs.keySet();
+    }
+    
     public synchronized String getLastUsedCatalog(){
         return lastUsedCatalog;
     }
     
-    static String getAbsCatalogsFile(){        
+    public static String getAbsCatalogsFile(){        
         return RefineServlet.getCacheDir(CATALOGS_DIR).getAbsolutePath() + File.separator + CATALOGS_FILE;
     }
     
@@ -115,7 +120,7 @@ public class Catalogs implements Serializable {
      * @return null if the catalog is not found
      */
     public synchronized Catalog getCatalog(String catalog) {
-        Catalog res = catalogs.get(catalog);
+        Catalog res = catalogs.get(catalog);        
         if (res == null){
             throw new RuntimeException("Catalog "+catalog+" is not present!");
         }
@@ -135,14 +140,39 @@ public class Catalogs implements Serializable {
     private Catalogs() {
         ckanalyzeServerUrl = DISI_CKANALYZE_URL; // todo should read it from somewhere
         catalogs = new HashMap<String,Catalog>();
-        lastUsedCatalog = DATI_TRENTINO_IT;
+        // todo read it from system properties        
+        
+        lastUsedCatalog = System.getProperty("lastUsedCatalog");
+        if (lastUsedCatalog == null) {
+            lastUsedCatalog = "";
+        }
+            
+        
     }    
+    
+    /**
+     * Deletes catalogs file from disk. If file doesn't exist exits silently.
+     */
+    public static synchronized  void delete(){
+        File file = null;
+
+        String absPath = getAbsCatalogsFile();
+        
+        try {                        
+            file = new File( absPath);
+            if (file.exists()){
+                file.delete();
+            }
+        } catch (Exception ex) {            
+            throw new OdrException("Couldn't delete catalogs file: "+ absPath,ex);
+        }
+    }
 
     /**
      * Saves to disk all info OpenDataRise about catalogs
      * @param catalog 
      */
-    public synchronized static void saveCatalogs(){        
+    public synchronized static void save(){        
         OutputStream file = null;
         ObjectOutput oos = null;
         

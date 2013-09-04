@@ -83,11 +83,15 @@ public class Catalog implements Serializable {
     }
 
     /**
-     * @return catalog stats. If they are not available returns null
+     * @return catalog stats. If they are not available a runtime exception is thrown
      *
      */
     public CatalogStats getStats() {
-        return stats;
+        if (stats == null){
+            throw new RuntimeException("Catalog statistics are not available for catalog: "+url);
+        } else {
+            return stats;
+        }
     }
 
     /**
@@ -108,9 +112,10 @@ public class Catalog implements Serializable {
                     resourcesQuery += "format="+format+"&amp;";
                 }
                 resourcesQuery += "description="+ckanSearchInput+"&amp;offset="+offset+"&amp;limit="+limit + "&amp;all_fields=1";;
+                ODR.logger.debug("queryResource = " + resourcesQuery);
+                
                 String stringa = Utils.getRest(resourcesQuery);
                 
-                ODR.logger.debug("queryResource = " + resourcesQuery);
                 ODR.logger.debug("getRest = " + stringa);
 
                 JSONObject resourcesQueryResponse = new JSONObject(stringa);   

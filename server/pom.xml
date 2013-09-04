@@ -86,6 +86,7 @@
                                 <argument>-Drefine.port=4444</argument>
                                 <argument>-Drefine.webapp=../main/webapp</argument>
                                 <argument>-Drefine.verbosity=debug</argument>
+                                <argument>-Drefine.headless=true</argument>
                                 
                                 <argument>-classpath</argument>
                                 <!-- automatically creates the classpath using all project dependencies,

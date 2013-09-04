@@ -6,12 +6,15 @@ package eu.trentorise.opendata.opendatarise.commands;
 
 import com.google.refine.ProjectManager;
 import com.google.refine.commands.Command;
+import static com.google.refine.commands.Command.DEFAULT_ADDITIONAL_CODE;
 import com.google.refine.model.Project;
 import com.google.refine.preference.PreferenceStore;
 import com.google.refine.preference.TopList;
+import eu.trentorise.opendata.ckanalyze.model.catalog.CatalogStats;
 import eu.trentorise.opendata.opendatarise.Catalog;
 import eu.trentorise.opendata.opendatarise.Catalogs;
 import eu.trentorise.opendata.opendatarise.ODR;
+import eu.trentorise.opendata.opendatarise.OdrResponse;
 import java.io.IOException;
 import java.util.Properties;
 import javax.servlet.ServletException;
@@ -28,33 +31,39 @@ import org.json.JSONWriter;
  */
 public class GetCatalogStatsCommand extends Command {
 
+    
+    static class CatalogStatsResponse extends OdrResponse {
+        CatalogStats stats;
+
+
+        public CatalogStats getStats() {
+            return stats;
+        }
+
+
+        public void setStats(CatalogStats stats) {
+            this.stats = stats;
+        }
+    }
+    
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
 
         try {
-            ObjectMapper om = new ObjectMapper();
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Type", "application/json");
-            JSONWriter writer = new JSONWriter(response.getWriter());
 
             String catalogUrl = request.getParameter("ckanUrl");
             Catalog catalog = Catalogs.getSingleton().putCatalog(catalogUrl);
-            if (catalog.getStats() == null) {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            } else {                
-                writer.object();
-                writer.key("stats");                
-                writer.value(new JSONObject(om.writeValueAsString(catalog.getStats())));
-                writer.endObject();
-                response.setStatus(HttpServletResponse.SC_OK);
-            }
+                        
+                        
+            CatalogStatsResponse odrResp = new CatalogStatsResponse();
+            odrResp.setStats(catalog.getStats());
+            odrRespond(odrResp, response);
+                      
         } catch (Exception e) {
-            respondException(response, e);
+            odrRespondException(response, e);
         }
-
-
 
     }
 }

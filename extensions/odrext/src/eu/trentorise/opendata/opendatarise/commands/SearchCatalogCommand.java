@@ -56,20 +56,6 @@ public class SearchCatalogCommand extends Command {
 
             String format = request.getParameter("format");
 
-            /*          
-             ArrayList<String> formats = new ArrayList<String>();            
-             if (Boolean.parseBoolean(request.getParameter("formatCsv"))){
-             formats.add("csv");
-             };
-             if (Boolean.parseBoolean(request.getParameter("formatXml"))){
-             formats.add("xml");
-             };            
-             if (Boolean.parseBoolean(request.getParameter("formatJson"))){
-             formats.add("json");
-             };
-             */
-
-
             int sEcho = Integer.parseInt(request.getParameter("sEcho"));
             int iDisplayStart = Integer.parseInt(request.getParameter("iDisplayStart"));
             ODR.logger.debug("iDisplayStart = " + iDisplayStart);
@@ -125,14 +111,14 @@ public class SearchCatalogCommand extends Command {
                 writer.value(colFreqToString(s, Types.EMPTY));
                 writer.value(s == null ? "-" : s.getStringLengthAvg());
                 writer.endArray();
-            }            
+            }
             writer.endArray();
             writer.endObject();
             response.setStatus(HttpServletResponse.SC_OK);
-
+            
 
         } catch (Exception ex) {
-            respondException(response, ex);
+            odrRespondException(response, ex);
         }
     }
 }

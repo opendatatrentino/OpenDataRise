@@ -48,7 +48,7 @@ ODRCKAN.CkanSourceUI.prototype = {
         console.log("inside CkanSourceUi.attachUI:")
         var self = this;
 
-        body.html(DOM.loadHTML("odrext", "scripts/index/ckan-source-ui.html"));
+        body.html(DOM.loadHTML("odrext", "scripts/index/ckan-source-ui.vt.html"));
 
         this._elmts = DOM.bind(body);
 
@@ -63,12 +63,27 @@ ODRCKAN.CkanSourceUI.prototype = {
 
         });
 
-        this._elmts.ckanUrl.combobox({//autocomplete({
-            //source: ["http://dati.trentino.it", "http://data.gov.uk"],
-            //minLength: 0
+
+
+
+        $(function() {
+            self._elmts.ckanUrl.suggestcatalog({}).bind("fb-select", function(e, data) {
+                console.log("Selected a catalog:", data.name);
+                self.getStats();
+                self.oTable.fnDraw();
+            }).bind("fb-select-new", function(e, val) {
+                console.log("Selected a new catalog:", val);
+                self.getStats();
+                self.oTable.fnDraw();
+            });
+            ;
         });
 
-        this._elmts.debugSearchButton.click(function(evt) {
+
+
+
+
+        $(".ckanSearch").change(function() {
             self.oTable.fnDraw();
         });
 
@@ -83,8 +98,8 @@ ODRCKAN.CkanSourceUI.prototype = {
         var self = this;
         var ckanUrlString = self._elmts.ckanUrl[0].value;
         if (ckanUrlString.length > 0) {
-            $("#stats-not-available-panel").text("Fetching stats....").show();
-            $("#stats-table").hide();
+            $("#stats-not-available-panel").html(OdrCommon.waitingHtml("Fetching stats....")).show();
+            $("#stats-table").css("visibility", "hidden");
             $.ajax({
                 url: "/command/odrext/get-catalog-stats?ckanUrl=" + ckanUrlString,
                 type: "GET",
@@ -93,19 +108,38 @@ ODRCKAN.CkanSourceUI.prototype = {
                     module: "odrext"
                             //		lang : lang
                 },
-                success: function(data) {
+                success: function(data, textStatus, jqXHR) {
                     console.log("  entered getStats.success");
                     console.log("    data = ", data);
+                    console.log("    jqXHR = ", jqXHR);
+                    console.log("    textStatus = ", textStatus);
+
+                    var colsPerTypeMap = data.stats.colsPerTypeMap;
+                    var stats = data.stats;
+                    var totalColsCount = data.stats.totalColsCount;
+
+                    self._elmts.totalDatasetsCount.text(OdrCommon.formatInteger(data.stats.totalDatasetsCount));
+                    self._elmts.avgRowCount.text(OdrCommon.formatDouble(stats.avgRowCount));
+                    self._elmts.avgColumnCount.text(OdrCommon.formatDouble(stats.avgColumnCount));
+                    self._elmts.avgStringLength.text(OdrCommon.formatDouble(stats.avgStringLength));
+                    self._elmts.totalFileSizeCount.text(OdrCommon.formatFileSize(stats.totalFileSizeCount));
+                    self._elmts.floatPercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.FLOAT, colsPerTypeMap, totalColsCount));
+                    self._elmts.datePercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.DATE, colsPerTypeMap, totalColsCount));
+                    self._elmts.geojsonPercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.GEOJSON, colsPerTypeMap, totalColsCount));
+                    self._elmts.intPercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.INT, colsPerTypeMap, totalColsCount));
+                    self._elmts.stringPercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.STRING, colsPerTypeMap, totalColsCount));
+                    self._elmts.emptyPercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.EMPTY, colsPerTypeMap, totalColsCount));
+
                     $("#stats-not-available-panel").hide();
-                    $("#stats-table").show();
+                    $("#stats-table").css("visibility", "visible");
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log("  entered getStats.error");
                     console.log("    jqXHR = ", jqXHR);
                     console.log("    textStatus = ", textStatus);
                     console.log("    errorThrown = ", errorThrown);
-                    $("#stats-not-available-panel").text("Statistics for this catalog are not available.").show();
-                    $("#stats-table").hide();
+                    $("#stats-not-available-panel").html("<br/>Statistics for this catalog are not available.").show();
+                    $("#stats-table").css("visibility", "hidden");
                 }
             });
         }
@@ -118,7 +152,7 @@ ODRCKAN.CkanSourceUI.prototype = {
          var value = $(this).val();
          }); */
 
-        self.oTable = $('#resourcesTable').dataTable({
+        self.oTable = $('#resources-table').dataTable({
             /*       "sPaginationType": "full_numbers",
              "bServerSide": true,
              "sAjaxSource": "/extension/odrext/search-ckan ", //script-to-accept-request.php",
@@ -133,28 +167,73 @@ ODRCKAN.CkanSourceUI.prototype = {
             "sServerMethod": "POST",
             "sPaginationType": "full_numbers",
             "bServerSide": true,
+            bAutoWidth: false,
             "sAjaxSource": "/command/odrext/search-ckan", //script-to-accept-request.php",            
             "fnServerParams": function(aoData) {
                 aoData.push({name: "ckanUrl", value: self._elmts.ckanUrl[0].value});
                 aoData.push({name: "ckanSearchInput", value: self._elmts.ckanSearchInput[0].value});
                 aoData.push({name: "format", value: $('input[name=fileformats]:checked', '#ckanForm').val()});
             },
-            /*"fnServerData": function(sSource, aoData, fnCallback) {
-                console.log("inside fnServerData()");
-                $.getJSON(sSource, aoData, function(json) {
-                    fnCallback(json);
+            "fnServerData": function(sSource, aoData, fnCallback, oSettings) {
+                console.log("Inside fnServerData");
+                $("#resources-not-available-panel").html(OdrCommon.waitingHtml("Fetching data...")).show();
+                $("#resources-table_wrapper").hide();
+
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "type": "POST",
+                    "url": sSource,
+                    "data": aoData,
+                    success: function(data, textStatus, jqXHR) {
+                        var i;
+                        console.log("  entered fnServerData.success");
+                        console.log("    data = ", data);
+                        console.log("    jqXHR = ", jqXHR);
+                        console.log("    textStatus = ", textStatus);
+                        $("#resources-not-available-panel").hide();
+                        $("#resources-table_wrapper").show();
+                        for (i = 0; i < data.aaData.length; i++){
+                            data.aaData[i][12] = OdrCommon.formatAvgStringLength(data.aaData[i][12]);
+                        }
+                        fnCallback(data); // todo what the hell is the signature of this thing?
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("  entered fnServerData error");
+                        console.log("    jqXHR = ", jqXHR);
+                        console.log("    textStatus = ", textStatus);
+                        console.log("    errorThrown = ", errorThrown);
+                        $("#resources-not-available-panel").html("The dataset list is not available.").show();
+                        $("#resources-table_wrapper").hide();
+                    }
+
                 });
-            }.error(function(jqXHR, statusText, errorThrown) {
-                console.log("  error() from fnServerData");
-                console.log("    jqXHR.status: ",jqXHR.status);//403 etc.
-            }), */
+            },
+            /*"fnServerData": function(sSource, aoData, fnCallback) {
+             console.log("inside fnServerData()");
+             $.getJSON(sSource, aoData, function(json) {
+             fnCallback(json);
+             });
+             }.error(function(jqXHR, statusText, errorThrown) {
+             console.log("  error() from fnServerData");
+             console.log("    jqXHR.status: ",jqXHR.status);//403 etc.
+             }), */
             "fnDrawCallback": function(oSettings) {
+                console.log("Inside fnDrawCallback");
+                // odr to hide the paging controls, taken from here:
+/*                if ($('#resources-table span span.paginate_button').size()) {
+                    $('#resources-table')[0].style.display = "block";
+                } else {
+                    $('#resources-table')[0].style.display = "none";
+                } */
+                // end paging nastiness
+
                 if (oSettings.aiDisplay.length === 0)
                 {
+                    console.log("  this condition is true: oSettings.aiDisplay.length === 0");
                     return;
                 }
 
-                var nTrs = $('#resourcesTable tbody tr');
+                var nTrs = $('#resources-table tbody tr');
                 var iColspan = nTrs[0].getElementsByTagName('td').length;
                 var sLastGroup = "";
                 for (var i = 0; i < nTrs.length; i++)
@@ -166,28 +245,28 @@ ODRCKAN.CkanSourceUI.prototype = {
                         var nGroup = document.createElement('tr');
                         var nCell = document.createElement('td');
                         nCell.colSpan = iColspan;
-                        nCell.className = "group";
+                        nCell.className = "dataset";
                         nCell.innerHTML = sGroup;
                         nGroup.appendChild(nCell);
                         nTrs[i].parentNode.insertBefore(nGroup, nTrs[i]);
                         sLastGroup = sGroup;
                     }
                 }
-            },
-            "aoColumnDefs": [
+            }
+            ,
+            "aoColumnDefs"
+                    : [
                 {"bVisible": false, "aTargets": [0]}
             ],
-            "aaSortingFixed": [[0, 'asc']],
-            "aaSorting": [[1, 'asc']],
-            "sDom": 'lfr<"giveHeight"t>ip'
+            "aaSortingFixed"
+                    : [[0, 'asc']],
+            "aaSorting"
+                    : [[1, 'asc']],
+            "sDom"
+                    : 'lfr<"giveHeight"t>ip'
         });
     },
     focus: function() {
-    },
-    search: function() {
-        throw new Error("todo search not implmented yet");
-        //self._elmts.urlInput[0].value
-
     }
 
 };

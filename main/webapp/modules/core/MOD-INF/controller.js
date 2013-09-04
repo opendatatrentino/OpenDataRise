@@ -313,9 +313,16 @@ function init() {
       "externals/jquery-ui/jquery-ui-1.8.20.custom.min.js",
       "externals/date.js",
       "externals/jquery.i18n.js",
+      // odr start
+      "externals/globalize.js",
+      // odr end
       
       "externals/CFInstall.min.js",
       "scripts/chrome-frame.js",
+
+      // odr start we need autocomplete features early
+      "externals/suggest/suggest-4_3.js",      
+      // odr end
 
       "scripts/util/misc.js",
       "scripts/util/url.js",
@@ -354,6 +361,9 @@ function init() {
     "index/styles",
     module,
     [
+      // odr start  
+      "externals/suggest/css/suggest-4_3.min.css",        
+      // odr end
       "externals/jquery-ui/css/ui-lightness/jquery-ui-1.8.20.custom.css",
       "styles/jquery-ui-overrides.less",
       "styles/common.less",
@@ -390,6 +400,9 @@ function init() {
       "externals/imgareaselect/jquery.imgareaselect.js",
       "externals/date.js",
       "externals/jquery.i18n.js",
+      // odr start
+      "externals/globalize.js",
+      // odr end
 
       "externals/CFInstall.min.js",
       "scripts/chrome-frame.js",
