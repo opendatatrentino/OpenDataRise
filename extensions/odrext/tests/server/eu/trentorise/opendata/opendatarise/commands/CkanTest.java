@@ -70,7 +70,7 @@ public class CkanTest extends RefineTest {
     public void beforeClass() {
         System.out.println("CkanTest.beforeClass ");        
         logger = LoggerFactory.getLogger(this.getClass());        
-        testCatalog = System.getProperty("testCatalog");
+        testCatalog = System.getProperty("odr.testCatalog");
         assert testCatalog != null;
         assert logger != null;
         logger.info("Testing against catalog: " + testCatalog);

@@ -1,20 +1,41 @@
 
-var ODRCKAN = {};
+var ODRCKAN = {
+    
+    
+    
+};
 /*global Refine,ODRCKAN */
+
+
 ODRCKAN.CkanImportingController = function(createProjectUI) {
-  var ckanSourceUi;
+  
   this._createProjectUI = createProjectUI;
   
   this._parsingPanel = createProjectUI.addCustomPanel();
-  ckanSourceUi = new ODRCKAN.CkanSourceUI(this);
-  
+
+  // this follows 'gdata' model
   createProjectUI.addSourceSelectionUI({
     label: "CKAN",
     id: "ckan-source",
-    ui: ckanSourceUi
-  });
+    ui: new ODRCKAN.CkanSourceUI(this)
+  }); 
+  
+  /*
+    Refine.DefaultImportingController.sources.push({
+        label: "CKAN",
+        id: "ckan-source",
+        ui: ODRCKAN.CkanSourceUI
+    });   */
+  
   //bah doesn't work createProjectUI.selectImportSource(ckanSourceUi);
 };
+
+// feel so dirty
+ODRCKAN.CkanImportingController.prototype = Refine.DefaultImportingController.prototype;
+
+
 Refine.CreateProjectUI.controllers.push(ODRCKAN.CkanImportingController);
+
+
 
 

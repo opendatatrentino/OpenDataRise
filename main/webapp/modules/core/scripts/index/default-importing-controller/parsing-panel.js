@@ -60,7 +60,15 @@ Refine.DefaultImportingController.prototype._showParsingPanel = function(hasFile
   if (!(this._projectName) && this._job.config.fileSelection.length > 0) {
     var index = this._job.config.fileSelection[0];
     var record = this._job.config.retrievalRecord.files[index];
-    this._projectName = $.trim(record.fileName.replace(/\W/g, ' ').replace(/\s+/g, ' '));
+    // odr start for ckan
+    console.log("Inside Refine.DefaultImportingController.prototype._showParsingPanel: this._createProjectUI = ", this._createProjectUI);
+    if (ODRCKAN && ODRCKAN.selectingFromCkan){
+        this._projectName = ODRCKAN.ckanUrl + "/" + ODRCKAN.datasetTitle + "/" + ODRCKAN.resourceName;        
+    } else {    
+        this._projectName = $.trim(record.fileName.replace(/\W/g, ' ').replace(/\s+/g, ' '));
+    }
+    // odr end
+    
   }
   if (this._projectName) {
     this._parsingPanelElmts.projectNameInput[0].value = this._projectName;
@@ -90,12 +98,16 @@ Refine.DefaultImportingController.prototype._prepareParsingPanel = function() {
   this._parsingPanelElmts.startOverButton.click(function() {
     self._startOver();
   });
+  
+  
+  
   this._parsingPanelElmts.progressPanel.hide();
 
-  this._parsingPanelElmts.startOverButton.html($.i18n._('core-buttons')["startover"]);
+ // odr modified, startOverButton shows 'back' because I didn't understand when the previousButton is shown. A bit hacky. Works for 2 substeps, probably not for 3
+  this._parsingPanelElmts.startOverButton.html("&laquo; back");//$.i18n._('core-buttons')["startover"]);  
   this._parsingPanelElmts.nextButton.html($.i18n._('core-buttons')["create-project"]);
-  $('#or-import-parsopt').text($.i18n._('core-index-import')["parsing-options"]);
-  $('#or-import-projname').html($.i18n._('core-index-import')["project-name"]);
+  $('#or-import-parsopt').text("Substep 2 of 2");// odr modified $.i18n._('core-index-import')["parsing-options"]);
+  $('#or-import-projname').html($.i18n._('core-index-import')["project-name"] + ":");
   $('#or-import-updating').text($.i18n._('core-index-import')["updating-preview"]);
   $('#or-import-parseas').text($.i18n._('core-index-import')["parse-as"]);
   

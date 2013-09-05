@@ -81,7 +81,10 @@ public class SearchCatalogCommand extends Command {
                 Resource r = sr.getResource();
                 Dataset d = sr.getDataset();
                 writer.array();
-                writer.value(d == null ? "-" : d.getTitle());
+                writer.value(d == null ? "-" : d.getTitle());                
+                writer.value(r.getId());
+                writer.value(r.getUrl());
+                writer.value("");
                 writer.value(r.getName());
                 if (d == null) {
                     writer.value("-");

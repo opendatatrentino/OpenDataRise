@@ -116,8 +116,11 @@ public class Refine {
 
         boolean headless = Configurations.getBoolean("refine.headless",false);
         if (headless) {
-            System.setProperty("java.awt.headless", "true");
-            logger.info("Running in headless mode");
+            System.setProperty("java.awt.headless", "true");            
+            logger.info("Running in headless mode.");
+            // odr start
+            logger.info("Point your browser to http://" + host + ":" + port + "/ to start using Refine.");
+            // odr end
         } else {
             try {
                 RefineClient client = new RefineClient();

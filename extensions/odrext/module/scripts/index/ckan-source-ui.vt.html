@@ -3,16 +3,17 @@
 
 <form id="ckanForm" bind="form">
 
+    
+    <!-- odr dirty, to mimic standard url importing -->
+    <input style="visibility:hidden; width:1px; height:1px" bind="urlInput" name="download" />
 
     <div id="ckan-ctrl-header"> 
 
         <div  style="position: relative;
               float:right">
-            Substep 1 of 3 <button id="next-button" bind="nextButton" class="button button-primary" type="button"></button>
+            Substep 1 of 2 <button id="next-button" bind="nextButton" class="button button-primary" type="button"></button>
         </div>
         <div>
-            <br/>
-            <br/>
             <br/>
             <br/>
         </div>    
@@ -111,8 +112,11 @@
             </center>
             <table   id="resources-table">
                 <thead>
-                    <tr>
+                    <tr>                        
                         <th>Dataset name</th>
+                        <th>Resource id</th>
+                        <th>Resource link</th>
+                        <th></th>
                         <th>Resource name</th>
                         <th>Category</th>
                         <th>Format</th>

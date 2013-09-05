@@ -65,6 +65,9 @@ ThisComputerImportingSourceUI.prototype.focus = function() {
 
 function UrlImportingSourceUI(controller) {
   this._controller = controller;
+  // odr start trying to understand something
+  console.log("UrlImportingSourceUI: controller ", controller );
+  // odr end  
 }
 Refine.DefaultImportingController.sources.push({
   "label": $.i18n._('core-index-import')["web-address"],

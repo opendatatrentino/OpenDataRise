@@ -121,6 +121,11 @@ Refine.CreateProjectUI.prototype.selectImportSource = function(id) {
       sourceSelectionUI._divBody.addClass('selected').show();
       sourceSelectionUI._divHeader.addClass('selected');
 
+      // odr start dirty
+      
+      ODRCKAN.selectingFromCkan = (sourceSelectionUI.id === "ckan-source");          
+      
+      // odr end
       sourceSelectionUI.ui.focus();
 
       break;

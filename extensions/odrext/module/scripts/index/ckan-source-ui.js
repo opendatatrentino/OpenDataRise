@@ -1,4 +1,4 @@
-/*global DOM */
+/*global DOM, ODRCKAN */
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -39,7 +39,13 @@
  */
 
 ODRCKAN.CkanSourceUI = function(controller) {
+    
     this._controller = controller;
+    
+    
+    
+    
+    console.log("CkanSourceUi: this._controller = ", this._controller);    
 };
 
 
@@ -57,9 +63,29 @@ ODRCKAN.CkanSourceUI.prototype = {
         this._elmts.nextButton.html($.i18n._('core-buttons')["next"]);
 
         this._elmts.nextButton.click(function(evt) {
-
+            var selress = Object.keys(ODRCKAN.selectedResources);
+            var selresRowData;
+            var selresFileUrl;
+        
             console.log("  self._elmts.form = ", self._elmts.form);
-            self._controller.startImportJob(self._elmts.form, $.i18n._('core-index-import')["downloading-data"]);
+
+            
+            if (selress.length === 0){
+                alert("You must select a dataset resource to continue!");
+            } else {
+                selresRowData = ODRCKAN.selectedResources[selress[0]];
+                selresFileUrl = selresRowData[2];
+                // odr dirty - but at least statImportJob is happy
+                self._elmts.urlInput.val(selresFileUrl);
+                ODRCKAN.ckanUrl = self._elmts.ckanUrl[0].value;
+                ODRCKAN.datasetTitle = selresRowData[0];
+                ODRCKAN.resourceId = selresRowData[1];
+                ODRCKAN.resourceUrl = selresRowData[2];
+                ODRCKAN.resourceName = selresRowData[4];
+                ODRCKAN.selectingFromCkan = true;
+                
+                self._controller.startImportJob(self._elmts.form, $.i18n._('core-index-import')["downloading-data"]);                
+            }
 
         });
 
@@ -69,12 +95,10 @@ ODRCKAN.CkanSourceUI.prototype = {
         $(function() {
             self._elmts.ckanUrl.suggestcatalog({}).bind("fb-select", function(e, data) {
                 console.log("Selected a catalog:", data.name);
-                self.getStats();
-                self.oTable.fnDraw();
+                self.newSearch();
             }).bind("fb-select-new", function(e, val) {
                 console.log("Selected a new catalog:", val);
-                self.getStats();
-                self.oTable.fnDraw();
+                self.newSearch();
             });
             ;
         });
@@ -84,7 +108,7 @@ ODRCKAN.CkanSourceUI.prototype = {
 
 
         $(".ckanSearch").change(function() {
-            self.oTable.fnDraw();
+            self.newResourceSearch();
         });
 
         self.getStats();
@@ -92,6 +116,19 @@ ODRCKAN.CkanSourceUI.prototype = {
         self.initResourcesTable();
 
 
+    },
+    newSearch: function() {
+        console.log("Performing a new search.");
+        this.getStats();
+        this.newResourceSearch();
+
+    },
+    newResourceSearch: function() {
+
+        ODRCKAN.selectedResources = {};
+        ODRCKAN.selectedDatasets = {};
+
+        this.oTable.fnDraw();
     },
     getStats: function() {
         console.log("Inside getStats")
@@ -146,6 +183,22 @@ ODRCKAN.CkanSourceUI.prototype = {
     },
     initResourcesTable: function() {
         var self = this;
+
+
+        /**
+         * this is a map between uuid and RowData
+         * 
+         */
+        ODRCKAN.selectedResources = {};
+        /**
+         * status:
+         * 0 = not selected          
+         * 1 = partially selected
+         * 2 = selected
+         * a map between datasetTitle and status : number
+         */
+        ODRCKAN.selectedDatasets = {};
+
         /*
          
          $("input:radio[name=fileformats]").click(function() {
@@ -186,14 +239,17 @@ ODRCKAN.CkanSourceUI.prototype = {
                     "data": aoData,
                     success: function(data, textStatus, jqXHR) {
                         var i;
+                        var lastColumn;
+                        
                         console.log("  entered fnServerData.success");
                         console.log("    data = ", data);
                         console.log("    jqXHR = ", jqXHR);
                         console.log("    textStatus = ", textStatus);
                         $("#resources-not-available-panel").hide();
                         $("#resources-table_wrapper").show();
-                        for (i = 0; i < data.aaData.length; i++){
-                            data.aaData[i][12] = OdrCommon.formatAvgStringLength(data.aaData[i][12]);
+                        for (i = 0; i < data.aaData.length; i++) {
+                            lastColumn = data.aaData[i].length - 1;
+                            data.aaData[i][lastColumn] = OdrCommon.formatAvgStringLength(data.aaData[i][lastColumn]);
                         }
                         fnCallback(data); // todo what the hell is the signature of this thing?
                     },
@@ -220,11 +276,11 @@ ODRCKAN.CkanSourceUI.prototype = {
             "fnDrawCallback": function(oSettings) {
                 console.log("Inside fnDrawCallback");
                 // odr to hide the paging controls, taken from here:
-/*                if ($('#resources-table span span.paginate_button').size()) {
-                    $('#resources-table')[0].style.display = "block";
-                } else {
-                    $('#resources-table')[0].style.display = "none";
-                } */
+                /*                if ($('#resources-table span span.paginate_button').size()) {
+                 $('#resources-table')[0].style.display = "block";
+                 } else {
+                 $('#resources-table')[0].style.display = "none";
+                 } */
                 // end paging nastiness
 
                 if (oSettings.aiDisplay.length === 0)
@@ -233,13 +289,73 @@ ODRCKAN.CkanSourceUI.prototype = {
                     return;
                 }
 
+
+
+                $('#resources-table tbody tr td:first-child').each(
+                        function(j) {
+                            // console.log("Processing the ", j, " box");
+                            var rowData = oSettings.aoData[ oSettings.aiDisplay[j] ]._aData;
+                            // console.log("  rowData = ", rowData);
+                            // console.log("  selectedResources = ", self.selectedResources);
+                            var checked = "";
+                            // console.log(self.selectedResources);
+                            if (ODRCKAN.selectedResources[rowData[1]]) {
+                                checked = "checked";
+                            }
+
+                            $(this).html("<input type='radio' value='" + rowData[1] + "' "  + checked + "  name='selected-resources-group'>")
+                            $($(this).children()[0]).change(function() {      
+                                console.log("radio change, this = ", $(this));
+                                /*var radioValue = $(this).val();
+                                alert(radioValue); */
+                                var resId = $(this).filter(':checked').val();
+                                ODRCKAN.selectedResources = {};
+                                ODRCKAN.selectedResources[resId] = rowData;
+                                console.log("  Selected resources now are ", ODRCKAN.selectedResources);
+                            });
+                            //$("#resources-table tbody tr td input[name='selected-resources-group']")
+                            
+                            /* old
+                            $('#resources-table tbody tr td input').change(function() {
+                                if ($(this).is(':checked')) {
+                                    self.selectedResources[rowData[1]] = rowData;
+                                    console.log("Box is checked: ", this);
+                                  *  
+                                    /*
+                                      
+                                     / todo just for the demo. If a checkboxe is already selected it silently unchecks the box
+                                    if (Object.keys(self.selectedResources).length == 0){
+                                        console.log("for demo: you already checked another option! ");
+                                        
+                                        $(this).prop('checked', false);
+                                    }*/
+                                   /* 
+                                } else {
+                                    console.log("Box is not checked: ", this);
+                                    delete self.selectedResources[rowData[1]];                                                                        
+                                } 
+
+                            });*/
+
+                        });
+
+
+
+                // nTrs[i].getElementsByTagName('td').html();
+                // $($('#resources-table tbody tr')[5]).children(":first").html("")
+
+
+
                 var nTrs = $('#resources-table tbody tr');
                 var iColspan = nTrs[0].getElementsByTagName('td').length;
                 var sLastGroup = "";
+
                 for (var i = 0; i < nTrs.length; i++)
                 {
                     var iDisplayIndex = oSettings._iDisplayStart + i;
-                    var sGroup = oSettings.aoData[ oSettings.aiDisplay[i] ]._aData[0];   // odr substituted i to iDisplayIndex for http://datatables.net/forums/discussion/907/strange-firebug-alert-ff-after-change-pagination-in-row-grouping/p1
+                    var rowData = oSettings.aoData[ oSettings.aiDisplay[i] ]._aData;
+                    var sGroup = rowData[0];   // odr substituted i to iDisplayIndex for http://datatables.net/forums/discussion/907/strange-firebug-alert-ff-after-change-pagination-in-row-grouping/p1
+
                     if (sGroup !== sLastGroup)
                     {
                         var nGroup = document.createElement('tr');
@@ -256,7 +372,7 @@ ODRCKAN.CkanSourceUI.prototype = {
             ,
             "aoColumnDefs"
                     : [
-                {"bVisible": false, "aTargets": [0]}
+                {"bVisible": false, "aTargets": [0, 1, 2]}
             ],
             "aaSortingFixed"
                     : [[0, 'asc']],

@@ -1,3 +1,4 @@
+<!-- odr the original
 <div bind="wizardHeader" class="default-importing-wizard-header"><div class="grid-layout layout-tightest layout-full"><table><tr>
   <td width="1%"><button bind="startOverButton" class="button"></button></td>
   <td width="1%"><button bind="previousButton" class="button"></button></td>
@@ -6,6 +7,24 @@
   <td width="1%"><input class="inline" type="text" size="30" bind="projectNameInput" /></td>
   <td width="1%"><button bind="nextButton" class="button button-primary"></button></td>
 </tr></table></div></div>
+-->
+<!-- odr start -->
+<div bind="wizardHeader" class="default-importing-wizard-header"><div class="grid-layout layout-tightest layout-full"><table><tr>
+  
+  
+  <td style="text-align: left; text-align: left; padding-right:10px; font-weight:bold;" id="or-import-projname"></td>
+  <td width="1%"><input style="min-width:700px; max-width:700px;" class="inline" type="text" size="30" bind="projectNameInput" /></td>
+  <td width="100%"></td> 
+  <td width="1%"><button bind="startOverButton" class="button"></button></td> 
+  <td width="1%"><button bind="previousButton" class="button"></button></td>
+  <td width="1%"><button bind="nextButton" style="margin-left:10px;" class="button button-primary"></button></td>
+  <td width="1%" ><p id="or-import-parsopt" style="padding-left:15px;white-space:nowrap;">Substep 2 of 2</p></td>
+</tr></table></div></div>
+
+<!-- odr end -->
+
+
+
 
 <div bind="dataPanel" class="default-importing-parsing-data-panel"></div>
 <div bind="progressPanel" class="default-importing-progress-data-panel">

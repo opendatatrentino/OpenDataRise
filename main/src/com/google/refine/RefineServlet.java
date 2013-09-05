@@ -61,7 +61,7 @@ import eu.trentorise.opendata.opendatarise.httpwrapper.HttpWrapper;
 
 public class RefineServlet extends Butterfly {
 
-    static private String ASSIGNED_VERSION = "0.1-SNAPSHOT";
+    static private String ASSIGNED_VERSION = "0.2.0-SNAPSHOT";
     static public String VERSION = "";
     static public String REVISION = "";
     static public String FULL_VERSION = "";

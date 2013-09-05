@@ -142,7 +142,7 @@ public class Catalogs implements Serializable {
         catalogs = new HashMap<String,Catalog>();
         // todo read it from system properties        
         
-        lastUsedCatalog = System.getProperty("lastUsedCatalog");
+        lastUsedCatalog = System.getProperty("odr.lastUsedCatalog");
         if (lastUsedCatalog == null) {
             lastUsedCatalog = "";
         }
