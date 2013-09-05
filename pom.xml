@@ -33,6 +33,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- tdo don't like much putting this property here -->
+        <odr.testCatalog> http://dati.trentino.it </odr.testCatalog>      
     </properties>
 
 

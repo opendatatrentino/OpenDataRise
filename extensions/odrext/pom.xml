@@ -3,30 +3,184 @@
     <modelVersion>4.0.0</modelVersion>
 
     <name>OpenDataRise Extension</name>
-
+    
     <parent>
         <groupId>eu.trentorise.opendata.opendatarise</groupId>
         <artifactId>extensions</artifactId>
         <version>0.2-SNAPSHOT</version>
     </parent>
-
-
     
     <artifactId>odrext</artifactId>
     <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+
     <build>
         <testSourceDirectory>${basedir}/tests/server</testSourceDirectory>        
+        
+        <plugins>
+                         
+            <!-- it turns out copying files with Maven sucks, this plugin looks like the most general solution -->
+            <plugin>
+                <groupId>com.github.goldin</groupId>
+                <artifactId>copy-maven-plugin</artifactId>
+                <version>0.2.5</version>
+                <executions>
+                    
+                    <execution>
+                        <id>copy-log4j-properties</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                             <failIfNotFound>false</failIfNotFound>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/testtmp</directory>
+                                    <includes>
+                                        <include>   ** </include>
+                                        <cleanEmptyDirectories>true</cleanEmptyDirectories>
+                                    </includes>       
+                                    <clean>true</clean>
+                                </resource>                                    
+                            </resources>
+                        </configuration>
+                    </execution>   
+                                                            
+                              
+                </executions>        
+            </plugin>   
+            
+<!-- to pass testCatalog as system property to tests -->                
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>2.15</version>
+              <configuration>
+                <systemPropertyVariables>                  
+                  <odr.testCatalog>${odr.testCatalog}</odr.testCatalog>                    
+                </systemPropertyVariables>
+              </configuration>
+            </plugin>            
+        </plugins>
+        
+        
     </build>
 
+    <repositories>
+        <!--Local repository-->
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <url>file:${project.basedir}/repo</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+
+        
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
+            
+        </dependency>
+        
+        <dependency>
+            <groupId>org.deri.grefine</groupId>
+            <artifactId>rdf-extension</artifactId>
+            <version>0.8-684b4ecf35</version>
+        </dependency>          
+        
+
+
+        <dependency> 
+            <groupId>eu.trentorise.opendata</groupId>
+            <artifactId> ckanalyze-model</artifactId>
+            <version> 0.0.1-SNAPSHOT </version>            
+        </dependency>
+
+        <dependency> 
+            <groupId>eu.trentorise.opendata</groupId>
+            <artifactId> ckanalyze-client</artifactId>
+            <version> 0.0.1-SNAPSHOT </version>                        
+        </dependency>
+        <!--
+    <dependency>
+        <groupId>eu.trentorise.opendata.deps</groupId>
+        <artifactId>ckanclient-j</artifactId>
+        <version>1.0</version>
+    </dependency>         
+        -->
+        <dependency>
+            <groupId>eu.trentorise.opendata.opendatarise.deps</groupId>
+            <artifactId>CKAN-Java-Client</artifactId>
+            <version>1.0-SNAPSHOT</version>                      
+        </dependency>
+    
+  
+  
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.1.1</version>
+            <version>6.8</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>eu.trentorise.opendata.opendatarise</groupId>
+            <artifactId>main</artifactId>
+            <version>0.2-SNAPSHOT</version>                         
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>1.3.9</version>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jsp-2.1</artifactId>
+            <version>6.1.11</version>
+        </dependency>
+        
+        
+        <!-- -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>1.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-xc</artifactId>
+            <version>1.9.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>1.9.12</version>
+        </dependency>
+        
+        <!-- -->
+        <dependency>
+            <groupId>org.pcollections</groupId>
+            <artifactId>pcollections</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-  
 </project>

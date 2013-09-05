@@ -9,7 +9,7 @@ var ODR = Packages.eu.trentorise.opendata.opendatarise.ODR;
 var logger = ODR.logger;
 var OperationRegistry = Packages.com.google.refine.operations.OperationRegistry;
 var RefineServlet = Packages.com.google.refine.RefineServlet;
-
+var Catalogs = Packages.eu.trentorise.opendata.opendatarise.Catalogs;
 
 /*
  * Function invoked to initialize the extension.
@@ -29,14 +29,31 @@ function init() {
     /*
      *  Commands
      */
-    RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand());
+    RefineServlet.registerCommand(module, "set-step", new Packages.eu.trentorise.opendata.opendatarise.commands.SetStepCommand()); 
+    RefineServlet.registerCommand(module, "search-ckan", new Packages.eu.trentorise.opendata.opendatarise.commands.SearchCatalogCommand());
+    RefineServlet.registerCommand(module, "get-catalog-stats", new Packages.eu.trentorise.opendata.opendatarise.commands.GetCatalogStatsCommand());
+    RefineServlet.registerCommand(module, "suggest-catalog", new Packages.eu.trentorise.opendata.opendatarise.commands.SuggestCatalogCommand());
+    
+    // Register importer and exporter
+    var IM = Packages.com.google.refine.importing.ImportingManager;
 
+    IM.registerController(
+      module,
+      "ckan-importing-controller",
+      new Packages.eu.trentorise.opendata.opendatarise.importing.CkanImportingController()
+    );
 
     ClientSideResourceManager.addPaths(
             "index/scripts",
             module,
             [
-                "scripts/widgets/helpbox-widget.js"
+                "externals/jquery.dataTables.min.js",
+                "scripts/widgets/combobox-widget.js",
+                "scripts/widgets/helpbox-widget.js",
+                "scripts/OdrCommon.js",
+                "scripts/index/ckan-importing-controller.js",
+                "scripts/index/ckan-source-ui.js"
+                
             ]);
 
 
@@ -45,7 +62,10 @@ function init() {
             "index/styles",
             module,
             [
-                "styles/widgets/helpbox-widget.less"
+                "styles/odr-common.less",
+                "styles/widgets/combobox-widget.less",
+                "styles/widgets/helpbox-widget.less",
+                "styles/index/ckan-source-ui.less"
             ]
             );
 
@@ -54,7 +74,9 @@ function init() {
             "project/scripts",
             module,
             [
+                "scripts/OdrCommon.js",
                 "scripts/ODR.js",
+                "scripts/widgets/combobox-widget.js",
                 "scripts/widgets/helpbox-widget.js"
             ]
             );
@@ -64,7 +86,9 @@ function init() {
             "project/styles",
             module,
             [
+                "styles/odr-common.less",
                 "styles/project-injection.less",
+                "styles/widgets/combobox-widget.less",
                 "styles/widgets/helpbox-widget.less"
             ]
             );
@@ -75,10 +99,15 @@ function init() {
     davProject.registerOverlayModel(
             "OdrProjectOverlay",
             PO);
-
+            
+        
+    logger.info("Initializing catalogs...");
+    Catalogs.init();
+    
     logger.info("Finished initializing.");
 
 }
+
 
 /*
  * Function invoked to handle each request in a custom way.
@@ -86,12 +115,27 @@ function init() {
 
 function process(path, request, response) {
     // Analyze path and handle this request yourself.
-
-    if (path === "/" || path === "") {
-        var context = {};
-
+    logger.debug("received path request: " + path);
+    
+    var context = {};
+    
+    if (path === "/" || path === "") {        
         send(request, response, "index.vt", context);
-    }
+        return;
+    } 
+    
+    if (path === "scripts/index/ckan-source-ui.vt.html" || path === "") {        
+        context = {
+            lastUsedCatalog : Catalogs.getSingleton().getLastUsedCatalog()
+        }
+        send(request, response, path, context);
+        return;
+    }     
+    
+    if (path.endsWith(".vt.html") || path.endsWith(".vt.htm") || path.endsWith(".vt")){
+        send(request, response, path, context);
+    }        
+          
 }
 
 

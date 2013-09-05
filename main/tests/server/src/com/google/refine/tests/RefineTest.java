@@ -50,12 +50,23 @@ import com.google.refine.model.Project;
 import com.google.refine.model.Row;
 import com.google.refine.util.JSONUtilities;
 
+
+/**
+ * odr comment Parent of test classes. Please look at documentation of init() method to understand the flaws of this class.
+ */
 public class RefineTest {
 
     protected Logger logger;
 
+    /**
+     *  odr comment  This method is only executed once (really just 1 time) and it is overridden in all Refine derived tests BUT with tag BeforeTest and not BeforeSuite as here. Derived init() methods also don't call super. This is weird and awful, so DON'T override init() unless you want trouble. All derived classes also define SetUp and TearDown methods, note they are correctly tagged as BeforeMethod and AfterMethod, instead of BethoreTest because in fact TestNG reserves $BeforeTest for tests defined in the xml, not for methods tagged with Test
+     
+     */
     @BeforeSuite
     public void init() {
+        // odr start
+        System.out.println("RefineTest.init: initializaing logger...");
+        // odr end
         System.setProperty("log4j.configuration", "tests.log4j.properties");
     }
             

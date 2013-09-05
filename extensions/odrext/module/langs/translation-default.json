@@ -13,7 +13,8 @@
     "step-1": {
         "name": "Selection",
         "help-1-title": "",
-        "help-1-descr": ""
+        "help-1-descr": "",
+        "ckan" : "CKAN"
     },
     "step-2": {
         "name": "Schema matching",
