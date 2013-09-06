@@ -100,12 +100,14 @@
                       
                        
                     </plugin>     
+
     
+            
                 </plugins>
             </build>  
         </profile>
         <profile>
-            <id>run</id> 
+            <id>runDesktop</id> 
             
             <build>       
                 <plugins>
@@ -116,7 +118,7 @@
                         <version>1.2.1</version>
                         <executions>
                             <execution>
-                                <id>Run the server</id>
+                                <id>Run OpenDataRise in desktop mode</id>
                                 <phase>validate</phase>              
                                 <goals>
                                     <goal>exec</goal>
@@ -148,6 +150,53 @@
                 </plugins>
             </build>  
         </profile>        
+        
+        <profile>
+            <id>runServer</id> 
+            
+            <build>       
+                <plugins>
+                    
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>Run OpenDataRise in server mode</id>
+                                <phase>validate</phase>              
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions> 
+                        <configuration>                            
+                            <executable>java</executable>                           
+                            <workingdirectory>../</workingdirectory>                             
+                            <arguments>
+                                
+                                <argument>-Drefine.memory=1024</argument>
+                                <argument>-Drefine.port=5555</argument>
+                                <argument>-Drefine.webapp=../main/webapp</argument>                                                                
+                                <argument>-Dodr.lastUsedCatalog=${odr.testCatalog}</argument>
+                                <argument>-Drefine.headless=true</argument>                                                            
+                                
+                                <argument>-classpath</argument>
+                                <!-- automatically creates the classpath using all project dependencies,
+                                also adding the project build directory -->
+                                <classpath/>                                
+                                <argument>com.google.refine.Refine</argument>
+                            </arguments>                                      
+                        </configuration>                           
+                      
+                       
+                    </plugin>     
+    
+                </plugins>
+            </build>  
+        </profile>        
+        
+        
     </profiles>
          
     <build>

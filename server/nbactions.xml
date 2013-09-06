@@ -5,10 +5,8 @@
             <goals>
                 <goal>validate</goal>
             </goals>
-            <properties>
-            </properties>
             <activatedProfiles>
-                <activatedProfile>run</activatedProfile>
+                <activatedProfile>runDesktop</activatedProfile>
             </activatedProfiles>            
         </action>
         <action>
@@ -34,5 +32,15 @@
                 <exec.executable>${profiler.java}</exec.executable>
                 <exec.workingdir>../</exec.workingdir>
             </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-Run in server mode</actionName>
+            <displayName>Run in server mode</displayName>
+            <goals>
+                <goal>validate</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>runServer</activatedProfile>
+            </activatedProfiles>
         </action>
     </actions>
