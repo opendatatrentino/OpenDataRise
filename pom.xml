@@ -39,6 +39,7 @@
 
 
     <modules>
+        <module>CKAN-Java-Client</module>
         <module>main</module>        
         <module>server</module>        
         <module>extensions</module>             
