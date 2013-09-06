@@ -322,7 +322,7 @@
             <scope>runtime</scope>                         
         </dependency>                                                                                                          
         <dependency>
-            <groupId>eu.trentorise.opendata.opendatarise</groupId>
+            <groupId>eu.trentorise.opendata.opendatarise.deps</groupId>
             <artifactId>rdf-extension</artifactId>
             <version>0.8-684b4ecf35</version>
             <scope>runtime</scope>                         

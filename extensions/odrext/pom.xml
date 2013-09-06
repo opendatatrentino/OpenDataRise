@@ -3,6 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <name>OpenDataRise Extension</name>
+    <artifactId>odrext</artifactId>
+    <version>0.2-SNAPSHOT</version>
+    <packaging>jar</packaging>    
     
     <parent>
         <groupId>eu.trentorise.opendata.opendatarise</groupId>
@@ -10,9 +13,7 @@
         <version>0.2-SNAPSHOT</version>
     </parent>
     
-    <artifactId>odrext</artifactId>
-    <version>0.2-SNAPSHOT</version>
-    <packaging>jar</packaging>
+
 
 
     <build>
@@ -88,9 +89,9 @@
         </dependency>
         
         <dependency>
-            <groupId>org.deri.grefine</groupId>
+            <groupId>eu.trentorise.opendata.opendatarise.deps</groupId>
             <artifactId>rdf-extension</artifactId>
-            <version>0.8-684b4ecf35</version>
+            <version>0.8-684b4ecf35</version>         
         </dependency>          
         
 
