@@ -29,11 +29,27 @@ public class ODR {
     }
 
     /**
-     * Locale is actually set in Refine preferences as an array. Here we return the favourite locale. 
-     * @return 
+     * Java 7 has  Locale.forLanguageTag(format), this is the substitute for Java 6
      */
-    static public Locale getLocale() {        
+    static public Locale languageTagToLocale(String languageTag) {
         
+        int c = languageTag.indexOf('_');
+        if (c > 0) {
+            return new Locale(languageTag.substring(0, c), languageTag.substring(c + 1));
+        } else {
+            return new Locale(languageTag);
+        }
+        
+    }
+
+    /**
+     * Locale is actually set in Refine preferences as an array. Here we return
+     * the favourite locale.
+     *
+     * @return
+     */
+    static public Locale getLocale() {
+
         String[] langs = {"default"};
         PreferenceStore ps = ProjectManager.singleton.getPreferenceStore();
         if (ps != null) {
@@ -42,11 +58,11 @@ public class ODR {
 
         langs = Arrays.copyOf(langs, langs.length + 1);
         langs[langs.length - 1] = "default";
-        
-        if (langs[0].equals("default")){
+
+        if (langs[0].equals("default")) {
             return Locale.ENGLISH;
         } else {
-            return Locale.forLanguageTag(langs[0]);
+            return ODR.languageTagToLocale(langs[0]);
         }
     }
 

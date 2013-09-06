@@ -49,6 +49,42 @@
     <build>
         <directory>${basedir}/build</directory>
         
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>animal-sniffer-maven-plugin</artifactId>
+                <version>1.9</version>
+             
+                <configuration>          
+                    <signature>
+                        <groupId>org.codehaus.mojo.signature</groupId>
+                        <artifactId>java16</artifactId>
+                        <version>1.1</version>
+                    </signature>                  
+                </configuration>
+              <!-- For now just do   mvn animal-sniffer:check   maybe we can automate this when deploying
+                     <executions>
+                    <execution>
+                        <id>checkJavaApiSignature</id>        
+                        <phase>test</phase>        
+                        <goals>
+                            <goal>check</goal>
+                        </goals>        
+                    </execution>        
+                </executions>                -->
+            </plugin>                                    
+        </plugins>
+        
         <!-- <directory>${basedir}/build</directory>
         <outputDirectory>${project.build.directory}</outputDirectory>
         <testOutputDirectory>${project.build.outputDirectory}</testOutputDirectory>

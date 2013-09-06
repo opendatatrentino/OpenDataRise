@@ -78,8 +78,7 @@
                             
                             <executable>java</executable>                            
                             <workingdirectory>../</workingdirectory>                             
-                            <arguments>
-
+                            <arguments>                                
                                 <argument>-Xdebug</argument> 
                                 <argument>-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${jpda.address}</argument>
                                 <argument>-Drefine.data_dir=${user.home}/odr-dev-workspace/</argument>
