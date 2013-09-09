@@ -119,7 +119,7 @@ public class Refine {
             System.setProperty("java.awt.headless", "true");            
             logger.info("Running in headless mode.");
             // odr start
-            logger.info("Point your browser to http://" + host + ":" + port + "/ to start using Refine.");
+            logger.info("Server is listening on port " + port );
             // odr end
         } else {
             try {

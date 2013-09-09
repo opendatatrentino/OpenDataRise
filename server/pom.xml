@@ -181,7 +181,8 @@
                                 <argument>-Drefine.webapp=../main/webapp</argument>                                                                
                                 <argument>-Dodr.lastUsedCatalog=${odr.testCatalog}</argument>
                                 <argument>-Drefine.data_dir=${user.home}/.opendatarise/server-workspace/</argument>     
-                                <argument>-Drefine.headless=true</argument>                                                            
+                                <argument>-Drefine.headless=true</argument>          
+                                <argument>-Drefine.host=0.0.0.0</argument>          
                                 
                                 <argument>-classpath</argument>
                                 <!-- automatically creates the classpath using all project dependencies,
