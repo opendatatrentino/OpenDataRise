@@ -177,7 +177,7 @@
                             <arguments>
                                 
                                 <argument>-Drefine.memory=1024</argument>
-                                <argument>-Drefine.port=5555</argument>
+                                <argument>-Drefine.port=80</argument>
                                 <argument>-Drefine.webapp=../main/webapp</argument>                                                                
                                 <argument>-Dodr.lastUsedCatalog=${odr.testCatalog}</argument>
                                 <argument>-Drefine.data_dir=${user.home}/.opendatarise/server-workspace/</argument>     
