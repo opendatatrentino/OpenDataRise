@@ -6,6 +6,8 @@ package eu.trentorise.opendata.opendatarise;
 
 import static com.google.refine.commands.Command.DEFAULT_ADDITIONAL_CODE;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
@@ -16,9 +18,10 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     /**
      * odr new To fight the horror
      */
+    @XmlRootElement
     public class OdrResponse {
 
-        @JsonIgnore
+        @XmlTransient
         private int responseCode;
         private int additionalResponseCode;
         private String module;

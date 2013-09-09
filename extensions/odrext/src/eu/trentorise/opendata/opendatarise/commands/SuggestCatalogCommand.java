@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.deri.grefine.rdf.RdfSchema;
 import org.deri.grefine.rdf.Util;
 import org.deri.grefine.rdf.app.ApplicationContext;
@@ -33,12 +34,14 @@ import org.json.JSONWriter;
  * @author David Leoni
  */
 public class SuggestCatalogCommand extends Command {
-
+    
+    @XmlRootElement
     static class CatalogSuggestion {
         public String id;
         public String name;
     }
-    
+
+    @XmlRootElement
     static class CatalogSuggestions extends OdrResponse {
 
         public  String prefix;

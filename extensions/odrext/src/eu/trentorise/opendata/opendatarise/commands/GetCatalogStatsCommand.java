@@ -20,6 +20,7 @@ import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +32,7 @@ import org.json.JSONWriter;
  */
 public class GetCatalogStatsCommand extends Command {
 
-    
+    @XmlRootElement
     static class CatalogStatsResponse extends OdrResponse {
         CatalogStats stats;
 
