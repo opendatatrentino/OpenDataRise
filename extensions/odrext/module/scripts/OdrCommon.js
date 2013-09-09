@@ -3,7 +3,7 @@ var lang = navigator.language.split("-")[0]
         || navigator.userLanguage.split("-")[0];
 var dictionary = "";
 $.ajax({
-    url: "/command/core/load-language?",
+    url: "command/core/load-language?",
     type: "POST",
     async: false,
     data: {
@@ -37,7 +37,7 @@ var OdrCommon = {
      * @return {string} the HTML as string to put in a waiting dialog 
      */
     waitingHtml: function(message) {
-        return "<img src='/images/large-spinner.gif'/> <span>" + message + "....</span>";
+        return "<img src='images/large-spinner.gif'/> <span>" + message + "....</span>";
     },
     /**
      * Two digit format by default

@@ -57,6 +57,7 @@ import com.google.refine.io.FileProjectManager;
 
 import edu.mit.simile.butterfly.Butterfly;
 import edu.mit.simile.butterfly.ButterflyModule;
+import eu.trentorise.opendata.opendatarise.ODR;
 import eu.trentorise.opendata.opendatarise.httpwrapper.HttpWrapper;
 
 public class RefineServlet extends Butterfly {
@@ -153,6 +154,7 @@ public class RefineServlet extends Butterfly {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // odr comment getPathInfo gives /command/core/... even when context_path is different than / (i.e. http://127.0.0.1:3333/refine)
         if (request.getPathInfo().startsWith("/command/")) {
             String commandKey = getCommandKey(request);
             Command command = commands.get(commandKey);

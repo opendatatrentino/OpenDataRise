@@ -23,6 +23,7 @@ import com.google.refine.commands.Command;
 import com.google.refine.preference.PreferenceStore;
 
 import edu.mit.simile.butterfly.ButterflyModule;
+import eu.trentorise.opendata.opendatarise.ODR;
 
 
 public class LoadLanguageCommand extends Command {
@@ -60,6 +61,9 @@ public class LoadLanguageCommand extends Command {
         boolean loaded = false;
         for (String lang : langs) {
             File langFile = new File(module.getPath(), "langs" + File.separator + "translation-" + lang + ".json");
+            // odr start
+            ODR.logger.debug("in LoadLanguageCommand: module.getPath() = ", module.getPath());
+            // odr end
             try {
                 Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(langFile), "UTF-8"));
                 json = new JSONObject(new JSONTokener(reader));
@@ -72,6 +76,9 @@ public class LoadLanguageCommand extends Command {
                 break;
             } catch (FileNotFoundException e1) {
                 json = null;
+                // odr start
+                ODR.logger.debug("Couldn't load language file: module.getPath()= " + module.getPath() + ", path=" + "langs" + File.separator + "translation-" + lang + ".json" );
+                // odr end                
                 continue;
             } catch (JSONException e) {
                 json = null;

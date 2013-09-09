@@ -138,7 +138,7 @@ ODRCKAN.CkanSourceUI.prototype = {
             $("#stats-not-available-panel").html(OdrCommon.waitingHtml("Fetching stats....")).show();
             $("#stats-table").css("visibility", "hidden");
             $.ajax({
-                url: "/command/odrext/get-catalog-stats?ckanUrl=" + ckanUrlString,
+                url: "command/odrext/get-catalog-stats?ckanUrl=" + ckanUrlString,
                 type: "GET",
                 async: true,
                 data: {
@@ -221,7 +221,7 @@ ODRCKAN.CkanSourceUI.prototype = {
             "sPaginationType": "full_numbers",
             "bServerSide": true,
             bAutoWidth: false,
-            "sAjaxSource": "/command/odrext/search-ckan", //script-to-accept-request.php",            
+            "sAjaxSource": "command/odrext/search-ckan", //script-to-accept-request.php",            
             "fnServerParams": function(aoData) {
                 aoData.push({name: "ckanUrl", value: self._elmts.ckanUrl[0].value});
                 aoData.push({name: "ckanSearchInput", value: self._elmts.ckanSearchInput[0].value});

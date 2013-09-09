@@ -13,7 +13,8 @@
 <body>
     <div><a href="$resourceUri">$resourceUri</a></div>
     <div class="flyout-content">
-      <img src="/images/large-spinner.gif" /> 
+    <!-- odr todo removed the slash before images - probably it will give problems anyway -->
+      <img src="images/large-spinner.gif" /> 
       <div>
         Fetching for information about $resourceUri
       </div>
