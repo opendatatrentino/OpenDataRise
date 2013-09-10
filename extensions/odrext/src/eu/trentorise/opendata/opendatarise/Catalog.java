@@ -46,12 +46,13 @@ public class Catalog implements Serializable {
         try {
             this.stats = ckanalyzeClient.getCatalogStats(this.url);
         } catch (Exception ex) {
+            ODR.logger.error("Couldn't get catalog stats when loading file. Setting stats to null. Exception was: ", ex);
             this.stats = null;
         }  
         this.ckanClient = new org.ckan.Client(new org.ckan.Connection(url), "");
     }
 
-    ;
+    
     
     
     /**
@@ -62,8 +63,9 @@ public class Catalog implements Serializable {
         this.url = url;
         this.ckanalyzeClient = new CkanalyzeClient(Catalogs.getSingleton().getCkanalyzeServerUrl());
         try {
-            this.stats = ckanalyzeClient.getCatalogStats(this.url);
+            this.stats = ckanalyzeClient.getCatalogStats(this.url);            
         } catch (Exception ex) {
+            ODR.logger.error("Couldn't get catalog stats. Setting stats to null. Exception was: ", ex);
             this.stats = null;
         }        
         this.ckanClient = new org.ckan.Client(new org.ckan.Connection(url), "");
@@ -73,10 +75,9 @@ public class Catalog implements Serializable {
     public Catalog(String url, CatalogStats stats) {
         this(url);
         this.stats = stats;
-
     }
 
-    ;
+
     
     public String getUrl() {
         return url;

@@ -46,9 +46,11 @@ public class SearchCatalogCommand extends Command {
             throws ServletException, IOException {
 
         try {
-            /*            ObjectMapper om = new ObjectMapper(); */
             response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Type", "application/json");
+            response.setHeader("Content-Type", "application/json");            
+            response.setStatus(HttpServletResponse.SC_OK);          
+            
+            /*            ObjectMapper om = new ObjectMapper(); */
             JSONWriter writer = new JSONWriter(response.getWriter());
 
             String catalogUrl = request.getParameter("ckanUrl");
@@ -117,7 +119,7 @@ public class SearchCatalogCommand extends Command {
             }
             writer.endArray();
             writer.endObject();
-            response.setStatus(HttpServletResponse.SC_OK);
+            
             
 
         } catch (Exception ex) {
