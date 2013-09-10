@@ -99,6 +99,9 @@ ODRCKAN.CkanSourceUI.prototype = {
             }).bind("fb-select-new", function(e, val) {
                 console.log("Selected a new catalog:", val);
                 self.newSearch();
+            }).focusout(function(){
+                console.log("ckanUrl lost focus");
+                self.newSearch();
             });
             ;
         });
