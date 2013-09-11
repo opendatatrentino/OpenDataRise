@@ -94,21 +94,21 @@ ODRCKAN.CkanSourceUI.prototype = {
 
         $(function() {
             self._elmts.ckanUrl.suggestcatalog({}).bind("fb-select", function(e, data) {
-                console.log("Selected a catalog:", data.name);
+                console.log("Selected a catalog:", data.name);                
                 self.newSearch();
             }).bind("fb-select-new", function(e, val) {
-                console.log("Selected a new catalog:", val);
+                console.log("Selected a new catalog:", val);                
                 self.newSearch();
-            }).focusout(function(){
+            }).bind("fb-textchange", function(e, val) {
+                console.log("text changed in catalog.");                
+            }); /*.focusout(function(e){
                 console.log("ckanUrl lost focus");
-                self.newSearch();
-            });
-            ;
+                console.log("  this = ", this);
+                console.log("  $(this) = ", $(this));
+                //$.suggest.suggestcatalog.prototype.enter.call(this(e);  /self._elmts.ckanUrl.enter(); //self.newSearch();
+            }); */
+            
         });
-
-
-
-
 
         $(".ckanSearch").change(function() {
             self.newResourceSearch();

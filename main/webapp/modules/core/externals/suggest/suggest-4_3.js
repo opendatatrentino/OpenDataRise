@@ -188,7 +188,7 @@
         //console.log("pane mousedown");
         self.input.data("dont_hide", true);
         e.stopPropagation();
-      })
+      })     
       .bind("mouseup", function(e) {
         //console.log("pane mouseup");
         if (self.input.data("dont_hide")) {
@@ -244,7 +244,14 @@
           self.paste_timeout = setTimeout(function() {
             self.textchange();
           }, 0);
-        });
+        })
+      // odr start
+        .bind("focusout.suggest", function(e) {
+          self.focusout(e);
+        })
+      
+      // odr end
+      ;
 
         // resize handler
         this.onresize = function(e) {
@@ -354,6 +361,14 @@
         this.focus_hook(e);
       }
     },
+
+    // odr start
+    focusout: function(e) {
+      console.log("odr inside suggest js: focusout was called.");
+      
+    },
+    // odr end
+
 
     // override to be notified on focus and input has a value
     focus_hook: function(e) {

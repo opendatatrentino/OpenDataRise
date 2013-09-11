@@ -16,7 +16,15 @@
                     this.suggest_new();
                     this.hide_all();
                   //}
-                },                
+                },   
+                // I patched suggest js for having this
+                focusout : function(e){
+                    console.log("entering suggestcatalog.focusout(e)");
+                    if (this.toUpdateWhenFocusOut){
+                        this.enter(e);
+                    }
+                    
+                },
                 enter: function(e) {
                     var o = this.options,
                             visible = this.pane.is(":visible");
@@ -129,21 +137,57 @@
                     }, o.xhr_delay);
 
                 },
+                onselect: function($selected, focus) {
+                  var data = $selected.data("data.suggest");
+                  this.toUpdateWhenFocusOut = false;                  
+                  if (data) {
+                    this.input.val(data.name)
+                      .data("data.suggest", data)
+                      .trigger("fb-select", data);
+
+                    this.trackEvent(this.name, "fb-select", "index",
+                    $selected.prevAll().length);
+                  }
+
+                },
+                textchange: function() {
+                  this.toUpdateWhenFocusOut = true;  
+                  this.input.removeData("data.suggest");
+                  this.input.trigger("fb-textchange", this);
+                  var v = this.input.val();
+                  if (v === "") {
+                    this.status_start();
+                    return;
+                  }
+                  else {
+                    this.status_loading();
+                  }
+                  this.request(v);
+                },                        
+
                 suggest_new: function(e) {
                   var v = this.input.val();
                   v = $.trim(v);
-                  if (v === "") {
+/*                  if (v === "") {
                     return;
-                  }                  
-                  if (!v.startsWith("http://")){
+                  } 
+*/                    
+                  if (!v.startsWith("http://") & v !== ""){
                       v = "http://" + v;
                   }
                   this.input.val(v);
                   
                   //console.log("suggest_new", v);
+/*                  if (v !== this.lastEnteredValue){
+                    this.input
+                      .data("data.suggest", v)  // what is this data.suggest??
+                      .trigger("fb-select-new", v);
+                  } */
+                    
+                  this.toUpdateWhenFocusOut = false;                    
                   this.input
                     .data("data.suggest", v)
-                    .trigger("fb-select-new", v);
+                    .trigger("fb-select-new", v);                  
                   this.trackEvent(this.name, "fb-select-new", "index", "new");
                   this.hide_all();
                 }
