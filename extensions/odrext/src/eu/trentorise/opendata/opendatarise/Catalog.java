@@ -12,6 +12,7 @@ import eu.trentorise.opendata.opendatarise.importing.SearchResults;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -112,7 +113,7 @@ public class Catalog implements Serializable {
                 if (format != null) {
                     resourcesQuery += "format="+format+"&amp;";
                 }
-                resourcesQuery += "description="+ckanSearchInput+"&amp;offset="+offset+"&amp;limit="+limit + "&amp;all_fields=1";;
+                resourcesQuery += "description="+URLEncoder.encode(ckanSearchInput,"ISO-8859-1")+"&amp;offset="+offset+"&amp;limit="+limit + "&amp;all_fields=1";;
                 ODR.logger.debug("queryResource = " + resourcesQuery);
                 
                 String stringa = Utils.getRest(resourcesQuery);
