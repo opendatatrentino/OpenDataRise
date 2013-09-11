@@ -215,8 +215,8 @@ ODRCKAN.CkanSourceUI.prototype = {
              // "sServerMethod": "GET",  // really needed?
              "fnServerParams": function ( aoData ) {
              aoData.push( { "text": "more_data", "value": "my_value" } );
-             }             
-             "iDisplayLength": 10, */
+             }              */
+             "iDisplayLength": 20, 
             "bFilter": false,
             "bLengthChange": false,
             "bSort": false,
