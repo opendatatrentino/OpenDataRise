@@ -46,14 +46,17 @@ function init() {
     ClientSideResourceManager.addPaths(
             "index/scripts",
             module,
+            
             [
-                "externals/jquery.dataTables.min.js",
+                "externals/d3/d3.v3.min.js",
+                "externals/d3/d3.layout.min.js",
+                "externals/rickshaw/rickshaw.min.js",
+                "externals/datatables/jquery.dataTables.min.js",                
                 "scripts/widgets/combobox-widget.js",
                 "scripts/widgets/helpbox-widget.js",
                 "scripts/OdrCommon.js",
                 "scripts/index/ckan-importing-controller.js",
-                "scripts/index/ckan-source-ui.js"
-                
+                "scripts/index/ckan-source-ui.js"                
             ]);
 
 

@@ -39,13 +39,13 @@
  */
 
 ODRCKAN.CkanSourceUI = function(controller) {
-    
+
     this._controller = controller;
-    
-    
-    
-    
-    console.log("CkanSourceUi: this._controller = ", this._controller);    
+
+
+
+
+    console.log("CkanSourceUi: this._controller = ", this._controller);
 };
 
 
@@ -66,11 +66,11 @@ ODRCKAN.CkanSourceUI.prototype = {
             var selress = Object.keys(ODRCKAN.selectedResources);
             var selresRowData;
             var selresFileUrl;
-        
+
             console.log("  self._elmts.form = ", self._elmts.form);
 
-            
-            if (selress.length === 0){
+
+            if (selress.length === 0) {
                 alert("You must select a dataset resource to continue!");
             } else {
                 selresRowData = ODRCKAN.selectedResources[selress[0]];
@@ -83,8 +83,8 @@ ODRCKAN.CkanSourceUI.prototype = {
                 ODRCKAN.resourceUrl = selresRowData[2];
                 ODRCKAN.resourceName = selresRowData[4];
                 ODRCKAN.selectingFromCkan = true;
-                
-                self._controller.startImportJob(self._elmts.form, $.i18n._('core-index-import')["downloading-data"]);                
+
+                self._controller.startImportJob(self._elmts.form, $.i18n._('core-index-import')["downloading-data"]);
             }
 
         });
@@ -94,20 +94,20 @@ ODRCKAN.CkanSourceUI.prototype = {
 
         $(function() {
             self._elmts.ckanUrl.suggestcatalog({}).bind("fb-select", function(e, data) {
-                console.log("Selected a catalog:", data.name);                
+                console.log("Selected a catalog:", data.name);
                 self.newSearch();
             }).bind("fb-select-new", function(e, val) {
-                console.log("Selected a new catalog:", val);                
+                console.log("Selected a new catalog:", val);
                 self.newSearch();
             }).bind("fb-textchange", function(e, val) {
-                console.log("text changed in catalog.");                
+                console.log("text changed in catalog.");
             }); /*.focusout(function(e){
-                console.log("ckanUrl lost focus");
-                console.log("  this = ", this);
-                console.log("  $(this) = ", $(this));
-                //$.suggest.suggestcatalog.prototype.enter.call(this(e);  /self._elmts.ckanUrl.enter(); //self.newSearch();
-            }); */
-            
+             console.log("ckanUrl lost focus");
+             console.log("  this = ", this);
+             console.log("  $(this) = ", $(this));
+             //$.suggest.suggestcatalog.prototype.enter.call(this(e);  /self._elmts.ckanUrl.enter(); //self.newSearch();
+             }); */
+
         });
 
         $(".ckanSearch").change(function() {
@@ -118,7 +118,135 @@ ODRCKAN.CkanSourceUI.prototype = {
 
         self.initResourcesTable();
 
+        self.catalogStringDistr = {
+            label : self._elmts.avgStringLength,
+            title :  self._elmts.avgStringLengthTitle,
+            distr : [] // todo fill it!
+        };
+        self.hideGraph(self.catalogStringDistr);
+        //self.showGraph();
 
+    },
+    /**
+     * table where graph is doesn't respect margins I set in css, so I set them with this here
+     */
+    _moveGraph : function(){        
+        $("#ckan-graph").css("margin-left","40px").css("margin-right","10px");        
+    },
+    /**
+     * Remove highlighting the origin label and shows the graph
+     * @param {DistrUi} distrUi
+     * @return undefined
+     */
+    hideGraph: function(distrUi) {
+        distrUi.title.css("background-color", "transparent");        
+        distrUi.label.css("background-color", "transparent");        
+        $("#graph-descr").hide();
+        $("#chart_container").html("<br><br><br><div style='text-align:center; padding:10px'>Hover on an aggregated value to see the corresponding distribution</div>");
+        this._moveGraph();
+    },
+    /**
+     * Stores in this.catalogStats statistics convenient for js, given raw data from ckanalyze
+     * @param {Array} rawDistrib a raw distrib coming from ckanalyze
+     * @returns {undefined} sets 
+     */
+    _prepareCatalogStats : function(rawStats){
+        
+    },
+    /**
+     * Highlights the origin label and shows the graph
+     * @param {DistrUi} distrUi
+     * @return undefined
+     */
+    showGraph: function(distrUi) {
+        var color = "#FFECBF";
+        distrUi.title.css("background-color", color);        
+        distrUi.label.css("background-color", color);        
+        $("#graph-descr").show();
+        
+        // prepare the chart container
+        $("#chart_container").html("<div id='y_axis'></div> <div id='chart'></div><div id='x_axis'></div>");
+        
+        
+        var genData = function() {
+            var arr = [];
+            var x = 0;
+            var y = 0;
+            var i;
+            var xTicks = 5;
+            var bins = [];
+            var maxX = 20000;
+            var xInterval = Math.ceil(maxX / xTicks);
+            var tick;
+            var genNums = [];
+            var sum = 0;
+
+            for (i = 0; i <= xTicks; i++) {
+                bins.push(0);
+            }
+
+            x = 0;
+            while (x < maxX) {
+                genNums.push(x);
+                bins[Math.floor(x / xInterval)] += genNums[x];
+                sum += genNums[x];
+                x += 1;
+            }
+
+
+            // bins[x % xTicks] += Math.random()*101;
+
+            tick = 0;
+            arr.push({x: 0, y: 0});
+            while (tick < xTicks) {
+                bins[tick] = Math.floor((bins[tick] * 100 / sum));
+                arr.push({x: (tick * xInterval) + xInterval / 2, y: bins[tick]});
+                tick += 1;
+            }
+
+            return arr;
+        }
+
+        var graph = new Rickshaw.Graph({
+            element: document.getElementById("chart"),
+            renderer: 'line',
+            height: 120,
+            width: 200,
+            series: [
+                {
+                    data: genData(), //[ { x: 0, y: 20 }, { x: 1, y: 10 }, { x: 2, y: 30 }, { x: 3, y: 10 }, { x: 4, y: 40 } ],
+                    color: "#0000aa"
+                }
+            ]
+        });
+
+        var formatPercentage = function(y) {
+            if (y === 0) {
+                return ""
+            } else {
+                return y.toString() + "%";
+            }
+        };
+
+        var x_ticks = new Rickshaw.Graph.Axis.X({
+            graph: graph,
+            orientation: 'bottom',
+            element: document.getElementById('x_axis'),
+            pixelsPerTick: 30,
+            tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+        });
+
+        var y_ticks = new Rickshaw.Graph.Axis.Y({
+            graph: graph,
+            orientation: 'left',
+            element: document.getElementById('y_axis'),
+            pixelsPerTick: 30,
+            // tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+            tickFormat: formatPercentage
+        });
+
+        graph.render();        
+        this._moveGraph();        
     },
     newSearch: function() {
         console.log("Performing a new search.");
@@ -155,13 +283,28 @@ ODRCKAN.CkanSourceUI.prototype = {
                     console.log("    textStatus = ", textStatus);
 
                     var colsPerTypeMap = data.stats.colsPerTypeMap;
+                    
+                    
+                    self._prepareCatalogStats(data.stats);                    
+                    
+                    
                     var stats = data.stats;
                     var totalColsCount = data.stats.totalColsCount;
 
+                    
                     self._elmts.totalDatasetsCount.text(OdrCommon.formatInteger(data.stats.totalDatasetsCount));
                     self._elmts.avgRowCount.text(OdrCommon.formatDouble(stats.avgRowCount));
                     self._elmts.avgColumnCount.text(OdrCommon.formatDouble(stats.avgColumnCount));
-                    self._elmts.avgStringLength.text(OdrCommon.formatDouble(stats.avgStringLength));
+                    self._elmts.avgStringLength.text(OdrCommon.formatDouble(stats.avgStringLength)).hover(function(e){
+                        self.showGraph(self.catalogStringDistr);  
+                    }, function(e){
+                        self.hideGraph(self.catalogStringDistr);
+                    });
+                    self._elmts.avgStringLengthTitle.hover(function(e){
+                        self.showGraph(self.catalogStringDistr);  
+                    }, function(e){
+                        self.hideGraph(self.catalogStringDistr);
+                    });                    
                     self._elmts.totalFileSizeCount.text(OdrCommon.formatFileSize(stats.totalFileSizeCount));
                     self._elmts.floatPercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.FLOAT, colsPerTypeMap, totalColsCount));
                     self._elmts.datePercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.DATE, colsPerTypeMap, totalColsCount));
@@ -184,6 +327,7 @@ ODRCKAN.CkanSourceUI.prototype = {
             });
         }
     },
+    
     initResourcesTable: function() {
         var self = this;
 
@@ -216,7 +360,7 @@ ODRCKAN.CkanSourceUI.prototype = {
              "fnServerParams": function ( aoData ) {
              aoData.push( { "text": "more_data", "value": "my_value" } );
              }              */
-             "iDisplayLength": 20, 
+            "iDisplayLength": 20,
             "bFilter": false,
             "bLengthChange": false,
             "bSort": false,
@@ -243,7 +387,7 @@ ODRCKAN.CkanSourceUI.prototype = {
                     success: function(data, textStatus, jqXHR) {
                         var i;
                         var lastColumn;
-                        
+
                         console.log("  entered fnServerData.success");
                         console.log("    data = ", data);
                         console.log("    jqXHR = ", jqXHR);
@@ -306,39 +450,39 @@ ODRCKAN.CkanSourceUI.prototype = {
                                 checked = "checked";
                             }
 
-                            $(this).html("<input type='radio' value='" + rowData[1] + "' "  + checked + "  name='selected-resources-group'>")
-                            $($(this).children()[0]).change(function() {      
+                            $(this).html("<input type='radio' value='" + rowData[1] + "' " + checked + "  name='selected-resources-group'>")
+                            $($(this).children()[0]).change(function() {
                                 console.log("radio change, this = ", $(this));
                                 /*var radioValue = $(this).val();
-                                alert(radioValue); */
+                                 alert(radioValue); */
                                 var resId = $(this).filter(':checked').val();
                                 ODRCKAN.selectedResources = {};
                                 ODRCKAN.selectedResources[resId] = rowData;
                                 console.log("  Selected resources now are ", ODRCKAN.selectedResources);
                             });
                             //$("#resources-table tbody tr td input[name='selected-resources-group']")
-                            
-                            /* old
-                            $('#resources-table tbody tr td input').change(function() {
-                                if ($(this).is(':checked')) {
-                                    self.selectedResources[rowData[1]] = rowData;
-                                    console.log("Box is checked: ", this);
-                                  *  
-                                    /*
-                                      
-                                     / todo just for the demo. If a checkboxe is already selected it silently unchecks the box
-                                    if (Object.keys(self.selectedResources).length == 0){
-                                        console.log("for demo: you already checked another option! ");
-                                        
-                                        $(this).prop('checked', false);
-                                    }*/
-                                   /* 
-                                } else {
-                                    console.log("Box is not checked: ", this);
-                                    delete self.selectedResources[rowData[1]];                                                                        
-                                } 
 
-                            });*/
+                            /* old
+                             $('#resources-table tbody tr td input').change(function() {
+                             if ($(this).is(':checked')) {
+                             self.selectedResources[rowData[1]] = rowData;
+                             console.log("Box is checked: ", this);
+                             *  
+                             /*
+                             
+                             / todo just for the demo. If a checkboxe is already selected it silently unchecks the box
+                             if (Object.keys(self.selectedResources).length == 0){
+                             console.log("for demo: you already checked another option! ");
+                             
+                             $(this).prop('checked', false);
+                             }*/
+                            /* 
+                             } else {
+                             console.log("Box is not checked: ", this);
+                             delete self.selectedResources[rowData[1]];                                                                        
+                             } 
+                             
+                             });*/
 
                         });
 
