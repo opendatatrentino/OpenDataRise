@@ -134,23 +134,79 @@ ODRCKAN.CkanSourceUI.prototype = {
         $("#ckan-graph").css("margin-left","40px").css("margin-right","10px");        
     },
     /**
-     * Remove highlighting the origin label and shows the graph
-     * @param {DistrUi} distrUi
+     * Remove highlighting from the origin label and hides the graph
+     * @param {DistrUi=} distrUi. If omitted currentDitrUi is used, if not null.
      * @return undefined
      */
     hideGraph: function(distrUi) {
-        distrUi.title.css("background-color", "transparent");        
-        distrUi.label.css("background-color", "transparent");        
+        var theDistrUi = null;
+
+        if (distrUi){
+            theDistrUi = distrUi;
+        } else {
+            if (this.currentDistrUi){
+                theDistrUi = this.currentDistrUi;
+            } 
+        }
+        
+        if (theDistrUi){
+            theDistrUi.title.css("background-color", "transparent");        
+            theDistrUi.label.css("background-color", "transparent");        
+        }
+        
+        this.currentDistrUi = null;
+        
         $("#graph-descr").hide();
         $("#chart_container").html("<br><br><br><div style='text-align:center; padding:10px'>Hover on an aggregated value to see the corresponding distribution</div>");
         this._moveGraph();
+        
     },
+
     /**
-     * Stores in this.catalogStats statistics convenient for js, given raw data from ckanalyze
-     * @param {Array} rawDistrib a raw distrib coming from ckanalyze
+     * Stores in this.catalogStats statistics convenient for js, given raw data from ckanalyze (which is modified!)
+     * @param {Array} rawStats a raw distrib coming from ckanalyze. It will be modified!
      * @returns {undefined} sets 
      */
     _prepareCatalogStats : function(rawStats){
+            var arr = [];
+            var i = 0;    
+            var origDistrib = rawStats.stringLengthsDistribution;            
+            var maxX = 0;
+            var sumFreq = 0;
+            var xInterval;
+            var xTicks = 6000; // todo it's very custom
+            var bins = [];
+            //var sumAvg = 0;            
+            
+            for (i = 0; i <= xTicks; i++) {
+                bins.push(0);
+            }
+        
+            for (i = 0; i < origDistrib.length; i++) {
+                maxX = Math.max(origDistrib[i]["length"], maxX);
+                sumFreq += origDistrib[i].frequence;
+                //sumAvg += origDistrib[i].frequence * origDistrib[i]["length"];
+            }
+            
+            
+            
+            
+            xInterval = Math.ceil(maxX / xTicks);
+            
+            for (i = 0; i < origDistrib.length; i++) {            
+                bins[Math.floor(origDistrib[i]["length"] / xInterval)] += origDistrib[i].frequence;                                
+            }
+            
+            
+            //arr.push({x: 0, y: bins[1]}); // a little correction is needed for first value
+            for (i=0; i < xTicks; i++) {
+                bins[i] = Math.floor((bins[i] * 100 / sumFreq));  // normalizing
+                arr.push({x: (i * xInterval) + xInterval / 2, y: bins[i]});                
+            }            
+            
+            self.catalogStats = rawStats;
+            self.catalogStats.rickshawStringLengthsDistribution = arr;
+            //self.catalogStats.avgStringLengthsDistribution = sumAvg / sumFreq;
         
     },
     /**
@@ -159,62 +215,28 @@ ODRCKAN.CkanSourceUI.prototype = {
      * @return undefined
      */
     showGraph: function(distrUi) {
+        var slider;
         var color = "#FFECBF";
+        this.currentDistrUi = distrUi;
+        var slmin;
+        var slmax;
+        
         distrUi.title.css("background-color", color);        
         distrUi.label.css("background-color", color);        
         $("#graph-descr").show();
         
         // prepare the chart container
-        $("#chart_container").html("<div id='y_axis'></div> <div id='chart'></div><div id='x_axis'></div>");
-        
-        
-        var genData = function() {
-            var arr = [];
-            var x = 0;
-            var y = 0;
-            var i;
-            var xTicks = 5;
-            var bins = [];
-            var maxX = 20000;
-            var xInterval = Math.ceil(maxX / xTicks);
-            var tick;
-            var genNums = [];
-            var sum = 0;
-
-            for (i = 0; i <= xTicks; i++) {
-                bins.push(0);
-            }
-
-            x = 0;
-            while (x < maxX) {
-                genNums.push(x);
-                bins[Math.floor(x / xInterval)] += genNums[x];
-                sum += genNums[x];
-                x += 1;
-            }
-
-
-            // bins[x % xTicks] += Math.random()*101;
-
-            tick = 0;
-            arr.push({x: 0, y: 0});
-            while (tick < xTicks) {
-                bins[tick] = Math.floor((bins[tick] * 100 / sum));
-                arr.push({x: (tick * xInterval) + xInterval / 2, y: bins[tick]});
-                tick += 1;
-            }
-
-            return arr;
-        }
+        $("#chart_container").html("<div id='y_axis'></div> <div id='chart'></div><div id='x_axis'></div><div id='slider'></div>");
+               
 
         var graph = new Rickshaw.Graph({
             element: document.getElementById("chart"),
-            renderer: 'line',
+            renderer: 'bar',
             height: 120,
             width: 200,
             series: [
                 {
-                    data: genData(), //[ { x: 0, y: 20 }, { x: 1, y: 10 }, { x: 2, y: 30 }, { x: 3, y: 10 }, { x: 4, y: 40 } ],
+                    data: self.catalogStats.rickshawStringLengthsDistribution, //[ { x: 0, y: 20 }, { x: 1, y: 10 }, { x: 2, y: 30 }, { x: 3, y: 10 }, { x: 4, y: 40 } ],
                     color: "#0000aa"
                 }
             ]
@@ -222,7 +244,7 @@ ODRCKAN.CkanSourceUI.prototype = {
 
         var formatPercentage = function(y) {
             if (y === 0) {
-                return ""
+                return "";
             } else {
                 return y.toString() + "%";
             }
@@ -244,9 +266,27 @@ ODRCKAN.CkanSourceUI.prototype = {
             // tickFormat: Rickshaw.Fixtures.Number.formatKMBT
             tickFormat: formatPercentage
         });
-
+      
+        
         graph.render();        
-        this._moveGraph();        
+        this._moveGraph();   
+        
+        slider = new Rickshaw.Graph.RangeSlider({
+            graph: graph,
+            element: $('#slider') 
+            /* doesn't work
+            ,values : [0, self.catalogStats.avgStringLength*2] */
+            
+        });          
+        
+        slmin = 0;
+        slmax = self.catalogStats.avgStringLength * 2;        
+        $('#slider').slider('option', 'values', [slmin, slmax]);
+        console.log("The slider var is ", slider);
+        graph.window.xMin = slmin;
+        graph.window.xMax = slmax;
+        graph.update();
+        
     },
     newSearch: function() {
         console.log("Performing a new search.");
@@ -268,6 +308,7 @@ ODRCKAN.CkanSourceUI.prototype = {
         if (ckanUrlString.length > 0) {
             $("#stats-not-available-panel").html(OdrCommon.waitingHtml("Fetching stats....")).show();
             $("#stats-table").css("visibility", "hidden");
+            self.hideGraph();
             $.ajax({
                 url: "command/odrext/get-catalog-stats?ckanUrl=" + ckanUrlString,
                 type: "GET",
@@ -295,16 +336,13 @@ ODRCKAN.CkanSourceUI.prototype = {
                     self._elmts.totalDatasetsCount.text(OdrCommon.formatInteger(data.stats.totalDatasetsCount));
                     self._elmts.avgRowCount.text(OdrCommon.formatDouble(stats.avgRowCount));
                     self._elmts.avgColumnCount.text(OdrCommon.formatDouble(stats.avgColumnCount));
-                    self._elmts.avgStringLength.text(OdrCommon.formatDouble(stats.avgStringLength)).hover(function(e){
-                        self.showGraph(self.catalogStringDistr);  
-                    }, function(e){
-                        self.hideGraph(self.catalogStringDistr);
-                    });
-                    self._elmts.avgStringLengthTitle.hover(function(e){
-                        self.showGraph(self.catalogStringDistr);  
-                    }, function(e){
-                        self.hideGraph(self.catalogStringDistr);
-                    });                    
+                    var onGraphHover = function(e){
+                        if (!self.currentDistrUi){
+                            self.showGraph(self.catalogStringDistr);  
+                        }
+                    }
+                    self._elmts.avgStringLength.text(OdrCommon.formatDouble(stats.avgStringLength)).hover(onGraphHover);
+                    self._elmts.avgStringLengthTitle.hover(onGraphHover);                    
                     self._elmts.totalFileSizeCount.text(OdrCommon.formatFileSize(stats.totalFileSizeCount));
                     self._elmts.floatPercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.FLOAT, colsPerTypeMap, totalColsCount));
                     self._elmts.datePercentage.text(OdrCommon.formatTypePercentage(Ckanalyze.Types.DATE, colsPerTypeMap, totalColsCount));
@@ -323,6 +361,7 @@ ODRCKAN.CkanSourceUI.prototype = {
                     console.log("    errorThrown = ", errorThrown);
                     $("#stats-not-available-panel").html("<br/>Statistics for this catalog are not available.").show();
                     $("#stats-table").css("visibility", "hidden");
+                    self.hideGraph();
                 }
             });
         }
