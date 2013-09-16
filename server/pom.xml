@@ -40,6 +40,26 @@
                         
                         <executions>
                             <execution>
+                                <id>delete debug workspace</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <failIfNotFound>false</failIfNotFound>
+                                    <resources>
+                                        <resource>
+                                            <directory>${user.home}/.opendatarise/dev-workspace</directory>
+                                            <includes>
+                                                <include>   ** </include>
+                                                <cleanEmptyDirectories>true</cleanEmptyDirectories>
+                                            </includes>       
+                                            <clean>true</clean>
+                                        </resource>                                    
+                                    </resources>
+                                </configuration>
+                            </execution>                             
+                            <execution>
                                 <id>copy debug workspace</id>
                                 <phase>validate</phase>
                                 <goals>
@@ -183,7 +203,7 @@
                                 <argument>-Drefine.data_dir=${user.home}/.opendatarise/server-workspace/</argument>     
                                 <argument>-Drefine.headless=true</argument>          
                                 <argument>-Drefine.host=127.0.0.1</argument>          
-				<!-- <argument>-Djava.net.preferIPv4Stack=true</argument>  fix for disi -->
+                                <!-- <argument>-Djava.net.preferIPv4Stack=true</argument>  fix for disi -->
                                 <argument>-Drefine.context_path=/refine</argument>  
                                 
                                 <argument>-classpath</argument>
