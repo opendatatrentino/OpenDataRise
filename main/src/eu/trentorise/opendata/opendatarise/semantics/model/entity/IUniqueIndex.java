@@ -18,33 +18,50 @@
 
 package eu.trentorise.opendata.opendatarise.semantics.model.entity;
 
+import java.util.List;
+
 /**
- * Represents an attribute value
+ * The unique indexes are a set of attribute definitions to be used in entity
+ * matching
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @date Jul 24, 2013
  */
-public interface IValue {
+public interface IUniqueIndex {
 
     /**
-     * Gets the GUID of the value
+     * Gets the Globally Unique Identifier (GUID) for the unique indexes
      *
-     * @return the GUID
+     * @return the Globally Unique Identifier (GUID) represented as Long
      */
     Long getGUID();
 
     /**
-     * Gets the value
+     * Gets the URI of the unique indexes
      *
-     * @return the value as an Object
+     * @return a string that holds the URI of the unique indexes
      */
-    Object getValue();
+    String getURI();
 
     /**
-     * Sets the value
+     * Gets the attribute definitions for the unique indexes
      *
-     * @param value the value to be set
+     * @return the attribute definitions for the unique indexes
      */
-    void setValue(Object value);
+    List<IAttributeDef> getAttributeDefs();
+
+    /**
+     * Adds an attribute definition to the unique indexes
+     *
+     * @param attrDef the attribute definition to be added
+     */
+    void addAttributeDef(IAttributeDef attrDef);
+
+    /**
+     * Removes an attribute definition from the unique indexes
+     *
+     * @param attrDefID the local ID of the attribute definition to be removed
+     */
+    void removeAttributeDef(long attrDefID);
 }

@@ -93,19 +93,19 @@ public interface IEntityType {
      *
      * @return the unique indexes
      */
-    List<IUniqueIndexes> getUniqueIndexes();
+    List<IUniqueIndex> getUniqueIndexes();
 
     /**
      * Removes Unique Indexes
      *
-     * @param uniqueIndexesID the local ID of the unique indexes to be removed
+     * @param uniqueIndexID the local ID of the unique indexes to be removed
      */
-    void removeUniqueIndexes(long uniqueIndexesID);
+    void removeUniqueIndex(long uniqueIndexID);
 
     /**
      * Adds Unique Indexes
      *
-     * @param uniqueIndexes the unique indexes to be added
+     * @param uniqueIndex the unique indexes to be added
      */
-    void addUniqueIndexes(IUniqueIndexes uniqueIndexes);
+    void addUniqueIndexes(IUniqueIndex uniqueIndex);
 }

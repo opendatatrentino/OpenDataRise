@@ -88,7 +88,7 @@ public interface IAttributeDef {
      *
      * @param regularExpression the regular expression as string
      */
-    void setRegularExpressin(String regularExpression);
+    void setRegularExpression(String regularExpression);
     
     /**
      * Gets the IsMandatory flag that tells if the attribute is mandatory or not

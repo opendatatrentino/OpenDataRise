@@ -20,7 +20,7 @@ package eu.trentorise.opendata.opendatarise.semantics.services;
 
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IAttributeDef;
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntityType;
-import eu.trentorise.opendata.opendatarise.semantics.model.entity.IUniqueIndexes;
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IUniqueIndex;
 import java.util.List;
 
 /**
@@ -53,5 +53,5 @@ public interface IEntityTypeService {
      * @param entityType the entity type that will own the matching set
      * @param uniqueIndex the unique index to be added
      */
-    void addUniqueIndexToEtype(IEntityType entityType, IUniqueIndexes uniqueIndex);
+    void addUniqueIndexToEtype(IEntityType entityType, IUniqueIndex uniqueIndex);
 }

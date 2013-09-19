@@ -16,31 +16,20 @@
  *******************************************************************************
  */
 
-package eu.trentorise.opendata.opendatarise.semantics.services.model;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package eu.trentorise.opendata.opendatarise.semantics.services;
 
-import java.util.List;
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
 
 /**
- * <i>ICorrespondence</i> represents the output of the semantic matching. It is 
- * a list of <i>ICorrespondenceItem</i>s.
  *
- * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author Juan
  */
-public interface ICorrespondence {
-
-    /**
-     * Sets the list of correspondence items
-     *
-     * @param correspondenceItems the list of correspondence items
-     */
-    void setCorrespondenceItems(List<ICorrespondenceItem> correspondenceItems);
-
-    /**
-     * Gets the list of correspondence items
-     *
-     * @return the list of correspondence items
-     */
-    List<ICorrespondenceItem> getCorrespondenceItems();
+public interface IIdentityServices {
+    
+    public Long createGUID(IEntity entity);
+    
 }

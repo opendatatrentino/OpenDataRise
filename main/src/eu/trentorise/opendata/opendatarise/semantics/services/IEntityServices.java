@@ -16,24 +16,36 @@
  *******************************************************************************
  */
 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package eu.trentorise.opendata.opendatarise.semantics.services;
 
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IAttribute;
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntity;
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IValue;
 
 /**
- * Identity management services that handles the creation of IDs for entities
  *
- * @author Juan Pane <pane@disi.unitn.it>
- * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author Juan
  */
-public interface IIdentityService {
-
-    /**
-     * Creates a Globally Unique Identifier (GUID) for the given entity
-     *
-     * @param entity
-     * @return the created GUID of the entity
-     */
-    Long createGUID(IEntity entity);
+public interface IEntityServices {
+    
+    public void createEntity(IEntity entity);
+    
+    public void updateEntity(IEntity entity);
+    
+    public void deleteEntity(IEntity entity);
+    
+    public void readEntity(IEntity entity);
+    
+    public void addAttribute(IEntity entity, IAttribute attribute);
+    
+    public void addAttributeValue(IEntity entity, IAttribute attribute, 
+            IValue value);
+    
+    public void updateAttributeValue(IEntity entity, IAttribute attribute, 
+            IValue newValue);
+    
 }

@@ -48,7 +48,7 @@ public interface INLP {
      * it will have also the disambiguated Entity added to the object with their
      * locations.
      */
-    void NamedEntityDisambigaute(INLPText nlText);
+    void NamedEntityDisambiguate(INLPText nlText);
 
     /**
      * Takes a natural language text and finds the concepts and entities in the
@@ -67,5 +67,5 @@ public interface INLP {
      * @param nlText the input natural language string. After calling the
      * function it will have also the concepts disambiguated.
      */
-    void WordSenseDisambigaute(INLPText nlText);
+    void WordSenseDisambiguate(INLPText nlText);
 }
