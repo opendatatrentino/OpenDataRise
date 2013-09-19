@@ -107,5 +107,5 @@ public interface IEntityType {
      *
      * @param uniqueIndex the unique indexes to be added
      */
-    void addUniqueIndexes(IUniqueIndex uniqueIndex);
+    void addUniqueIndex(IUniqueIndex uniqueIndex);
 }
