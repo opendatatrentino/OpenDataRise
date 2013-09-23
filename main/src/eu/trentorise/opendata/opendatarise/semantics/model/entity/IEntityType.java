@@ -27,7 +27,8 @@ import java.util.Locale;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Sep 23, 2013
  */
 public interface IEntityType {
 
@@ -38,6 +39,13 @@ public interface IEntityType {
      */
     Long getGUID();
 
+    /**
+     * Gets the URL of the attribute definition
+     *
+     * @return a string that holds the URL of the attribute definition
+     */
+    String getURL();    
+    
     /**
      * Gets the URI of the entity type
      *

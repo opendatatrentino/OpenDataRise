@@ -25,7 +25,8 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Sep 23, 2013
  */
 public interface IEntity {
 
@@ -42,7 +43,7 @@ public interface IEntity {
      * @return the Globally Unique Identifier (GUID) represented as Long
      */
     Long getGUID();
-
+   
     /**
      * Gets the URI of the entity
      *

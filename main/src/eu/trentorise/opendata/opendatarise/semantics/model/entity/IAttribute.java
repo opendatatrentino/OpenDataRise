@@ -25,7 +25,8 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Sep 23, 2013
  */
 public interface IAttribute {
 
@@ -76,7 +77,7 @@ public interface IAttribute {
      *
      * @return the first value of the attribute
      */
-    String getFirstValue();
+    IValue getFirstValue();
 
     /**
      * Gets the number of values in the attribute
