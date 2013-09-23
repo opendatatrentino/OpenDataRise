@@ -25,7 +25,8 @@ import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.INLPText;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Sep 23, 2013
  */
 public interface INLP {
 
@@ -37,7 +38,7 @@ public interface INLP {
      * @return the natural language text object with all the entities and
      * concepts found and disambiguated
      */
-    INLPText RunNLP(String nlText);
+    INLPText runNLP(String nlText);
 
     /**
      * Takes a natural language name of an entity as a string and finds the
@@ -48,7 +49,7 @@ public interface INLP {
      * it will have also the disambiguated Entity added to the object with their
      * locations.
      */
-    void NamedEntityDisambiguate(INLPText nlText);
+    void namedEntityDisambiguate(INLPText nlText);
 
     /**
      * Takes a natural language text and finds the concepts and entities in the
@@ -58,7 +59,7 @@ public interface INLP {
      * function it will have also the concept and entities found in the text.
      * They will be added to the object with their locations.
      */
-    void NamedEntityRecognition(INLPText nlText);
+    void namedEntityRecognition(INLPText nlText);
 
     /**
      * Takes a natural language text that has been processed by NER and
@@ -67,5 +68,5 @@ public interface INLP {
      * @param nlText the input natural language string. After calling the
      * function it will have also the concepts disambiguated.
      */
-    void WordSenseDisambiguate(INLPText nlText);
+    void wordSenseDisambiguate(INLPText nlText);
 }

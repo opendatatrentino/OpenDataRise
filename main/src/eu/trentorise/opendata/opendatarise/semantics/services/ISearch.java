@@ -26,7 +26,8 @@ import java.util.List;
  * 
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Sep 23, 2013
  *
  * Todo: make sure the query syntax is in the javadoc
  */
@@ -38,5 +39,5 @@ public interface ISearch {
      * @param Query A string query to be executed
      * @return the list of entities that match the query
      */
-    List<IEntity> Search(String Query);
+    List<IEntity> search(String Query);
 }
