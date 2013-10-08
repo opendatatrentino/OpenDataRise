@@ -3,9 +3,12 @@ OpenDataRise
 
 Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRefine](https://github.com/OpenRefine/OpenRefine).
 
+<p align="center">
+  <img alt="" width="60%" src="https://github.com/opendatatrentino/OpenDataRise/wiki/images/promo-screenshot.PNG"/>
+</p>
 
 
-**Project status**: planning
+**Project status**: Developing - currently we are prototyping using Freebase as reconciliation service.
 
 **Roadmap**: see [project issues](https://github.com/opendatatrentino/OpenDataRise/issues)
 
@@ -17,6 +20,10 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
 
 * Java server with [Butterfly framework](https://code.google.com/p/simile-butterfly/)
 * Browser interface done in [JQuery UI](http://jqueryui.com/)
+* Maven is used for dependency management
+
+
+
 
 ### Credits
 
