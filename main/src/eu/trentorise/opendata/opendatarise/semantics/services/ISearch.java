@@ -29,15 +29,22 @@ import java.util.List;
  * @author David Leoni <david.leoni@trentorise.eu>
  * @date Sep 23, 2013
  *
- * Todo: make sure the query syntax is in the javadoc
  */
 public interface ISearch {
 
     /**
-     * Performs a search for entities
+     * Performs a search for entities using EQL syntax
      *
-     * @param Query A string query to be executed
+     * @param eqlQuery A string query using EQL syntax to be executed
      * @return the list of entities that match the query
      */
-    List<IEntity> search(String Query);
+    List<IEntity> searchEQL(String eqlQuery);
+    
+    /**
+     * Performs a concept search for entities 
+     *
+     * @param conceptSearchQuery A string query using concept search syntax to be executed
+     * @return the list of entities that match the query
+     */
+    List<IEntity> conceptSearch(String conceptSearchQuery);
 }
