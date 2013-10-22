@@ -8,7 +8,7 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
 </p>
 
 
-**Project status**: Developing - currently we are prototyping using Freebase as reconciliation service.
+**Project status**: Developing - currently we are prototyping using Freebase as reconciliation service. A demo of the prototype can be <a href="https://docs.google.com/file/d/0B3zPB8ad298hWEYxZ2VMX0p5a0k" target="_blank">watched in this video</a>
 
 **Additions to OpenRefine:**:
 
