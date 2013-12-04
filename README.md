@@ -4,7 +4,7 @@ OpenDataRise
 Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRefine](https://github.com/OpenRefine/OpenRefine).
 
 <p align="center">
-  <img alt="" width="60%" src="https://github.com/opendatatrentino/OpenDataRise/wiki/images/promo-screenshot.PNG"/>
+  <img alt="" width="60%" src="https://github.com/opendatatrentino/OpenDataRise/wiki/images/promo-screenshot.png"/>
 </p>
 
 
