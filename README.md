@@ -15,6 +15,7 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
  * a workflow subdivided in steps
  * an interface to import datasets from [ckan repositories](http://ckan.org/) and also to visualize resources stats taken with [Ckanalyze](https://github.com/opendatatrentino/CKANalyze)
  * enhanced data validation
+ * semantic tagging of natural language text
  * a help system 
  * maven as dependency management system instead of Ant
 
