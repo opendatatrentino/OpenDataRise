@@ -18,6 +18,8 @@
 package eu.trentorise.opendata.opendatarise.semantics.services;
 
 import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.INLPText;
+import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IResourceContext;
+import java.util.List;
 
 /**
  * The NLP interface provides natural language processing services such as named
@@ -26,7 +28,7 @@ import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.INLPText;
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
  * @author David Leoni <david.leoni@trentorise.eu>
- * @date Sep 23, 2013
+ * @date Jan 27, 2014
  */
 public interface INLP {
 
@@ -69,4 +71,22 @@ public interface INLP {
      * function it will have also the concepts disambiguated.
      */
     void wordSenseDisambiguate(INLPText nlText);
+
+    /**
+     * Disambiguates the column header names of a resource that typically comes from a catalog. 
+     * @param IResourceContext the metadata of the resource, typically found in the catalog
+     * @param sourceColumns the names of the resource columns
+     * @return the column names enriched with the meaning, ranked by confidence
+     */
+    List<INLPText> disambiguateColumns(IResourceContext context, List<String> sourceColumns);
+
+    /**
+     * Guesses the datatype common to a list of strings passed as input. Todo
+     * for now types are expressed as String, maybe we can do an enum
+     *
+     * @return the guessed type
+     * @param cellList a list of strings
+     */
+    String guessType(List<String> cellList);
+
 }
