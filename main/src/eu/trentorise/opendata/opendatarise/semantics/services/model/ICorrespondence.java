@@ -18,6 +18,7 @@
 
 package eu.trentorise.opendata.opendatarise.semantics.services.model;
 
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntityType;
 import java.util.List;
 
 /**
@@ -26,10 +27,23 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Jan 24, 2014
  */
 public interface ICorrespondence {
 
+    /**
+     * gets the target entity type
+     * @return the target entity type
+     */
+    IEntityType getEntityType();
+    
+    /**
+     * sets the target entity type
+     * @param entityType the target entity type
+     */
+    void setEntityType(IEntityType entityType);
+    
     /**
      * Sets the list of correspondence items
      *

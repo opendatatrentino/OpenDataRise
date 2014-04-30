@@ -18,13 +18,16 @@
 
 package eu.trentorise.opendata.opendatarise.semantics.services.model;
 
+import eu.trentorise.opendata.opendatarise.semantics.model.entity.IAttributeDef;
+
 /**
  * <i>ICorrespondenceItem</i> represents an item in the <i>ICorrespondence</i>.
- * It is a tuple of Source, Relation and Target.
+ * It is a tuple of Source, Relation and Target. The target is an attribute definition.
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Jan 24, 2014
  */
 public interface ICorrespondenceItem {
 
@@ -38,9 +41,9 @@ public interface ICorrespondenceItem {
     /**
      * Gets the target string in the Correspondence item
      *
-     * @return the target string
+     * @return the target attribute definition
      */
-    String getTarget();
+    IAttributeDef getTarget();
 
     /**
      * Gets the relation character in the Correspondence item. It can be one of

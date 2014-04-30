@@ -15,10 +15,12 @@
  *
  *******************************************************************************
  */
-
 package eu.trentorise.opendata.opendatarise.semantics.services;
 
+import eu.trentorise.opendata.jackan.ckan.CkanDataset;
+import eu.trentorise.opendata.jackan.ckan.CkanResource;
 import eu.trentorise.opendata.opendatarise.semantics.model.entity.IEntityType;
+import eu.trentorise.opendata.opendatarise.semantics.model.knowledge.IConcept;
 import eu.trentorise.opendata.opendatarise.semantics.services.model.ICorrespondence;
 import java.util.List;
 
@@ -27,21 +29,19 @@ import java.util.List;
  *
  * @author Juan Pane <pane@disi.unitn.it>
  * @author Moaz Reyad <reyad@disi.unitn.it>
- * @date Jul 24, 2013
+ * @author David Leoni <david.leoni@trentorise.eu>
+ * @date Jan 27, 2014
  */
 public interface ISemanticMatchingService {
 
-    /*
-     * Returns the correspondence between the source and the target contexts. 
-     * The first context is given by a root node and a list of columns. The 
-     * second context is given by the definition of an entity type
-     * 
-     * @param sourceName - The name of the root node in the source tree
-     * @param sourceNodes - Names of the source nodes under the source root node
-     * @param targetEntityType - the target entity type
-     * 
-     * @return - the correspondence
+    /**
+     * Given a list of disambiguated column header names guesses a target
+     * entitytype and returns a matching between the source headers and the
+     * attributes of the target entity type. Todo for now types are expressed as
+     * String, maybe we can do an enum.
+     *
+     * @param sourceColumns the names of the resource columns
+     * @return - the correspondence 
      */
-    ICorrespondence matchSchemas(String sourceName, List<String> sourceColumns,
-            IEntityType targetEntityType);
+    ICorrespondence matchSchemas(List<IConcept> sourceConcepts, List<String> sourceTypes);
 }
