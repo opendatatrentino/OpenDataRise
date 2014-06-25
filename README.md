@@ -14,10 +14,13 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
 
  * a workflow subdivided in steps
  * an interface to import datasets from [ckan repositories](http://ckan.org/) and also to visualize resources stats taken with [Ckanalyze](https://github.com/opendatatrentino/CKANalyze)
+ * suggestions on operations to do based on schema
  * enhanced data validation
  * semantic tagging of natural language text
- * a help system 
+ * online help system 
  * maven as dependency management system instead of Ant
+ * WAR deployable on Tomcat as build output instead of Refine custom old Jetty server
+ * interactive debugging support with a recent version of Jetty
 
 
 **Roadmap**: see [project issues](https://github.com/opendatatrentino/OpenDataRise/issues)
