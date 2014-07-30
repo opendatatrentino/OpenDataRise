@@ -8,19 +8,21 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
 </p>
 
 
-**Project status**: Developing - currently we are prototyping using reconciliation sevices of DISI, University of Trento. A video using Freebase and DataTXT reconciliation services can be <a href="https://docs.google.com/file/d/0B3zPB8ad298hWEYxZ2VMX0p5a0k" target="_blank">watched in this video</a>
+**Project status**: Developing - currently we are prototyping using reconciliation sevices of DISI, University of Trento. Currently code is developed in a private repository, when project reaches a sufficient level of stability we will merge changes in the public repo. A video using Freebase and DataTXT reconciliation services can be <a href="https://docs.google.com/file/d/0B3zPB8ad298hWEYxZ2VMX0p5a0k" target="_blank">watched here</a>
 
 **Additions to OpenRefine:**:
 
  * a workflow subdivided in steps
  * an interface to import datasets from [ckan repositories](http://ckan.org/) and also to visualize resources stats taken with [Ckanalyze](https://github.com/opendatatrentino/CKANalyze)
  * suggestions on operations to do based on schema
- * enhanced data validation
+ * enhanced data validation with column types
+ * multivalued cells support
  * semantic tagging of natural language text
  * online help system 
  * maven as dependency management system instead of Ant
  * WAR deployable on Tomcat as build output instead of Refine custom old Jetty server
  * interactive debugging support with a recent version of Jetty
+ * enhanced event system for plugins
 
 
 **Roadmap**: see [project issues](https://github.com/opendatatrentino/OpenDataRise/issues)
@@ -47,6 +49,7 @@ OpenDataRise adds a semantic layer upon the OpenRefine platform, so it owes a gr
 
  - David Leoni - Trento RISE david.leoni@trentorise.eu
  - Juan Pane - DISI at University of Trento - pane@disi.unitn.it
+ - Ivan Tankoyeu - tankoyeu@disi.unitn.it
  - Alberto Zanella - Trento RISE - alberto.zanella@trentorise.eu
  - Moaz Reyad - DISI at University of Trento - moaz.reyad@unitn.it
  
