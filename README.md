@@ -23,6 +23,7 @@ Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRef
  * WAR deployable on Tomcat as build output instead of Refine custom old Jetty server
  * interactive debugging support with a recent version of Jetty
  * enhanced event system for plugins
+ * possibility for plugins to attach data to columns, cells and rows
 
 
 **Roadmap**: see [project issues](https://github.com/opendatatrentino/OpenDataRise/issues)
