@@ -1,8 +1,6 @@
 <p align="center">
 <img alt="opendatarise" src="https://github.com/opendatatrentino/OpenDataRise/wiki/images/odr-logo-with-writing-on-top-700px.png" width="300px">
 </p>
-<br/>
-
 Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRefine](https://github.com/OpenRefine/OpenRefine).
 
 <p align="center">
