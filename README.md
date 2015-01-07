@@ -1,13 +1,14 @@
 <p align="center">
 <img alt="opendatarise" src="https://github.com/opendatatrentino/OpenDataRise/wiki/images/odr-logo-with-writing-on-top-700px.png" width="300px">
 </p>
-Tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRefine](https://github.com/OpenRefine/OpenRefine).
+Data integration tool to cleanse and semantify datasets from CKAN repositories. Based on [OpenRefine](https://github.com/OpenRefine/OpenRefine).
 
 <p align="center">
   <img alt="" width="60%" src="https://github.com/opendatatrentino/OpenDataRise/wiki/images/promo-screenshot.png"/>
 </p>
 
-**Project status**: Developing - currently we are developing using reconciliation sevices of DISI, University of Trento. Currently code is developed in a private repository, when project reaches a sufficient level of stability we will merge changes in the public repo. We keep [public wiki](https://github.com/opendatatrentino/OpenDataRise/wiki) updated, though, so you can get an idea of how the project will look like. A video of a prototype using Freebase and DataTXT reconciliation services can be <a href="https://docs.google.com/file/d/0B3zPB8ad298hWEYxZ2VMX0p5a0k" target="_blank">watched here</a>
+**Project status**: Developing - we are developing and testing using reconciliation sevices of DISI, University of Trento. 
+Currently code is developed in a private repository, when project reaches a sufficient level of stability we will merge changes into the public repo. We keep [public wiki](https://github.com/opendatatrentino/OpenDataRise/wiki) updated, though, so you can get an idea of how the project will look like. A video of a prototype using Freebase and DataTXT reconciliation services can be <a href="https://docs.google.com/file/d/0B3zPB8ad298hWEYxZ2VMX0p5a0k" target="_blank">watched here</a>
 
 
 **Additions to OpenRefine:**
