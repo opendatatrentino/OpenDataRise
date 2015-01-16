@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+        <title></title>
+        <style>
+            .meaning-button {
+                height:40px;
+            }
+            
+            .meaning-panel {
+                border-width:1px; 
+                border-style: solid;
+                padding-left:10px;
+                padding-top:20px;
+                padding-right:10px;
+                padding-bottom:20px;
+            }            
+        </style>
+    </head>
+    <body>
+
+
+        <div style="display:flex; width:600px;">
+
+
+            <div class="meaning-panel" style="min-width:210px">
+
+                <input name="meaningGroup" value="http://ep.org/12314" type="radio"> Trento<br>
+                <input name="meaningGroup" value="http://ep.org/38764" checked="checked" type="radio">
+                Provincia di Trento<br>
+                <input name="meaningGroup" value="new" type="radio"> New <br>
+                <input name="meaningGroup" value="http://ep.org/192714" type="radio"> <input bind="inputBar" type="search" style="min-width:80%"> <br>
+                <div style="min-height:20px"></div>
+                <div style="display:flex"> 
+                    <button class="meaning-button">Match <br>all cells</button> 
+                    <button class="meaning-button">Match <br> this cell</button> 
+                    <button class="meaning-button"> Delete</button> </div>
+
+                </div>
+            <div bind="previewPanel" class="meaning-panel">
+                <a href="" target="_blank">Trento</a><br/>
+                <br/>
+                <div  style="display:flex;">
+                    <!-- <div style="max-width:100px; max-height:100px">
+                        <img src="http://www.visitvalsugana.it/images/Cosa_Scoprire/Vicini/Trento_-_Piazza_Duomo_-_foto_R._Magrone.jpg" style="max-width:100px; max-height:100px" ></img>
+                    </div> -->
+                    <table style="min-width:100%">
+                        <tr>
+                            <td >
+                                Latitude
+                            </td>
+                            <td>
+                                3,4243
+                            </td>                
+
+                        </tr>
+                        <tr>
+                            <td >
+                                Population
+                            </td>
+                            <td>
+                                100.000
+                            </td>
+                        </tr>
+                    </table>
+                </div>    
+                <div>
+                    <br/>
+                    Trento is an educational, scientific, financial and political centre in Trentino-Alto Adige/Südtirol, in Tyrol and Northern Italy in general. The University of Trento ranks highly out of Italy's top 30 colleges, coming 1st in the Italian Ministry of Education, Universities and Research ranking,[2] 2nd according to Censis ranking[3] and 5th in the Il Sole 24 Ore ranking of Italian universities        
+                </div>
+
+                <br/>
+                <div bind="lattice-bar" style="color:grey">
+                    Thing/Location/City
+                </div>
+                                
+                
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+    </body>
+</html>

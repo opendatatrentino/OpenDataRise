@@ -1,0 +1,85 @@
+/* 
+    Created on : 21-nov-2014, 16.02.22
+    Author     : David Leoni 
+*/
+
+
+.mockdoc-todo {
+    color: red;
+}
+
+.mockdoc-note {
+    max-width:20px;
+    margin:3px;
+    padding:5px;
+    border-style:solid;
+    border-radius: 14px;
+    border-color: red;
+    border-width: 4px;   
+    background-color:white;
+    color:red;
+}
+
+#mockdoc-topic {
+    font-weight:bold; 
+    padding-left:10px;
+}
+
+@media screen {
+    .mockdoc-descr {
+        margin-bottom: 15px;  
+        border-style:solid; 
+        border-color:red;
+        border-width:2px;     
+        padding:2px; 
+        min-width:100%;    
+    }    
+    
+}
+
+@media print {
+    .mockdoc-descr {
+        margin-bottom: 15px;  
+        border-style: none;
+        border-width:2px;     
+        padding:2px; 
+        min-width:100%;    
+    }
+    
+    .mockdoc-descr a {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+
+.mockdoc-revision-table td{
+    outline: black solid 2px;
+    padding:5px;
+}
+.mockdoc-revision-table th{
+    outline: black solid 2px;
+    padding:5px;
+}
+
+@media screen {
+    #mockdoc-circle-descr {
+        display:none;
+    }
+}
+
+
+@media print {
+    #mockdoc-instructions {
+        display:none;
+    }    
+}
+
+
+@page {
+    margin: 0.5cm; 
+    size: portrait; 
+    marks: none; 
+   @bottom-right { content: counter(page) }
+}
+

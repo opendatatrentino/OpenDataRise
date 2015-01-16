@@ -1,0 +1,28 @@
+{
+  "name": "odr-mockups",
+  "version": "0.0.1",
+  "description": "An example module to illustrate the usage of a package.json",
+  "author": "David Leoni",  
+  "scripts": {
+    "docgen": "node docgen.js"
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/opendatatrentino/OpenDataRise.wiki"
+},
+  "bugs": {
+  "url": "https://github.com/opendatatrentino/OpenDataRise/issues"
+},
+  "keywords": [
+  "OpenDataRise",
+  "mockups",
+  "odr"
+],
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    
+  },  
+  "private": true
+}

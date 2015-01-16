@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title id="mockdoc-title"></title>
+
+        <link href="mockdoc.css" type="text/css" rel="stylesheet" />
+        <link href="odrmocks.css" type="text/css" rel="stylesheet" />
+        <link href="externals/jquery-ui/jquery-ui-odr-mocks.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+
+
+
+        <div id="mockdoc-intro" class="mockdoc-descr">
+            <h3>
+                <a id="mockdoc-project"  href="https://github.com/opendatatrentino/OpenDataRise/wiki/Mockups" >
+                    
+                </a>
+                <span id="mockdoc-topic" >  </span> <br/>
+            </h3>
+            <br/>
+            <table class="mockdoc-revision-table">
+
+                <tr>
+                    <th>
+                        Version
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Description
+                    </th>
+
+                    <th>
+                        Author
+                    </th>
+
+
+                </tr>
+                <tr>
+                    <td>
+                        0.6
+                    </td>
+
+                    <td>
+                        24 nov 2014
+                    </td>
+                    <td>
+                        Created html file
+                    </td>
+                    <td>
+                        David Leoni
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        0.6.1
+                    </td>
+
+                    <td>
+                        26 nov 2014
+                    </td>
+                    <td>
+                        Made printable version
+                    </td>
+                    <td>
+                        David Leoni
+                    </td>
+
+                </tr>
+
+            </table>
+            <br/>
+            Shows possible cases that can happen during reconciliation of rows for a hypotetical entity type <i> Tourism Resort </i>. <br/>
+
+            <div id="mockdoc-instructions">
+                <h4 >Instructions</h4>
+                <ul>
+                    <li> This is an interactive version of the mockups. You can also <a id="mockdoc-pdflink"> download a pdf version </a> (some non essential image parts are voluntarily cropped in the pdf version)</li>
+                    <li> Hover on red circles to see a description of the relative item </li>                    
+                    
+                    <li> Only Firefox browser with a recent version is supported</li>                
+                    
+                </ul>
+
+            </div>
+
+
+            <h4>Assumptions</h4>
+            <ul>
+                <li>incomplete entities are allowed - that is, there are not enough attributes to satisfy at least an identifieng set</li>
+                <li>inconsistent entities are allowed - it is possible to insert in the database an entity which has one identifying set equals to an existing entity but another identifying set which is different and cannot be merged</li>
+            </ul>
+
+            <h4>Table description</h4>
+            First five columns represent attributes from the dataset. Last two columns are other attributes from the etype. First seven rows only consider possible id results without considering eventual value updates and automerges. 
+            In last row (Moena) some GUI is proposed to visualize updated values and provenance. Actual editing and merging should be done in a separate Entity alignment panel.  <span id="odr-removal-notice">Notice project name bar and facets on the left were removed from this pdf version for space reasons. </span><br/>
+            
+
+            <p id="mockdoc-circle-descr">                
+                <span>We now describe the corresponding red circles shown in next page table: </span> <br/><br/>
+                
+
+            </p>
+
+        </div>            
+
+
+
+        <div class="screen-table">
+            <div id="odr-upperbar">
+                <div style="display:flex; align-items:center;   padding:2px;">            
+                    <a style="display:flex; align-items:center;"  href="index.html" >
+                        <img src="img/odr-logo.png" height="30" style="color:#009999"> 
+                    </a>
+                    <span>OpenDataRise </span>
+
+                    <span style="padding-left:20px">
+                        dati.trentino.it/Anagrafica campi neve/Anagrafica Andalo in formato CSV
+                    </span>
+                </div>
+            </div>
+
+
+            <div style="display:flex; min-width:100%; ">
+                <div id="leftpart">
+                    <div id="nav-bar"  class="top-bar" style="display:flex; justify-content:space-between">
+                        <button>
+                            ◁
+                        </button>
+                        <div style="display:flex">
+                            <div>Step 5:</div>
+                            <div>Entity Alignment</div>
+                        </div>
+
+                        <button>
+                            ▷
+                        </button>                    
+                    </div>
+
+                    <div id="help-box" style="font-size:12px">
+
+                        &#10148; Assign to each row a unique index in th first column <br/>    
+                        &#10148; Create new entities or update existing ones <br/>
+                        &#10148; Click ▷ button to proceed to Entity Import step <br/>
+                        <br/>
+                        <a class="refine-button-link"> More help </a> <br/>
+                        <br/>
+
+
+                    </div>
+
+                    <div id="left-tabs" style="border:solid; border-width:1px; min-height:50%; padding:5px; font-size: 0.7em">
+                        <ul>
+                            <li><a href="#facet-panel"><span>Facet/Filter</span></a></li>
+                            <li><a href="#undo-panel"><span>Undo/Redo 14</span></a></li>                        
+                        </ul>
+                        <div id="facet-panel">
+                            <span style="font-weight:bold"> Using facets </span> <br/> <br/>
+                            &#10148; Use facets to select subsets of yuour data to act on <br/>    
+                            &#10148; Choose facets from menus at top of each column <br/>                    
+                        </div>
+                        <div id="undo-panel">
+                        </div>
+                    </div>                    
+
+                </div>
+                <div id="rightpart" style="min-width:70%; ">
+                    <div id="nav-bar" class="top-bar">
+                        &nbsp;&nbsp;&nbsp;364 rows
+                    </div>
+                    <div id="show-bar"  style="display:flex; justify-content: space-around">
+                        <div style="margin-left:5px; min-width:200px">
+                            <span>Show:&nbsp; </span> 
+                            <span class="refine-button-link">5</span> 
+                            <span class="refine-button-link">10</span> 
+                            <span class="refine-button-link">25</span> 
+                            <span style="font-weight:bold">50</span> 
+                            <span> rows </span>
+                        </div>
+                        <div style="width:50%"></div> <div class="refine-button-link" >&#60;&#60; First &#60; previous  </div><div>1 - 50  </div> <div class="refine-button-link">next &#62; </div><div class="refine-button-link">last &#62; &#62; </div>
+                    </div>
+
+                    <table  class="spreadsheet" >
+                        <tr class="etype-bar" >
+                            <td style="background-color:#E6FFE5" colspan="6">Attributes from dataset</td>
+                            <td style="background-color:#E5FFFE" class="first-col-etype" colspan="2" >Other attributes of etype <i>Tourism Resort</i></td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                        <div class="colheader-header"> <select class="colheader-dropbox"></select> <span class="colname">  All</span> </div>
+                        <div class="colheader-body">
+                            <img style="visibility:hidden" class="downward-arrow" src="img/downward-arrow.png">
+                            <div class="colname"></div>
+                            <div> </div>
+                            <div class="progress-bar-outer" style="visibility:hidden">  <div class="progress-bar-inner" style="width:80%" ></div></div>                                    
+                        </div>
+
+                        </th>
+
+                        <th style="color:red">
+
+                        <div class="colheader-header"> <select class="colheader-dropbox"></select>  </div>
+                        <div class="colheader-body" >
+                            <img style="visibility:hidden" class="downward-arrow" src="img/downward-arrow.png">
+
+                            <div class="colname">Entitypedia ID</div>
+                            <div> Tourism Resort</div>
+                            <div class="progress-bar-outer">  <div class="progress-bar-inner" style="width:60%" ></div></div>                                    
+                        </div>                        
+                        </th>
+                        <th>
+                        <div class="colheader-header"><select class="colheader-dropbox"></select> <span class="colname">Nome</span> </div>
+                        <div class="colheader-body">
+                            <img class="downward-arrow" src="img/downward-arrow.png">
+                            <div class="colname">Name</div>
+                            <div> SemanticText [ ]</div>
+                            <div class="progress-bar-outer" style="visibility:hidden">  <div class="progress-bar-inner" style="width:80%" ></div></div>                                     
+                        </div>
+
+                        </th>    
+                        <th>
+                        <div class="colheader-header"><select class="colheader-dropbox"></select> <span class="colname">provincia</span> </div>
+                        <div class="colheader-body">
+                            <img class="downward-arrow" src="img/downward-arrow.png">
+                            <div class="colname">Province</div>
+                            <div> City </div>
+                            <div class="progress-bar-outer" style="visibility:hidden">  <div class="progress-bar-inner" style="width:80%" ></div></div>                                     
+                        </div>
+
+                        </th>
+                        <th>
+                        <div class="colheader-header"><select class="colheader-dropbox"></select> <span class="colname">description</span> </div>
+                        <div class="colheader-body">
+                            <img class="downward-arrow" src="img/downward-arrow.png">
+                            <div class="colname">Description</div>
+                            <div> Semantic Text [] </div>
+                            <div class="progress-bar-outer" style="visibility:hidden">  <div class="progress-bar-inner" style="width:80%" ></div></div>                                     
+                        </div>
+
+                        </th>
+
+                        <th>
+                        <div class="colheader-header"><select class="colheader-dropbox"></select> <span class="colname">lat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long</span> </div>
+                        <div class="colheader-body">
+                            <img class="downward-many-to-one-arrow" src="img/downward-many-to-one-arrow.png">
+                            <div class="colname">Coordinates</div>
+                            <div> Integer </div>
+                            <div class="progress-bar-outer" style="visibility:hidden">  <div class="progress-bar-inner" style="width:80%" ></div></div>                                     
+                        </div>
+                        </th>
+                        <th class="first-col-etype" >
+                        <div class="colheader-header"><select class="colheader-dropbox"></select> <span class="colname"> funivie</span> </div>
+                        <div class="colheader-body">
+                            <img class="downward-arrow" src="img/downward-arrow.png">
+                            <div class="colname">Skilifts</div>
+                            <div> Integer </div>
+                            <div class="progress-bar-outer" style="visibility:hidden">  <div class="progress-bar-inner" style="width:80%" ></div></div>                                     
+                        </div>
+
+                        </th>                    
+                        <th >
+                        <div class="colheader-header "> <select class="colheader-dropbox"></select> <span class="colname">popolazione</span> </div>
+                        <div class="colheader-body">
+                            <img class="downward-arrow" src="img/downward-arrow.png">
+                            <div class="colname">Population</div>
+                            <div> Integer </div>
+                            <div class="progress-bar-outer" style="visibility:hidden">  <div class="progress-bar-inner" style="width:80%" ></div></div>                                     
+                        </div>
+                        </th>                    
+
+                        </tr>       
+                        <tr class="invalid-row">
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div>
+                                    <div><img src="img/flag.PNG"></div>
+                                    <div>1.</div>
+                                    <div class="mockdoc-note" title="This row is in conflict with an existing entity, because for example it has one identifying set matching an entity in the db but has another identifying set which doesn't match the same entity">a)</div>
+                                </div>
+
+                            </td>
+                            <td> 
+                                <span class="odr-tag odr-invalid">Solve conflict...</span>
+                            </td>
+                            <td>
+                                <div class="vertical-array">
+                                    <div class="semtext">
+                                        <div>
+                                            Andalo
+                                        </div>
+                                        <img src="img/flags/24/it.png">                                
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td >
+                                <div class="odr-tag meaning">Provincia di Trento</div>
+                            </td>
+                            <td >
+                                <div class="vertical-array">
+                                    <div class="semtext">                                
+                                        <div>Sorge su un'<span class="odr-tag meaning">ampia</span> <span class="odr-tag meaning">sella</span> prativa al 
+                                            <span class="odr-tag meaning">centro</span> dell'<span class="odr-tag meaning">altopiano </span> Brenta - Paganella, dominata ad <span class="odr-tag meaning">ovest</span> dal <span class="odr-tag meaning">Piz Galin (m 2442)</span>
+                                        </div>
+                                        <img src="img/flags/24/it.png">
+
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td >
+
+                                <div class="mockdoc-note" title="This could be a hypotetical structure within a cell. Actually we would need it only for arrays of structures (if we don't do decomposition instead)">j)</div>
+                                <table class="structure refine-datatype">
+                                    <tr>
+                                        <td> latitude: </td> <td> 65.4463 </td>
+                                    </tr>
+                                    <tr>
+                                        <td> longitude: </td> <td> 71.2857 </td>
+                                    </tr>
+                                </table>
+                            </td>    
+
+                            <td >
+                                <span class="refine-datatype">3 </span>
+                            </td>
+                            <td >
+                                <span class="refine-datatype"> 6197</span>
+                            </td>
+                        </tr>                    
+                        <tr>
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div>
+                                    <div><img src="img/flag.PNG"></div>
+                                    <div>2.</div>
+                                    <div class="mockdoc-note" title="This row resulted in a perfect match">b)</div>
+                                </div>
+                            </td>
+                            <td> 
+                                <span class="odr-tag meaning">Canazei</span>                            
+                            </td>
+                            <td >
+                                <div class="vertical-array">
+                                    <div class="semtext">
+                                        <div>
+                                            Canazei
+                                        </div>
+                                        <img src="img/flags/24/it.png">                                
+                                    </div>                                
+                                </div>
+                            </td>
+                            <td >
+                                <div class="odr-tag meaning">Provincia di Trento</div>
+                            </td>
+                            <td >
+                                <div class="vertical-array">                            
+                                    <div class="semtext">
+                                        <div>Situato all'estremità settentrionale della Val di Fassa, quasi al <span class="odr-tag meaning"> confine </span>con la provincia di Bolzano a nord.</div>
+                                        <img src="img/flags/24/it.png">
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <table class="structure refine-datatype">
+                                    <tr>
+                                        <td> latitude: </td> <td> 51.1504 </td>
+                                    </tr>
+                                    <tr>
+                                        <td> longitude: </td> <td> 14.7444 </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td >
+                                <span class="refine-datatype"> 2</span>
+                            </td>
+                            <td >
+                                <span class="refine-datatype"> 2035 </span>
+                            </td>
+
+                        </tr>                                        
+
+
+                        <tr class="invalid-row">
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div><div><img src="img/flag.PNG"></div><div>3.</div>
+                                    <div class="mockdoc-note" title="This row was found incomplete so system declared it as <i> new </i>. As a consequence ODR asks the user to disambiguate it. Only after performing an unsuccessfull search the user can finally declare the row as <i> new </i>, like in next row for Caoria">c)</div>
+
+                                </div>
+                            </td>
+                            <td> 
+                                <div class="odr-tag " style="display:flex; align-items:center; ">
+                                    <div class="odr-invalid"> Disambiguate</div>                                
+                                </div>
+                            </td>
+                            <td >
+                                <div class="vertical-array">
+                                    <div class="semtext">
+                                        <div>
+                                            Cavalese
+                                        </div>
+                                        <img src="img/flags/24/it.png">                                
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td >
+
+                            </td>
+                            <td >
+
+                                <div class="vertical-array">
+
+                                </div>
+                            </td>
+                            <td>
+                            </td>
+
+                            <td >
+                                <span class="refine-datatype"> 1</span>
+                            </td>
+                            <td >
+                                <span class="refine-datatype"> 1179 </span>
+                            </td>
+                        </tr>                    
+
+                        <tr>
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div><div><img src="img/flag.PNG"></div><div>4.</div>
+                                    <div class="mockdoc-note" title="This row was found incomplete so system declared it as <i> new </i>. As a consequence ODR asked the user to disambiguate it (showing Disambiguate in red as in previous row Cavalese example). After performing an unsuccessfull search the user finally declared the row as <i> new </i>">d)</div>
+                                </div>
+                            </td>
+                            <td> 
+                                <div class="odr-tag meaning" style="display:flex; align-items:center; ">
+                                    Caoria 
+                                    <div style="padding-left:4px;">
+                                        <div class="link-status">new</div>
+                                        <div class="link-status">incomplete</div>
+                                    </div>                                    
+                                </div>
+                            </td>
+                            <td >
+                                <div class="vertical-array">
+                                    <div class="semtext">
+                                        <div>
+                                            Caoria
+                                        </div>
+                                        <img src="img/flags/24/it.png">                                
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td >
+
+                            </td>
+                            <td >
+
+                                <div class="vertical-array">
+
+                                </div>
+                            </td>
+                            <td>
+                                <table class="structure refine-datatype">
+                                    <tr>
+                                        <td> latitude: </td> <td> 51.35225 </td>
+                                    </tr>
+                                    <tr>
+                                        <td> longitude: </td> <td>  </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td >
+                                <span class="refine-datatype"> 5</span>
+                            </td>
+                            <td >
+                                <span class="refine-datatype"> 1179 </span>
+                            </td>
+                        </tr>                    
+
+                        <tr>
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div><div><img src="img/flag.PNG"></div><div>5.</div>
+                                    <div class="mockdoc-note" title="This row had complete identifying set and was declared <i>new</i> by the system. User has to do nothing so ODR immediately displays it as <i> new </i>">e)</div>
+                                </div>
+                            </td>
+                            <td> 
+                                <div class="odr-tag meaning">Obereggen <span class="link-status">new</span></div>
+                            </td>
+                            <td >
+                                <div class="mockdoc-note" title="Sometimes an entity can have same name in two different languages">k)</div>
+                                <div class="vertical-array">
+                                    <div class="semtext">
+                                        <div>
+                                            Obereggen
+                                        </div>
+                                        <img src="img/flags/24/it.png">                                
+                                    </div>
+                                    <div class="semtext">
+                                        <div>
+                                            Obereggen
+                                        </div>
+                                        <img src="img/flags/24/de.png">                                
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td >
+                                <div class="odr-tag meaning">Provincia di Bolzano</div>
+                            </td>
+                            <td >
+                                <div class="vertical-array">
+                                    <div class="semtext">
+
+                                        <div>
+
+                                            <span class="odr-tag meaning"> Paesino </span> ai piedi del Latemar patrimonio naturale dell'unesco, con <span class="odr-tag meaning"> vista </span> mozzafiato sulle dolomiti.
+
+
+                                        </div>
+                                        <img src="img/flags/24/it.png">
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <table class="structure refine-datatype">
+                                    <tr>
+                                        <td> latitude: </td> <td> 54.63347 </td>
+                                    </tr>
+                                    <tr>
+                                        <td> longitude: </td> <td> 43.5223 </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td >
+                                <span class="refine-datatype"> </span>
+                            </td>
+                            <td >
+                                <span class="refine-datatype"> 1179 </span>
+                            </td>                        
+                        </tr>                    
+
+
+
+                        <tr>
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div><div><img src="img/flag.PNG"></div><div>6.</div>
+                                    <div class="mockdoc-note" title="Input entity is incomplete. As a consequence, Entitypedia ID management failed to find a match and declared it as new. ODR asked user to disambiguate the row, and the user found out there is an incomplete entity on the server (because we allow inserting incomplete data) which matches the incomplete entity in the dataset">f)</div>
+                                </div>                                
+
+                            </td>
+                            <td> 
+                                <div class="odr-tag meaning" style="display:flex; align-items:center; ">
+                                    Ziano
+                                    <div style="padding-left:4px;">                                    
+                                        <div class="link-status">incomplete</div>
+                                    </div>                                    
+                                </div>                            
+                            </td>
+                            <td >
+
+
+                                <div class="vertical-array">
+                                    <div class="semtext">
+                                        <div>
+                                            Ziano
+                                        </div>
+                                        <img src="img/flags/24/it.png">                                
+                                    </div>                                
+                                </div>
+                            </td>
+
+                            <td >
+                                <div class="odr-tag meaning">Provincia di Trento</div>
+                            </td>
+                            <td >
+                                <div class="vertical-array">                            
+                                </div>
+                            </td>
+                            <td>
+                            </td>
+
+                            <td >
+
+                            </td>
+                            <td >
+
+                            </td>
+
+                        </tr>                                        
+
+
+                        <tr>
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div><div><img src="img/flag.PNG"></div><div>7.</div>
+                                    <div class="mockdoc-note" title="A perfect match was found, and the found entity has an entity type Ski Resort which is more specific than the Tourism Resort of the table. <span class='mockdoc-todo'> This means the entity has more attributes than the ones we show in the table for Tourism Resort TODO decide what to do in this case </span>">g)</div>
+                                </div>                                 
+
+                            </td>
+                            <td> 
+                                <div class="odr-tag meaning" style="display:flex; align-items:center; ">
+                                    Pinzolo
+                                    <div style="padding-left:4px;">                                    
+                                        <div class="link-status">Ski Resort</div>
+                                    </div>                                    
+                                </div>                            
+
+                            </td>
+                            <td >
+
+                                <div class="vertical-array">
+
+
+                                    <div class="semtext">
+                                        <div>
+                                            Pinzolo
+                                        </div>
+                                        <img src="img/flags/24/it.png">                                
+                                    </div>                                
+                                </div>
+                            </td>
+
+
+                            <td >
+
+                                <div class="odr-tag meaning">Provincia di Trento</div>
+
+                            </td>
+                            <td >
+                                <div class="vertical-array">                            
+                                    <div class="semtext">
+                                        <div>È il maggiore centro della valle ed è situato su una piana prativa fra il Gruppo dell'Adamello a ovest e il Gruppo del Brenta a est.</div>
+                                        <img src="img/flags/24/it.png">
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <table class="structure refine-datatype">
+                                    <tr>
+                                        <td> latitude: </td> <td> 46.1504 </td>
+                                    </tr>
+                                    <tr>
+                                        <td> longitude: </td> <td> 10.7444 </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td >
+                                <span class="refine-datatype"> 2</span>
+                            </td>
+                            <td >
+                                <span class="refine-datatype"> 3035 </span>
+                            </td>
+
+                        </tr>                                        
+
+                        <tr>
+                            <td >
+                                <div class="all-elem">
+                                    <div><img src="img/star.PNG"></div><div><img src="img/flag.PNG"></div><div>8.</div>
+
+                                    <div class="mockdoc-note" title="Example of a merge. Displayed values can be either new from the dataset, values coming from the db or new values from the dataset that replace existing ones in the db. To distinguish them, we mark new values awith <i> new </i> tag, existing values with <i> prov </i> tag and modified values with <i> updated </i> tag. Hovering tags <i> prov </i> and <i> updated </i> gives further information about provenance and values to be replaced, respectively. To get a feeling of it, hovering works in this mockups.">h)</div>
+                                </div>                                    
+
+                            </td>
+                            <td> 
+                                <div class="odr-tag meaning" style="display:flex; align-items:center;" 
+                                     title="Click to open Entity Alignment panel">
+                                    Moena
+                                    <div style="padding-left:4px;">                                    
+                                        <div class="link-status">updated</div>
+                                    </div>        
+
+                                </div>                            
+                                <div class="mockdoc-note" title="Clicking here will open the entity alignment panel <span class='mockdoc-todo'>
+                                     TODO make panel pop up even in mock ups </span> " >i)</div>
+
+
+
+                            </td>
+                            <td >
+
+                                <div class="vertical-array">
+
+                                    <div>
+                                        <div class="cell-status-bar"> <div class="cell-status-box">new</div> </div>
+                                        <div class="semtext">
+                                            <div>
+                                                Moena
+                                            </div>
+                                            <img src="img/flags/24/it.png">                                
+                                        </div>
+
+                                    </div>
+
+                                    <div>                                
+                                        <div class="cell-status-bar">
+                                            <div class="cell-status-box has-bz-tooltip" title="">
+                                                prov
+                                            </div>
+
+                                        </div> 
+                                        <div class="semtext">                                    
+                                            <div>
+                                                Moyen
+                                            </div>
+                                            <img src="img/flags/24/de.png">  
+                                        </div>                                
+
+                                    </div>
+                                </div>
+
+
+                            </td>
+                            <td >
+                                <div>
+                                    <div class="cell-status-bar"> <div class="cell-status-box">new</div> </div>
+
+                                    <div class="odr-tag meaning">Provincia di Trento</div>
+                                </div>
+
+                            </td>
+                            <td >
+                                <div class="vertical-array">      
+
+                                    <div>
+                                        <div class="cell-status-bar"> <div class="cell-status-box">new</div> </div>
+                                        <div class="semtext">
+                                            <div>
+                                                Moena è un comune italiano di 2.723 abitanti della provincia di Trento.
+                                            </div>
+                                            <img src="img/flags/24/it.png">                                
+                                        </div>                                
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+
+
+                                <div>
+                                    <div style="margin-bottom:15px; margin-right:-10px" class="cell-status-bar">                                        
+                                        <div class="cell-status-box has-replace-tooltip" title="{latitude:12.352; longitude:82.32}">
+                                            updated
+                                        </div>
+                                        <table class="structure refine-datatype">
+                                            <tr>
+                                                <td> latitude: </td> <td> 12.1504 </td>
+                                            </tr>
+                                            <tr>
+                                                <td> longitude: </td> <td> 65.7444 </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                            </td>
+
+                            <td >
+
+                                <div  style="margin-bottom:50px; margin-right:-10px" class="cell-status-bar">
+                                    <div class="cell-status-box has-bz-tooltip" title="">                                        
+                                        prov
+                                    </div> 
+
+                                </div>                                 
+                                <div class="refine-datatype">
+                                    2
+                                </div>
+
+                            </td>
+                            <td >
+
+                                <div>
+
+                                    <div  style="margin-bottom:50px; margin-right:-10px" class="cell-status-bar">
+                                        <div class="cell-status-box has-bz-tooltip" title="">                                        
+                                            prov
+                                        </div> 
+
+                                    </div>                                 
+
+                                    <span class="refine-datatype"> 3035 </span>
+                                </div>
+                            </td>
+
+                        </tr>        
+
+                    </table>                
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div style="display:none">
+                <div id="tooltip-loc-turistiche-bz">
+                    From dataset: <a href="http://dati.provincia.bz.it/località-turistiche.csv">http://dati.provincia.bz.it/località turistiche.csv </a> <br/>
+                    imported with ODR project: <a href="http://odrtest/dati.provincia.bz.it/località-turistiche.csv">dati.provincia.bz.it/località turistiche.csv </a>
+                </div>
+            </div>
+
+        </div>
+
+            
+            
+            
+        <script src="externals/jquery-1.7.2.min.js"></script>        
+        <script src="externals/jquery-ui/jquery-ui-1.10.3.custom.js"></script>
+        <script src="externals/jspdf/jspdf.source.js"></script>
+        <script src="mockdoc.js"></script>
+
+        <script src="odrmocks.js"></script>             
+    </body>
+</html>

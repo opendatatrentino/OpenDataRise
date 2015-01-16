@@ -1,0 +1,232 @@
+/* 
+    Created on : 26-nov-2014, 14.27.48
+    Author     : David Leoni 
+*/
+
+@media screen {
+    #odr-removal-notice {
+        display:none;
+    }
+}
+
+@media screen {
+    #odr-upperbar { 
+        display:flex; 
+        align-items:center; 
+        margin-bottom: 2px;
+    }        
+}
+
+@media print {
+    #odr-upperbar { 
+        display:none;
+    }
+}    
+
+@media screen {
+    #leftpart {
+        padding-right:5px; 
+        max-width:300px
+    }
+}
+
+@media print {
+    #leftpart { 
+        display:none;
+    }
+}
+
+
+.etype-bar {
+    font-weight:bold;
+    text-align:center;
+}
+
+.has-bz-tooltip {
+
+}
+
+
+.cell-status-box {
+    border:solid 1px; background-color:#FEE5FF;
+}
+
+.cell-status-bar {
+    display:flex; 
+    flex-direction:column; 
+    align-items:flex-end;
+    padding-bottom:4px;
+}
+
+
+.link-status {
+    padding-left:3px;
+    color : #767676;
+}
+
+.vertical-array > div {
+    border:solid;
+    border-width: 1px;                
+    padding:3px;
+}
+
+.semtext {
+    display:flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    min-width:100%;
+    min-height:100%;
+}
+
+.structure  {
+
+    outline: medium solid;
+}
+
+.refine-datatype{
+    color:#009933;
+}
+
+
+
+.odr-invalid{
+    color:#D60000; // dark red
+}
+
+.all-elem {
+    display:flex; 
+    align-items:stretch;
+}
+
+
+
+.meaning{
+    color:#3333ff;   
+}
+
+.odr-tag{                
+    background-color: #FFFFC1;
+    border: 1px solid black;
+    border-radius: 5px;
+    border-color: #4E3100;
+    text-decoration: none;
+}
+
+.odr-tag:hover{
+    background-color: #FFFF55;
+    border: 1px solid black;
+    border-radius: 5px;
+    border-color: #4E3100;
+    text-decoration: none;
+}
+
+.odr-external-link {
+    // ../ otherwise it looks in styles folder
+    background: url(../../../extension/odrext/images/external-link.png) center right no-repeat;
+    padding-right: 17px;
+}
+
+
+
+.top-bar {
+    min-height:40px;
+    background-color:#05A;
+    color:#FFF;
+}
+
+.refine-button-link {
+    color:#3366ff;
+}
+
+.colheader-dropbox {
+    max-width:20px;
+}
+
+.colname {
+    white-space: nowrap;
+    font-weight:bold;
+}
+
+.invalid-row {
+    outline: medium solid #D60000;
+}
+.invalid-row > td {
+    outline: medium solid #D60000;
+}
+
+
+.first-col-etype {
+    border-left-style:solid;
+    border-left-width: 5px;
+    border-left-color: black;
+}
+
+
+
+@media print {
+    .screen-table{  
+        max-width: 850pt;
+        font-size: 10pt;
+        page-break-inside: avoid;
+        // transform: rotate(90deg);
+    }
+}
+
+.spreadsheet > tbody > tr > td {
+    outline: thin solid;
+    padding: 15px;
+
+}
+
+.spreadsheet > tbody > tr > th {
+    outline: thin solid;
+    padding: 15px;
+}
+
+.spreadsheet > tbody > tr > th > div > div {
+    margin-top:5px;
+    min-height:15px;                
+}
+
+
+
+.spreadsheet > tbody > tr > td:nth-child(7) {
+    border-left-style:solid;
+    border-left-width: 5px;
+    border-left-color: black;
+}
+
+
+.progress-bar-outer {
+    min-width:100%;
+    min-height:15px;
+    background-color:red;
+}
+
+.progress-bar-inner {                
+    min-height:15px;
+    background-color:green;
+}
+
+.downward-arrow{
+    margin-top:5px;
+    height:15px;
+}
+
+.downward-many-to-one-arrow{
+    margin-top:5px;
+    height:25px;
+}
+
+.colheader-body {
+    white-space:nowrap;
+    margin-left:5px;
+}
+
+.colheader-header {
+    white-space:nowrap;
+
+    text-align:left;
+}
+
+
