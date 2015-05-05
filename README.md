@@ -7,8 +7,8 @@ Data integration tool to cleanse and semantify datasets from CKAN repositories. 
   <img alt="" width="60%" src="https://github.com/opendatatrentino/OpenDataRise/wiki/images/promo-screenshot.png"/>
 </p>
 
-**Project status**: Developing - we are developing and testing using reconciliation sevices of DISI, University of Trento. 
-Currently code is developed in a private repository, when project reaches a sufficient level of stability we will merge changes into the public repo. We keep [public wiki](https://github.com/opendatatrentino/OpenDataRise/wiki) updated, though, so you can get an idea of how the project will look like. You can also watch a <a href="https://drive.google.com/open?id=0B3zPB8ad298hMHotTzhoQ3ozWjQ&authuser=0" target="_blank">demo video</a> with a run of ODR on a dataset about certified products. Entity reconciliation and text enrichment is provided by services of DISI, University of Trento.
+**Project status**: Developing - we are testing using reconciliation sevices of DISI, University of Trento. 
+Currently code is kept in a private repository, when project reaches a sufficient level of stability we will merge changes into the public repo. We keep [public wiki](https://github.com/opendatatrentino/OpenDataRise/wiki) updated, though, so you can get an idea of how the project will look like. You can also watch a <a href="https://drive.google.com/open?id=0B3zPB8ad298hMHotTzhoQ3ozWjQ&authuser=0" target="_blank">demo video</a> with a run of ODR on a dataset about certified products. 
 
 
 **Additions to OpenRefine:**
