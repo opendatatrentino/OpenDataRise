@@ -14,11 +14,13 @@ Currently code is kept in a private repository, when project reaches a sufficien
 **Additions to OpenRefine:**
 
  * a workflow subdivided in steps
- * an interface to import datasets from [ckan repositories](http://ckan.org/) and also to visualize resources stats taken with [Ckanalyze](https://github.com/opendatatrentino/CKANalyze)
+ * an interface to import datasets from  <a href="http://ckan.org/" target="_blank">ckan repositories</a> with <a href="https://github.com/opendatatrentino/jackan" target="_blank">Jackan client</a> and also to visualize resources stats taken with <a href="https://github.com/opendatatrentino/CKANalyze" target="_blank">Ckanalyze</a>
  * suggestions on operations to do based on schema
  * enhanced data validation with column types
+ * Abstraction of knowledge base via <a href="https://github.com/opendatatrentino/openentity-api" target="_blank">OpenEntity API</a>
+ * Schema guessing with <a href="https://github.com/opendatatrentino/opendata-schema-matcher" target="_blank"> Open Data Schema Matcher </a> and <a href="https://github.com/opendatatrentino/column-recognizers" target="_blank"> Column Recognizers</a>
  * multivalued cells support
- * semantic tagging of natural language text
+ * semantic tagging of natural language text, using <a href="https://github.com/opendatatrentino/semtext" target="_blank">SemText datamodel</a>
  * online help system 
  * maven as dependency management system instead of Ant
  * WAR deployable on Tomcat as build output instead of Refine custom old Jetty server
